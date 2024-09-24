@@ -17,7 +17,7 @@ const Navbar = () => {
   // Function to handle scroll for changing navbar background
   const handleScroll = () => {
     if (window.scrollY > 50) {
-      setNavbarBg('bg-purple-700   text-white')
+      setNavbarBg('bg-purple-700 text-white')
     } else {
       setNavbarBg('bg-transparent text-dark')
     }
@@ -37,7 +37,7 @@ const Navbar = () => {
         <div className="flex flex-row  items-center justify-between w-full px-6 py-4">
           {/* Logo */}
           <Link href='/'>
-            <Image src="/logo.png" width={45} height={45} className="my-1" alt="Logo" /> 
+            <Image src="/logo.png" width={45} height={45} className="my-1" alt="Logo" />
           </Link>
 
           {/* Hamburger Menu Icon for Small Screens */}

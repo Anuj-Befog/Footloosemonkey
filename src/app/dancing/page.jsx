@@ -1,16 +1,10 @@
 // components/Button.js
 
 import React from "react";
-import Head from "next/head";
 import Image from "next/image";
-import Navbar from "@/components/common/Navbar";
 export default function Dancing() {
   return (
-      <div className="bg-[#E0F7FA]">
-        <div className="bg-[#004873]">
-            <Navbar/>
-        </div>
-        <h1 className='text-4xl font-semibold mt-7 ml-14'>Foot <span className='text-[#01C4FA]'> Loose</span> Monkey</h1>
+    <div className="bg-[#E0F7FA] pt-10 pb-14">
       <h2 className="text-6xl text-center font-bold mb-20">Dancing</h2>
       <div className="flex ml-14">
         <div>
@@ -55,7 +49,7 @@ export default function Dancing() {
               <li>Wait for the results and get ready to shine!</li>
             </ol>
             <p className="mt-4 text-2xl mx-16">
-              Don't miss this chance to be a dance star! Click the button below
+              Don&apos;t miss this chance to be a dance star! Click the button below
               to register and start your journey to the spotlight.
             </p>
             <button className="mt-4  ml-40 font-bold py-2 px-4 rounded">
@@ -77,33 +71,28 @@ export default function Dancing() {
         />
       </div>
       <div className="mt-8">
-            <h3 className="text-3xl text-center font-bold">
-              Our <span className="text-sky-700">Winners</span>
-            </h3>
-            <div className="flex mt-4 gap-14 justify-center">
-              {/* Replace these divs with actual winner images and details */}
-              <div className="bg-gray-200 h-32 w-32"></div>
-              <div className="bg-gray-200 h-32 w-32"></div>
-              <div className="bg-gray-200 h-32 w-32"></div>
-              <div className="bg-gray-200 h-32 w-32"></div>
-              <div className="bg-gray-200 h-32 w-32"></div>
-            </div>
-            <div className="flex justify-end mr-24">
-              <button className="mt-4  py-2 px-4 rounded">
-                <Image
-                  src="/seeMore.png"
-                  alt="Dancer"
-                  width={150}
-                  height={150}
-                />
-              </button>
-            </div>
-          </div>
-          <footer className="bg-sky-900 text-white py-4">
-        <div className="container mx-auto text-center">
-          <Image src="/logo.png" alt="Dancer" width={60} height={60} />
+        <h3 className="text-3xl text-center font-bold">
+          Our <span className="text-sky-700">Winners</span>
+        </h3>
+        <div className="flex mt-4 gap-14 justify-center">
+          {/* Replace these divs with actual winner images and details */}
+          <div className="bg-gray-200 h-32 w-32"></div>
+          <div className="bg-gray-200 h-32 w-32"></div>
+          <div className="bg-gray-200 h-32 w-32"></div>
+          <div className="bg-gray-200 h-32 w-32"></div>
+          <div className="bg-gray-200 h-32 w-32"></div>
         </div>
-      </footer>
+        <div className="flex justify-end mr-24">
+          <button className="mt-4  py-2 px-4 rounded">
+            <Image
+              src="/seeMore.png"
+              alt="Dancer"
+              width={150}
+              height={150}
+            />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
