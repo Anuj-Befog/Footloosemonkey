@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
+import Script from 'next/script'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,6 +45,7 @@ export default function RootLayout({ children }) {
         {children}
         <Footer />
       </body>
+      <Script src="https://checkout.razorpay.com/v1/checkout.js"/>
     </html>
   );
 }

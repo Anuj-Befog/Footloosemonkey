@@ -1,8 +1,9 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoMdLocate } from "react-icons/io";
 
-const PORT = 'http://localhost:3030'
+const PORT = process.env.NEXT_PUBLIC_BASE_URL ||'http://localhost:3030'
 
 
 // Validation function
@@ -151,7 +152,7 @@ const RegisterForm = () => {
       .then(response => {
         if (!response.ok) throw new Error('Failed to submit to Google Sheets');
         form.reset();
-        alert("Form Submitted Successfully");
+        // alert("Form Submitted Successfully");
       })
       .catch(error => {
         console.error('Error!', error.message);
@@ -163,89 +164,147 @@ const RegisterForm = () => {
   };
 
   // Razor Payment Gateway Integration
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
 
-    // Perform validation once
-    const validationErrors = validate(values);
-    if (Object.keys(validationErrors).length > 0) {
-      return; // Exit if validation fails
-    }
+  //   // Perform validation once
+  //   const validationErrors = validate(values);
+  //   if (Object.keys(validationErrors).length > 0) {
+  //     return; // Exit if validation fails
+  //   }
 
-    // Proceed with the main form submission logic if validation passes
-    try {
-      const response = await fetch(`${PORT}/api/submit-form`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+  //   // Proceed with the main form submission logic if validation passes
+  //   try {
+  //     const response = await fetch(`${PORT}/api/submit-form`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(values),
+  //     });
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      if (response.ok && data.orderId) {
-        const options = {
-          key: "rzp_test_jeDmc7YaouGYeK",
-          amount: 49900,
-          currency: "INR",
-          name: "footloosemonkey.club",
-          description: "Payment for Registration",
-          order_id: data.orderId,
-          handler: async function (response) {
-            const paymentData = {
-              ...values,
-              paymentStatus: "Done",
-            };
+  //     if (response.ok && data.orderId) {
+  //       const options = {
+  //         key: "rzp_test_jeDmc7YaouGYeK",
+  //         amount: 49900,
+  //         currency: "INR",
+  //         name: "footloosemonkey.club",
+  //         description: "Payment for Registration",
+  //         order_id: data.orderId,
+  //         handler: async function (response) {
+  //           const paymentData = {
+  //             ...values,
+  //             paymentStatus: "Done",
+  //           };
 
-            const paymentResponse = await fetch(`${PORT}/api/payment-success`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(paymentData),
-            });
+  //           const paymentResponse = await fetch(`${PORT}/api/payment-success`, {
+  //             method: "POST",
+  //             headers: {
+  //               "Content-Type": "application/json",
+  //             },
+  //             body: JSON.stringify(paymentData),
+  //           });
 
-            if (paymentResponse.ok) {
-              alert("Payment and form submission successful!");
-              setValues({
-                email: "",
-                participantName: "",
-                ageCriteria: "",
-                participantAge: "",
-                guardianNumber: "",
-                address: "",
-                talent: "",
-                termsAccepted: {
-                  videoSharing: false,
-                  offensiveContent: false,
-                  incidents: false,
-                },
-              });
-              setErrors({});
-              setServerError("");
-            } else {
-              setServerError("Failed to update Google Sheet after payment.");
-            }
-          },
-          prefill: {
-            email: values.email,
-            name: values.participantName,
-            contact: values.guardianNumber,
-          },
-          theme: {
-            color: "#3399cc",
-          },
-        };
+  //           if (paymentResponse.ok) {
+  //             alert("Payment and form submission successful!");
+  //             setValues({
+  //               email: "",
+  //               participantName: "",
+  //               ageCriteria: "",
+  //               participantAge: "",
+  //               guardianNumber: "",
+  //               address: "",
+  //               talent: "",
+  //               termsAccepted: {
+  //                 videoSharing: false,
+  //                 offensiveContent: false,
+  //                 incidents: false,
+  //               },
+  //             });
+  //             setErrors({});
+  //             setServerError("");
+  //           } else {
+  //             setServerError("Failed to update Google Sheet after payment.");
+  //           }
+  //         },
+  //         prefill: {
+  //           email: values.email,
+  //           name: values.participantName,
+  //           contact: values.guardianNumber,
+  //         },
+  //         theme: {
+  //           color: "#3399cc",
+  //         },
+  //       };
 
-        const paymentObject = new window.Razorpay(options);
-        paymentObject.open();
-      } else {
-        setServerError(data.error || "Failed to create Razorpay order.");
-      }
-    } catch (error) {
-      setServerError("Something went wrong. Please try again later.");
-    }
+  //       const paymentObject = new window.Razorpay(options);
+  //       paymentObject.open();
+  //     } else {
+  //       setServerError(data.error || "Failed to create Razorpay order.");
+  //     }
+  //   } catch (error) {
+  //     setServerError("Something went wrong. Please try again later.");
+  //   }
+  // };
+
+  const router = useRouter()
+
+  const makePayment = async ({ productId = null }) => {
+    // "use server"
+    const key = process.env.RAZORPAY_API_KEY;
+    console.log(key);
+    // Make API call to the serverless API
+    const data = await fetch(`${PORT}/api/razorpay`);
+    const { order } = await data.json();
+    console.log(order.id);
+    const options = {
+      key: key,
+      name: "mmantratech",
+      currency: order.currency,
+      amount: order.amount,
+      order_id: order.id,
+      description: "Understanding RazorPay Integration",
+      // image: logoBase64,
+      handler: async function (response) {
+        console.log(response);
+
+        const data = await fetch(`${PORT}/api/paymentverify`, {
+          method: "POST",
+          body: JSON.stringify({
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
+          }),
+        });
+
+        const res = await data.json();
+        console.log("response verify==", res)
+
+        if (res?.message == "success") {
+          console.log("redirected.......")
+          router.push("/paymentsuccess?paymentid=" + response.razorpay_payment_id)
+        }
+
+        // Validate payment at server - using webhooks is a better idea.
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature);
+      },
+      prefill: {
+        name: "mmantratech",
+        email: "mmantratech@gmail.com",
+        contact: "9354536067",
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+
+    paymentObject.on("payment.failed", function (response) {
+      alert("Payment failed. Please try again. Contact support for help");
+    });
   };
 
 
@@ -253,10 +312,7 @@ const RegisterForm = () => {
     <div className="bg-[#E5C3FF] p-6 space-y-4">
       <div className="w-full max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
         <h1 className="text-2xl font-semibold mb-6">Registration Form</h1>
-        <form name="submit-to-google-sheet" onSubmit={(e) => {
-          handleSubmit(e);
-          handleSubmitGoogleForm(e);
-        }}>
+        <form name="submit-to-google-sheet" onSubmit={(e) => { handleSubmitGoogleForm(e); }}>
           <div className="mb-4">
             <label className="block text-sm font-medium mb-2">Email:</label>
             <input
@@ -432,6 +488,9 @@ const RegisterForm = () => {
 
           <button
             type="submit"
+            onClick={() => {
+              makePayment({ productId: "example_ebook" });
+            }}
             disabled={isSubmitting} // Disable if submitting or there are errors
             className={`w-full py-2 bg-purple-700 text-white font-semibold rounded ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#003470]'} transition duration-300`}
           >
