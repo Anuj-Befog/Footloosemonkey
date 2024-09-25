@@ -2,6 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { IoMdLocate } from "react-icons/io";
 
+const PORT = 'http://localhost:3030'
+
+
 // Validation function
 const validate = (values) => {
 
@@ -123,6 +126,7 @@ const RegisterForm = () => {
     }
   };
 
+  // Google Sheet Integration
   const handleSubmitGoogleForm = async (e) => {
     e.preventDefault();
     const validationErrors = validate(values);
@@ -135,7 +139,7 @@ const RegisterForm = () => {
 
     setIsSubmitting(true); // Set isSubmitting to true to disable the button
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxAUp9xmuvhDT31gUDOw6PZOrbV6RwiXnr9Bm8WsdXYJnZE8uxml_FZxlmRqbbhQxVvdg/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxUfsJR5oWPQtvpchqO3JHz25brnjSOYrQCkpSD0g0GBVmEb0Ng_Z8BDuWw1sNRloSv/exec';
     const form = document.forms['submit-to-google-sheet'];
 
     const formData = new FormData(form);
@@ -147,30 +151,30 @@ const RegisterForm = () => {
       .then(response => {
         if (!response.ok) throw new Error('Failed to submit to Google Sheets');
         form.reset();
-        alert("Form Updated Successfully");
+        alert("Form Submitted Successfully");
       })
       .catch(error => {
         console.error('Error!', error.message);
-        alert("Form Update Failed");
+        alert("Form Submitted Failed");
       })
       .finally(() => {
         setIsSubmitting(false); // Re-enable the button regardless of success or failure
       });
   };
 
+  // Razor Payment Gateway Integration
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Perform validation once
     const validationErrors = validate(values);
     if (Object.keys(validationErrors).length > 0) {
-      // alert("Please fill in all required fields before submitting.");
       return; // Exit if validation fails
     }
 
     // Proceed with the main form submission logic if validation passes
     try {
-      const response = await fetch("http://localhost:8080/api/submit-form", {
+      const response = await fetch(`${PORT}/api/submit-form`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -194,7 +198,7 @@ const RegisterForm = () => {
               paymentStatus: "Done",
             };
 
-            const paymentResponse = await fetch("http://localhost:8080/api/payment-success", {
+            const paymentResponse = await fetch(`${PORT}/api/payment-success`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
