@@ -10,7 +10,7 @@ const instance = new Razorpay({
 export async function GET() {
 
     const payment_capture = 1;
-    const amount = 1 * 100 // amount in paisa. In our case it's INR 1
+    const amount = 500 * 100 // amount in paisa. In our case it's INR 1
     const currency = "INR";
     const options = {
         amount: (amount).toString(),

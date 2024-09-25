@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoMdLocate } from "react-icons/io";
 
-const PORT = process.env.NEXT_PUBLIC_BASE_URL ||'http://localhost:3030'
+const PORT = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3030'
 
 
 // Validation function
@@ -164,18 +164,19 @@ const RegisterForm = () => {
   };
 
   // Razor Payment Gateway Integration
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
+  // const makePayment = async (e) => {
 
   //   // Perform validation once
   //   const validationErrors = validate(values);
   //   if (Object.keys(validationErrors).length > 0) {
+  //     setErrors(validationErrors); // Set validation errors
   //     return; // Exit if validation fails
   //   }
 
   //   // Proceed with the main form submission logic if validation passes
   //   try {
-  //     const response = await fetch(`${PORT}/api/submit-form`, {
+  //     // Create order via your backend API
+  //     const response = await fetch(`${PORT}/api/razorpay`, {
   //       method: "POST",
   //       headers: {
   //         "Content-Type": "application/json",
@@ -183,50 +184,62 @@ const RegisterForm = () => {
   //       body: JSON.stringify(values),
   //     });
 
-  //     const data = await response.json();
+  //     const { order } = await response.json();
 
-  //     if (response.ok && data.orderId) {
+  //     if (response.ok && order?.id) {
+  //       // Prepare Razorpay options
   //       const options = {
-  //         key: "rzp_test_jeDmc7YaouGYeK",
-  //         amount: 49900,
-  //         currency: "INR",
+  //         key: "rzp_test_lzZrYAAsmWZ5MJ", // Replace with the actual key
+  //         amount: order.amount, // Use order amount from server
+  //         currency: order.currency, // Use currency from server
   //         name: "footloosemonkey.club",
   //         description: "Payment for Registration",
-  //         order_id: data.orderId,
+  //         order_id: order.id,
   //         handler: async function (response) {
-  //           const paymentData = {
-  //             ...values,
-  //             paymentStatus: "Done",
-  //           };
-
-  //           const paymentResponse = await fetch(`${PORT}/api/payment-success`, {
-  //             method: "POST",
-  //             headers: {
-  //               "Content-Type": "application/json",
-  //             },
-  //             body: JSON.stringify(paymentData),
-  //           });
-
-  //           if (paymentResponse.ok) {
-  //             alert("Payment and form submission successful!");
-  //             setValues({
-  //               email: "",
-  //               participantName: "",
-  //               ageCriteria: "",
-  //               participantAge: "",
-  //               guardianNumber: "",
-  //               address: "",
-  //               talent: "",
-  //               termsAccepted: {
-  //                 videoSharing: false,
-  //                 offensiveContent: false,
-  //                 incidents: false,
+  //           // Handle successful payment here
+  //           try {
+  //             const paymentResponse = await fetch(`${PORT}/api/paymentverify`, {
+  //               method: "POST",
+  //               headers: {
+  //                 "Content-Type": "application/json",
   //               },
+  //               body: JSON.stringify({
+  //                 razorpay_payment_id: response.razorpay_payment_id,
+  //                 razorpay_order_id: response.razorpay_order_id,
+  //                 razorpay_signature: response.razorpay_signature,
+  //               }),
   //             });
-  //             setErrors({});
-  //             setServerError("");
-  //           } else {
-  //             setServerError("Failed to update Google Sheet after payment.");
+
+  //             const res = await paymentResponse.json();
+
+  //             if (res?.message === "success") {
+  //               alert("Payment and form submission successful!");
+
+  //               // Reset form after successful payment
+  //               setValues({
+  //                 email: "",
+  //                 participantName: "",
+  //                 ageCriteria: "",
+  //                 participantAge: "",
+  //                 guardianNumber: "",
+  //                 address: "",
+  //                 talent: "",
+  //                 termsAccepted: {
+  //                   videoSharing: false,
+  //                   offensiveContent: false,
+  //                   incidents: false,
+  //                 },
+  //               });
+  //               setErrors({});
+  //               setServerError("");
+
+  //               // Redirect to payment success page or show success message
+  //               router.push("/paymentsuccess?paymentid=" + response.razorpay_payment_id);
+  //             } else {
+  //               setServerError("Failed to verify payment.");
+  //             }
+  //           } catch (error) {
+  //             setServerError("Something went wrong during payment verification.");
   //           }
   //         },
   //         prefill: {
@@ -239,10 +252,15 @@ const RegisterForm = () => {
   //         },
   //       };
 
+  //       console.log("Opening Razorpay window with options:", options);
   //       const paymentObject = new window.Razorpay(options);
   //       paymentObject.open();
+
+  //       paymentObject.on("payment.failed", function (response) {
+  //         alert("Payment failed. Please try again.");
+  //       });
   //     } else {
-  //       setServerError(data.error || "Failed to create Razorpay order.");
+  //       setServerError("Failed to create Razorpay order.");
   //     }
   //   } catch (error) {
   //     setServerError("Something went wrong. Please try again later.");
@@ -252,25 +270,40 @@ const RegisterForm = () => {
   const router = useRouter()
 
   const makePayment = async ({ productId = null }) => {
-    // "use server"
     const key = process.env.RAZORPAY_API_KEY;
     console.log(key);
+
     // Make API call to the serverless API
     const data = await fetch(`${PORT}/api/razorpay`);
-    const { order } = await data.json();
-    console.log(order.id);
+
+    // Check if the response is okay and not empty
+    if (!data.ok) {
+      console.error('Failed to fetch Razorpay order:', data.statusText);
+      return;
+    }
+
+    let order;
+    try {
+      // Try to parse the response as JSON
+      order = await data.json();
+      console.log(order.id);
+    } catch (error) {
+      console.error('Error parsing JSON:', error.message);
+      return;
+    }
+
     const options = {
-      key: key,
-      name: "mmantratech",
-      currency: order.currency,
-      amount: order.amount,
+      key: "rzp_test_lzZrYAAsmWZ5MJ",
+      name: "Foot Loose Monkey",
+      amount: 500 * 100,
+      currency: "INR",
+      description: "Payment for Registration",
       order_id: order.id,
-      description: "Understanding RazorPay Integration",
-      // image: logoBase64,
+      image: '/logo.png',
       handler: async function (response) {
         console.log(response);
 
-        const data = await fetch(`${PORT}/api/paymentverify`, {
+        const verifyData = await fetch(`${PORT}/api/paymentverify`, {
           method: "POST",
           body: JSON.stringify({
             razorpay_payment_id: response.razorpay_payment_id,
@@ -279,23 +312,29 @@ const RegisterForm = () => {
           }),
         });
 
-        const res = await data.json();
-        console.log("response verify==", res)
-
-        if (res?.message == "success") {
-          console.log("redirected.......")
-          router.push("/paymentsuccess?paymentid=" + response.razorpay_payment_id)
+        if (!verifyData.ok) {
+          console.error('Failed to verify payment:', verifyData.statusText);
+          return;
         }
 
-        // Validate payment at server - using webhooks is a better idea.
-        // alert(response.razorpay_payment_id);
-        // alert(response.razorpay_order_id);
-        // alert(response.razorpay_signature);
+        let res;
+        try {
+          res = await verifyData.json();
+          console.log("response verify==", res);
+        } catch (error) {
+          console.error('Error parsing verification JSON:', error.message);
+          return;
+        }
+
+        if (res?.message === "success") {
+          console.log("redirected.......");
+          router.push("/paymentsuccess?paymentid=" + response.razorpay_payment_id);
+        }
       },
       prefill: {
-        name: "mmantratech",
-        email: "mmantratech@gmail.com",
-        contact: "9354536067",
+        email: values.email,
+        name: values.participantName,
+        contact: values.guardianNumber,
       },
     };
 
@@ -303,9 +342,10 @@ const RegisterForm = () => {
     paymentObject.open();
 
     paymentObject.on("payment.failed", function (response) {
-      alert("Payment failed. Please try again. Contact support for help");
+      alert("Payment failed. Please try again. Contact support for help.");
     });
   };
+
 
 
   return (
