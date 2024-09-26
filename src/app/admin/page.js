@@ -1,19 +1,34 @@
 // app/admin/page.js
 'use client'; // Required when using useRouter in the App Router
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'; // Import from next/navigation
-import { addData } from '../services/index'; 
+import { addData, getData } from '../services/index'; 
 
 export default function AdminPage() {
     const [selectedValue, setSelectedValue] = useState('');
-    const router = useRouter(); // For navigation
+    const [dataId, setDataId] = useState(null); // Store fetched _id
 
-    // Load the selected value from localStorage when the component mounts
+    // Load the selected value from localStorage when the component mounts and fetch data
     useEffect(() => {
         const savedValue = localStorage.getItem('selectedValue');
         if (savedValue) {
             setSelectedValue(savedValue);
         }
+
+        // Fetch data and set _id
+        const fetchData = async () => {
+            const response = await getData();
+            console.log("Response: ", response.data[0]._id);
+
+            if (response.success && response.data) {
+                setDataId(response.data[0]._id); // Assuming the response contains data with _id
+            } else {
+                console.error('Error fetching data:', response.message);
+            }
+        };
+
+        fetchData();
     }, []);
 
     const handleDropdownChange = (e) => {
@@ -23,11 +38,17 @@ export default function AdminPage() {
     };
 
     const handleSubmit = async () => {
+        if (!dataId) {
+            console.log('Data ID not found. Cannot submit form.');
+            return;
+        }
+
         // Options array to pass
         const options = ['Acting', 'Dancing', 'Mimicry', 'Singing']; // This should match your available options
         
         // Prepare form data to be sent to the server
         const formData = {
+            _id: dataId,  // Pass the fetched _id
             selectedValue,
             options,
         };
@@ -37,7 +58,7 @@ export default function AdminPage() {
 
         // Check the response and navigate or display a message accordingly
         if (response.success) {
-            alert("Form Saved")
+            alert("Form Saved");
         } else {
             // Handle the error accordingly (e.g., show an error message)
             alert(`Error: ${response.message}`);

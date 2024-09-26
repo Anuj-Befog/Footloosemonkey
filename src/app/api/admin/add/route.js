@@ -9,30 +9,38 @@ export async function POST(req) {
         await connectToDB();
         const extractData = await req.json();
 
-        // Extract only selectedValue from the incoming data
-        const { selectedValue } = extractData;
-        
-        let admin = new Admin({
-            talent: selectedValue
-        })
+        const { _id, selectedValue } = extractData; // Include _id in the incoming data
+        console.log(_id);
 
-        // Create a new Admin document with just the selectedValue
-        const result = await admin.save();
+        // Check if the document with the given _id exists
+        const existingEntry = await Admin.findOne({ _id });
 
-        if (result) {
+        if (existingEntry) {
+            // If it exists, update the existing entry
+            existingEntry.talent = selectedValue; // Update the talent
+            const updatedEntry = await existingEntry.save(); // Save the updated entry
+
             return NextResponse.json({
-                result: result,
                 success: true,
-                message: "Data Saved Successfully."
+                message: "Data Updated Successfully.",
+                data: updatedEntry
             });
         } else {
+            // If it does not exist, create a new entry
+            const admin = new Admin({ _id, talent: selectedValue }); // Include _id in the new document
+
+            // Create a new Admin document with the selectedValue
+            const result = await admin.save();
+
             return NextResponse.json({
-                success: false,
-                message: "Something went wrong! Please try again."
+                success: true,
+                message: "Data Saved Successfully.",
+                data: result
             });
         }
+
     } catch (e) {
-        console.log(e);
+        console.error(e);
         return NextResponse.json({
             success: false,
             message: "Something went wrong! Please try again."

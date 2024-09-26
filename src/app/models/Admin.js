@@ -1,13 +1,10 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const AdminSchema = new mongoose.Schema({
-    talent: String,
-    amount: String,
-    
-},
-    { timestamps: true }
-)
+    _id: { type: String, required: true }, // UUID will be a string
+    talent: { type: String, required: true }
+});
 
-const Admin = mongoose.models.Admin || mongoose.model('Admin', AdminSchema)
+const Admin = mongoose.models.Admin || mongoose.model('Admin', AdminSchema);
 
 export default Admin;
