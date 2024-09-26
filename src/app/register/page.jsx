@@ -56,6 +56,9 @@ const RegisterForm = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState("");
+  const [paymentStatus, setPaymentStatus] = useState(false);
+
+  const router = useRouter()
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -128,18 +131,7 @@ const RegisterForm = () => {
   };
 
   // Google Sheet Integration
-  const handleSubmitGoogleForm = async (e) => {
-    e.preventDefault();
-    const validationErrors = validate(values);
-
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      alert("Please fill in all required fields before submitting.");
-      return; // Exit the function if there are validation errors
-    }
-
-    setIsSubmitting(true); // Set isSubmitting to true to disable the button
-
+  const handleSubmitGoogleForm = async () => {
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxUfsJR5oWPQtvpchqO3JHz25brnjSOYrQCkpSD0g0GBVmEb0Ng_Z8BDuWw1sNRloSv/exec';
     const form = document.forms['submit-to-google-sheet'];
 
@@ -152,14 +144,10 @@ const RegisterForm = () => {
       .then(response => {
         if (!response.ok) throw new Error('Failed to submit to Google Sheets');
         form.reset();
-        // alert("Form Submitted Successfully");
       })
       .catch(error => {
         console.error('Error!', error.message);
         alert("Form Submitted Failed");
-      })
-      .finally(() => {
-        setIsSubmitting(false); // Re-enable the button regardless of success or failure
       });
   };
 
@@ -267,11 +255,8 @@ const RegisterForm = () => {
   //   }
   // };
 
-  const router = useRouter()
-
-  const makePayment = async ({ productId = null }) => {
-    const key = process.env.RAZORPAY_API_KEY;
-    console.log(key);
+  const makePayment = async () => {
+    setPaymentStatus(false);
 
     // Make API call to the serverless API
     const data = await fetch(`${PORT}/api/razorpay`);
@@ -282,26 +267,17 @@ const RegisterForm = () => {
       return;
     }
 
-    let order;
-    try {
-      // Try to parse the response as JSON
-      order = await data.json();
-      console.log(order.id);
-    } catch (error) {
-      console.error('Error parsing JSON:', error.message);
-      return;
-    }
+    const { order } = await data.json();
 
     const options = {
       key: "rzp_test_lzZrYAAsmWZ5MJ",
       name: "Foot Loose Monkey",
-      amount: 500 * 100,
+      amount: order.amount,
       currency: "INR",
       description: "Payment for Registration",
       order_id: order.id,
       image: '/logo.png',
       handler: async function (response) {
-        console.log(response);
 
         const verifyData = await fetch(`${PORT}/api/paymentverify`, {
           method: "POST",
@@ -317,18 +293,29 @@ const RegisterForm = () => {
           return;
         }
 
-        let res;
-        try {
-          res = await verifyData.json();
-          console.log("response verify==", res);
-        } catch (error) {
-          console.error('Error parsing verification JSON:', error.message);
-          return;
-        }
-
+        const res = await verifyData.json();
         if (res?.message === "success") {
-          console.log("redirected.......");
-          router.push("/paymentsuccess?paymentid=" + response.razorpay_payment_id);
+          setPaymentStatus(true);
+          await handleSubmitGoogleForm(); // Submit to Google Sheets after successful payment
+          alert(`Payment successful! Your payment ID = ${response.razorpay_payment_id} has been processed.`);
+
+          // Reset form after successful payment
+          setValues({
+            email: "",
+            participantName: "",
+            ageCriteria: "",
+            participantAge: "",
+            guardianNumber: "",
+            address: "",
+            talent: "",
+            termsAccepted: {
+              videoSharing: false,
+              offensiveContent: false,
+              incidents: false,
+            },
+          });
+          setErrors({});
+          setServerError("");
         }
       },
       prefill: {
@@ -346,13 +333,24 @@ const RegisterForm = () => {
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validate(values);
 
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      alert("Please fill in all required fields before submitting.");
+      return;
+    }
+
+    makePayment(); // Initiate payment and form submission
+  };
 
   return (
     <div className="bg-[#E5C3FF] p-6 space-y-4">
       <div className="w-full max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
         <h1 className="text-2xl font-semibold mb-6">Registration Form</h1>
-        <form name="submit-to-google-sheet" onSubmit={(e) => { handleSubmitGoogleForm(e); }}>
+        <form name="submit-to-google-sheet" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium mb-2">Email:</label>
             <input
@@ -528,9 +526,6 @@ const RegisterForm = () => {
 
           <button
             type="submit"
-            onClick={() => {
-              makePayment({ productId: "example_ebook" });
-            }}
             disabled={isSubmitting} // Disable if submitting or there are errors
             className={`w-full py-2 bg-purple-700 text-white font-semibold rounded ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#003470]'} transition duration-300`}
           >
