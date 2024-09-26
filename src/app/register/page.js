@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoMdLocate } from "react-icons/io";
+import { useSearchParams } from 'next/navigation'; // Import to access search params
 
 const PORT = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3030'
 
@@ -57,6 +58,13 @@ const RegisterForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState("");
   const [paymentStatus, setPaymentStatus] = useState(false);
+
+  const searchParams = useSearchParams(); // Get search params
+  const selected = searchParams.get('selected'); // Get the 'selected' query parameter
+  const optionsJSON = searchParams.get('options'); // Get the options parameter
+  const options = optionsJSON ? JSON.parse(optionsJSON) : []; // Parse options
+
+  const [dropdownValue, setDropdownValue] = useState('');
 
   const router = useRouter()
 
@@ -177,7 +185,7 @@ const RegisterForm = () => {
       image: '/logo.png',
       handler: async function (response) {
         console.log(response)
-        
+
         const verifyData = await fetch(`${PORT}/api/paymentverify`, {
           method: "POST",
           body: JSON.stringify({
@@ -243,6 +251,22 @@ const RegisterForm = () => {
     }
 
     makePayment(); // Initiate payment and form submission
+  };
+
+  // Load the dropdown value from localStorage or set to selected
+  useEffect(() => {
+    const savedValue = localStorage.getItem('dropdownValue');
+    if (savedValue) {
+      setDropdownValue(savedValue);
+    } else if (selected) {
+      setDropdownValue(selected);
+    }
+  }, [selected]);
+
+  const handleDropdownChange = (e) => {
+    const value = e.target.value;
+    setDropdownValue(value);
+    localStorage.setItem('dropdownValue', value); // Save to localStorage
   };
 
   return (
@@ -358,16 +382,16 @@ const RegisterForm = () => {
             </label>
             <select
               name="Talent"
-              value={values.talent}
-              onChange={handleChange}
-              className={`w-full p-2 border rounded ${errors.talent ? "border-red-500" : "border-gray-300"
-                }`}
+              value={dropdownValue}
+              onChange={handleDropdownChange}
+              className={`w-full p-2 border rounded ${errors.talent ? "border-red-500" : "border-gray-300"}`}
             >
               <option value="">Select Talent</option>
-              <option value="acting">Acting</option>
-              <option value="dancing">Dancing</option>
-              <option value="mimicry">Mimicry</option>
-              <option value="singing">Singing</option>
+              {options.map((option) => (
+                <option key={option} value={option} disabled={option !== selected}>
+                  {option}
+                </option>
+              ))}
             </select>
             {errors.talent && <p className="text-red-500 text-sm">{errors.talent}</p>}
           </div>
