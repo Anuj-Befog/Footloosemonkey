@@ -152,108 +152,6 @@ const RegisterForm = () => {
   };
 
   // Razor Payment Gateway Integration
-  // const makePayment = async (e) => {
-
-  //   // Perform validation once
-  //   const validationErrors = validate(values);
-  //   if (Object.keys(validationErrors).length > 0) {
-  //     setErrors(validationErrors); // Set validation errors
-  //     return; // Exit if validation fails
-  //   }
-
-  //   // Proceed with the main form submission logic if validation passes
-  //   try {
-  //     // Create order via your backend API
-  //     const response = await fetch(`${PORT}/api/razorpay`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(values),
-  //     });
-
-  //     const { order } = await response.json();
-
-  //     if (response.ok && order?.id) {
-  //       // Prepare Razorpay options
-  //       const options = {
-  //         key: "rzp_test_lzZrYAAsmWZ5MJ", // Replace with the actual key
-  //         amount: order.amount, // Use order amount from server
-  //         currency: order.currency, // Use currency from server
-  //         name: "footloosemonkey.club",
-  //         description: "Payment for Registration",
-  //         order_id: order.id,
-  //         handler: async function (response) {
-  //           // Handle successful payment here
-  //           try {
-  //             const paymentResponse = await fetch(`${PORT}/api/paymentverify`, {
-  //               method: "POST",
-  //               headers: {
-  //                 "Content-Type": "application/json",
-  //               },
-  //               body: JSON.stringify({
-  //                 razorpay_payment_id: response.razorpay_payment_id,
-  //                 razorpay_order_id: response.razorpay_order_id,
-  //                 razorpay_signature: response.razorpay_signature,
-  //               }),
-  //             });
-
-  //             const res = await paymentResponse.json();
-
-  //             if (res?.message === "success") {
-  //               alert("Payment and form submission successful!");
-
-  //               // Reset form after successful payment
-  //               setValues({
-  //                 email: "",
-  //                 participantName: "",
-  //                 ageCriteria: "",
-  //                 participantAge: "",
-  //                 guardianNumber: "",
-  //                 address: "",
-  //                 talent: "",
-  //                 termsAccepted: {
-  //                   videoSharing: false,
-  //                   offensiveContent: false,
-  //                   incidents: false,
-  //                 },
-  //               });
-  //               setErrors({});
-  //               setServerError("");
-
-  //               // Redirect to payment success page or show success message
-  //               router.push("/paymentsuccess?paymentid=" + response.razorpay_payment_id);
-  //             } else {
-  //               setServerError("Failed to verify payment.");
-  //             }
-  //           } catch (error) {
-  //             setServerError("Something went wrong during payment verification.");
-  //           }
-  //         },
-  //         prefill: {
-  //           email: values.email,
-  //           name: values.participantName,
-  //           contact: values.guardianNumber,
-  //         },
-  //         theme: {
-  //           color: "#3399cc",
-  //         },
-  //       };
-
-  //       console.log("Opening Razorpay window with options:", options);
-  //       const paymentObject = new window.Razorpay(options);
-  //       paymentObject.open();
-
-  //       paymentObject.on("payment.failed", function (response) {
-  //         alert("Payment failed. Please try again.");
-  //       });
-  //     } else {
-  //       setServerError("Failed to create Razorpay order.");
-  //     }
-  //   } catch (error) {
-  //     setServerError("Something went wrong. Please try again later.");
-  //   }
-  // };
 
   const makePayment = async () => {
     setPaymentStatus(false);
@@ -278,7 +176,8 @@ const RegisterForm = () => {
       order_id: order.id,
       image: '/logo.png',
       handler: async function (response) {
-
+        console.log(response)
+        
         const verifyData = await fetch(`${PORT}/api/paymentverify`, {
           method: "POST",
           body: JSON.stringify({

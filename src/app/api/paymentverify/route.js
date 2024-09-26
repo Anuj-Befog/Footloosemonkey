@@ -4,7 +4,7 @@ import crypto from "crypto";
 export async function POST(req, res) {
 
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = await req.json();
-    const body = razorpay_order_id + " | " + razorpay_payment_id;
+    const body = razorpay_order_id + "|" + razorpay_payment_id;
     console.log("id == ", body)
 
     const expectedSignature = crypto
