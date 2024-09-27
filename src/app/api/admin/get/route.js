@@ -8,7 +8,6 @@ export async function GET(req) {
     try {
         await connectToDB();
         const extractData = await Admin.find();
-        // console.log(extractData)
         if (extractData) {
             return NextResponse.json({
                 success: true,

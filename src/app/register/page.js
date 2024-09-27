@@ -71,7 +71,6 @@ const RegisterForm = () => {
       const data = await getData();
       if (data.success && data.data) {
         setPrice(data.data[0].price); // Set the price from the fetched data
-        console.log(data.data[0].price, "Price fetched successfully");
       } else {
         console.error('Error fetching data:', data.message); // Corrected to 'data' instead of 'response'
       }

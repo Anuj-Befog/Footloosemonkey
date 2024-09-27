@@ -12,10 +12,6 @@ export async function POST(req) {
         // Destructure required fields from the incoming data
         const { _id, selectedTalent, selectedPrice } = extractData; 
 
-        // Log the selected price for debugging
-        console.log("Selected Price:", selectedPrice);
-        console.log("Selected Talent:", selectedTalent);
-
         // Check if the document with the given _id exists
         const existingEntry = await Admin.findOne({ _id });
 

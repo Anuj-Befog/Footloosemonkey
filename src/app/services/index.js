@@ -5,7 +5,7 @@ export async function addData(formData) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(formData) 
+            body: JSON.stringify(formData)
         });
 
         if (!response.ok) {
@@ -15,7 +15,6 @@ export async function addData(formData) {
         }
 
         const result = await response.json();
-        console.log("Result from server:", result);
         return result;
     } catch (e) {
         console.error(`Error in addData: ${e.message}`);

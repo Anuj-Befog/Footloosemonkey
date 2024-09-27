@@ -22,8 +22,6 @@ export default function AdminPage() {
         // Fetch data and set _id
         const fetchData = async () => {
             const response = await getData();
-            console.log("Response: ", response.data[0]._id);
-
             if (response.success && response.data) {
                 setDataId(response.data[0]._id); // Assuming the response contains data with _id
             } else {
