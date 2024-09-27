@@ -10,7 +10,7 @@ const instance = new Razorpay({
 export async function GET() {
 
     const payment_capture = 1;
-    const amount = 499 * 100 // amount in paisa. In our case it's INR 1
+    const amount = 799 * 100 // amount in paisa. In our case it's INR 1
     const currency = "INR";
     const options = {
         amount: (amount).toString(),
@@ -32,5 +32,22 @@ export async function GET() {
 
 export async function POST(req) {
     const body = await req.json();
-    return NextResponse.json({ msg: body });
+    const { amount } = body; // Get the amount from the request body
+
+    const payment_capture = 1;
+    const currency = "INR";
+    const options = {
+        amount: amount.toString(), // Use the amount passed from the request
+        currency,
+        receipt: shortid.generate(),
+        payment_capture,
+        notes: {
+            paymentFor: "",
+            userId: "",
+            productId: ""
+        }
+    };
+
+    const order = await instance.orders.create(options);
+    return NextResponse.json({ msg: "success", order });
 }

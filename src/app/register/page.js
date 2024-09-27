@@ -59,8 +59,33 @@ const RegisterForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState("");
   const [paymentStatus, setPaymentStatus] = useState(false);
+
   // For Dropdown
   const [options, setOptions] = useState([]);
+
+  // For Price
+  const [price, setPrice] = useState('')
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getData();
+      if (data.success && data.data) {
+        setPrice(data.data[0].price); // Set the price from the fetched data
+        console.log(data.data[0].price, "Price fetched successfully");
+      } else {
+        console.error('Error fetching data:', data.message); // Corrected to 'data' instead of 'response'
+      }
+    };
+
+    fetchData();
+  }, []); // Removed 'price' from dependency array
+
+  // Use a separate useEffect to log the price when it changes
+  useEffect(() => {
+    if (price) {
+      console.log(price, "Updated Price");
+    }
+  }, [price]);
 
   const [dropdownValue, setDropdownValue] = useState('');
 
@@ -99,7 +124,6 @@ const RegisterForm = () => {
       }));
     }
   };
-
 
   const handleLocationClick = async () => {
     if (navigator.geolocation) {
@@ -162,8 +186,14 @@ const RegisterForm = () => {
   const makePayment = async () => {
     setPaymentStatus(false);
 
-    // Make API call to the serverless API
-    const data = await fetch(`${PORT}/api/razorpay`);
+    // Make API call to the serverless API with the dynamic price
+    const data = await fetch(`${PORT}/api/razorpay`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ amount: price * 100 }), // Send price in paisa
+    });
 
     // Check if the response is okay and not empty
     if (!data.ok) {
@@ -176,13 +206,13 @@ const RegisterForm = () => {
     const options = {
       key: "rzp_test_lzZrYAAsmWZ5MJ",
       name: "Foot Loose Monkey",
-      amount: order.amount,
+      amount: price * 100, // Ensure the amount matches the fetched price
       currency: "INR",
       description: "Payment for Registration",
       order_id: order.id,
       image: '/logo.png',
       handler: async function (response) {
-        console.log(response)
+        console.log(response);
 
         const verifyData = await fetch(`${PORT}/api/paymentverify`, {
           method: "POST",
@@ -191,6 +221,9 @@ const RegisterForm = () => {
             razorpay_order_id: response.razorpay_order_id,
             razorpay_signature: response.razorpay_signature,
           }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
         });
 
         if (!verifyData.ok) {

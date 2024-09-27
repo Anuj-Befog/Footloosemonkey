@@ -1,4 +1,3 @@
-// app/admin/page.js
 'use client'; // Required when using useRouter in the App Router
 
 import { useState, useEffect } from 'react';
@@ -6,8 +5,17 @@ import { useRouter } from 'next/navigation'; // Import from next/navigation
 import { addData, getData } from '../services/index';
 
 export default function AdminPage() {
-    const [selectedValue, setSelectedValue] = useState('');
+    const [selectedTalent, setSelectedTalent] = useState('');
+    const [selectedPrice, setSelectedPrice] = useState('');
     const [dataId, setDataId] = useState(null); // Store fetched _id
+
+    // Price list based on talent
+    const priceList = {
+        Acting: [499, 999, 1499], // Example prices for Acting
+        Dancing: [599, 799, 1399], // Example prices for Dancing
+        Mimicry: [399, 599, 999], // Example prices for Mimicry
+        Singing: [499, 799, 1499], // Example prices for Singing
+    };
 
     // Load data from getData()
     useEffect(() => {
@@ -26,25 +34,26 @@ export default function AdminPage() {
         fetchData();
     }, []);
 
-    const handleDropdownChange = (e) => {
+    const handleTalentChange = (e) => {
         const value = e.target.value;
-        setSelectedValue(value);
+        setSelectedTalent(value);
+        setSelectedPrice(''); // Reset selected price when talent changes
+    };
+
+    const handlePriceChange = (e) => {
+        setSelectedPrice(e.target.value);
     };
 
     const handleSubmit = async () => {
         if (!dataId) {
             console.log('Data ID not found. Cannot submit form.');
-            return;
         }
-
-        // Options array to pass
-        const options = ['Acting', 'Dancing', 'Mimicry', 'Singing']; // This should match your available options
 
         // Prepare form data to be sent to the server
         const formData = {
             _id: dataId,  // Pass the fetched _id
-            selectedValue,
-            options,
+            selectedTalent,
+            selectedPrice,
         };
 
         // Call the addData function to post the data
@@ -63,9 +72,10 @@ export default function AdminPage() {
         <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
             <h1 className="text-3xl font-bold mb-6 text-blue-600">Welcome to the Admin Panel</h1>
             <div className="bg-white rounded-lg shadow-lg p-6 w-80">
+                {/* Dropdown for Talent Categories */}
                 <select
-                    value={selectedValue}
-                    onChange={handleDropdownChange}
+                    value={selectedTalent}
+                    onChange={handleTalentChange}
                     className="border border-gray-300 rounded-lg p-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                     <option value="">Select a category</option>
@@ -74,6 +84,21 @@ export default function AdminPage() {
                     <option value="Mimicry">Mimicry</option>
                     <option value="Singing">Singing</option>
                 </select>
+
+                {/* Dropdown for Prices based on selected Talent */}
+                {selectedTalent && (
+                    <select
+                        value={selectedPrice}
+                        onChange={handlePriceChange}
+                        className="border border-gray-300 rounded-lg p-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                        <option value="">Select a price</option>
+                        {priceList[selectedTalent].map((price, idx) => (
+                            <option key={idx} value={price}>₹ {price}</option>
+                        ))}
+                    </select>
+                )}
+
                 <button
                     onClick={handleSubmit}
                     className="w-full bg-blue-500 text-white font-semibold py-2 rounded-lg shadow hover:bg-blue-600 transition duration-200"

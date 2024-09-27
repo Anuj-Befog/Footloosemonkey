@@ -9,15 +9,21 @@ export async function POST(req) {
         await connectToDB();
         const extractData = await req.json();
 
-        const { _id, selectedValue } = extractData; // Include _id in the incoming data
-        console.log(_id);
+        // Destructure required fields from the incoming data
+        const { _id, selectedTalent, selectedPrice } = extractData; 
+
+        // Log the selected price for debugging
+        console.log("Selected Price:", selectedPrice);
+        console.log("Selected Talent:", selectedTalent);
 
         // Check if the document with the given _id exists
         const existingEntry = await Admin.findOne({ _id });
 
         if (existingEntry) {
             // If it exists, update the existing entry
-            existingEntry.talent = selectedValue; // Update the talent
+            existingEntry.talent = selectedTalent; // Update the talent
+            existingEntry.price = selectedPrice; // Update the price
+
             const updatedEntry = await existingEntry.save(); // Save the updated entry
 
             return NextResponse.json({
@@ -27,7 +33,7 @@ export async function POST(req) {
             });
         } else {
             // If it does not exist, create a new entry
-            const admin = new Admin({ _id, talent: selectedValue }); // Include _id in the new document
+            const admin = new Admin({ _id, talent: selectedTalent, price: selectedPrice }); // Include _id in the new document
 
             // Create a new Admin document with the selectedValue
             const result = await admin.save();
@@ -40,7 +46,7 @@ export async function POST(req) {
         }
 
     } catch (e) {
-        console.error(e);
+        console.error("Error in POST:", e);
         return NextResponse.json({
             success: false,
             message: "Something went wrong! Please try again."
