@@ -3,19 +3,14 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'; // Import from next/navigation
-import { addData, getData } from '../services/index'; 
+import { addData, getData } from '../services/index';
 
 export default function AdminPage() {
     const [selectedValue, setSelectedValue] = useState('');
     const [dataId, setDataId] = useState(null); // Store fetched _id
 
-    // Load the selected value from localStorage when the component mounts and fetch data
+    // Load data from getData()
     useEffect(() => {
-        const savedValue = localStorage.getItem('selectedValue');
-        if (savedValue) {
-            setSelectedValue(savedValue);
-        }
-
         // Fetch data and set _id
         const fetchData = async () => {
             const response = await getData();
@@ -34,7 +29,6 @@ export default function AdminPage() {
     const handleDropdownChange = (e) => {
         const value = e.target.value;
         setSelectedValue(value);
-        localStorage.setItem('selectedValue', value); // Save to localStorage
     };
 
     const handleSubmit = async () => {
@@ -45,7 +39,7 @@ export default function AdminPage() {
 
         // Options array to pass
         const options = ['Acting', 'Dancing', 'Mimicry', 'Singing']; // This should match your available options
-        
+
         // Prepare form data to be sent to the server
         const formData = {
             _id: dataId,  // Pass the fetched _id

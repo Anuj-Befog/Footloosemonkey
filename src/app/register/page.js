@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoMdLocate } from "react-icons/io";
 import { useSearchParams } from 'next/navigation'; // Import to access search params
+import { getData } from '../services/index';
 
 const PORT = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3030'
 
@@ -58,11 +59,8 @@ const RegisterForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState("");
   const [paymentStatus, setPaymentStatus] = useState(false);
-
-  const searchParams = useSearchParams(); // Get search params
-  const selected = searchParams.get('selected'); // Get the 'selected' query parameter
-  const optionsJSON = searchParams.get('options'); // Get the options parameter
-  const options = optionsJSON ? JSON.parse(optionsJSON) : []; // Parse options
+  // For Dropdown
+  const [options, setOptions] = useState([]);
 
   const [dropdownValue, setDropdownValue] = useState('');
 
@@ -253,20 +251,31 @@ const RegisterForm = () => {
     makePayment(); // Initiate payment and form submission
   };
 
-  // Load the dropdown value from localStorage or set to selected
+  // Define all possible categories
+  const allCategories = ["Acting", "Dancing", "Mimicry", "Singing"]; // Add any other categories here
+
+  // Load the dropdown value from getData API
   useEffect(() => {
-    const savedValue = localStorage.getItem('dropdownValue');
-    if (savedValue) {
-      setDropdownValue(savedValue);
-    } else if (selected) {
-      setDropdownValue(selected);
-    }
-  }, [selected]);
+    const fetchData = async () => {
+      const response = await getData();
+      if (response.success && response.data) {
+        const fetchedCategories = response.data.map(item => item.talent); // Assuming talent field in response
+        setOptions(fetchedCategories);
+      } else {
+        console.error('Error fetching data:', response.message);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleDropdownChange = (e) => {
     const value = e.target.value;
     setDropdownValue(value);
-    localStorage.setItem('dropdownValue', value); // Save to localStorage
+    setValues((prevValues) => ({
+      ...prevValues,
+      talent: value, // Update the talent in values state
+    }));
   };
 
   return (
@@ -387,9 +396,13 @@ const RegisterForm = () => {
               className={`w-full p-2 border rounded ${errors.talent ? "border-red-500" : "border-gray-300"}`}
             >
               <option value="">Select Talent</option>
-              {options.map((option) => (
-                <option key={option} value={option} disabled={option !== selected}>
-                  {option}
+              {allCategories.map((category) => (
+                <option
+                  key={category}
+                  value={category}
+                  disabled={!options.includes(category)} // Disable if not in fetched options
+                >
+                  {category}
                 </option>
               ))}
             </select>
