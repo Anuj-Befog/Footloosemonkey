@@ -207,7 +207,6 @@ const RegisterForm = () => {
       order_id: order.id,
       image: '/logo.png',
       handler: async function (response) {
-        console.log(response);
 
         const verifyData = await fetch(`${PORT}/api/paymentverify`, {
           method: "POST",

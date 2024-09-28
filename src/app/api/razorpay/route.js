@@ -33,8 +33,7 @@ export async function GET() {
 export async function POST(req) {
     const body = await req.json();
     const { amount } = body; // Get the amount from the request body
-    console.log(amount)
-
+    
     const payment_capture = 1;
     const currency = "INR";
     const options = {
