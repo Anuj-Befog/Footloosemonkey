@@ -2,7 +2,6 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoMdLocate } from "react-icons/io";
-import { useSearchParams } from 'next/navigation'; // Import to access search params
 import { getData } from '../services/index';
 
 const PORT = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3030'
@@ -63,28 +62,25 @@ const RegisterForm = () => {
   // For Dropdown
   const [options, setOptions] = useState([]);
 
-  // For Price
-  const [price, setPrice] = useState('')
+  // For Fees
+  const [fees, setFees] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getData();
       if (data.success && data.data) {
-        setPrice(data.data[0].price); // Set the price from the fetched data
+        setFees(data.data[0].fees); // Set the fees from the fetched data
       } else {
         console.error('Error fetching data:', data.message); // Corrected to 'data' instead of 'response'
       }
     };
 
     fetchData();
-  }, []); // Removed 'price' from dependency array
+  }, []); // Removed 'fees' from dependency array
 
-  // Use a separate useEffect to log the price when it changes
+  // Use a separate useEffect to log the fees when it changes
   useEffect(() => {
-    if (price) {
-      console.log(price, "Updated Price");
-    }
-  }, [price]);
+  }, [fees]);
 
   const [dropdownValue, setDropdownValue] = useState('');
 
@@ -185,13 +181,13 @@ const RegisterForm = () => {
   const makePayment = async () => {
     setPaymentStatus(false);
 
-    // Make API call to the serverless API with the dynamic price
+    // Make API call to the serverless API with the dynamic fees
     const data = await fetch(`${PORT}/api/razorpay`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ amount: price * 100 }), // Send price in paisa
+      body: JSON.stringify({ amount: fees * 100 }), // Send fees in paisa
     });
 
     // Check if the response is okay and not empty
@@ -205,7 +201,7 @@ const RegisterForm = () => {
     const options = {
       key: "rzp_test_lzZrYAAsmWZ5MJ",
       name: "Foot Loose Monkey",
-      amount: price * 100, // Ensure the amount matches the fetched price
+      amount: fees * 100, // Ensure the amount matches the fetched fees
       currency: "INR",
       description: "Payment for Registration",
       order_id: order.id,

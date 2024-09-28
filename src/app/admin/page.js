@@ -6,15 +6,15 @@ import { addData, getData } from '../services/index';
 
 export default function AdminPage() {
     const [selectedTalent, setSelectedTalent] = useState('');
-    const [selectedPrice, setSelectedPrice] = useState('');
+    const [selectedFees, setSelectedFees] = useState('');
     const [dataId, setDataId] = useState(null); // Store fetched _id
 
-    // Price list based on talent
-    const priceList = {
-        Acting: [499, 999, 1499], // Example prices for Acting
-        Dancing: [599, 799, 1399], // Example prices for Dancing
-        Mimicry: [399, 599, 999], // Example prices for Mimicry
-        Singing: [499, 799, 1499], // Example prices for Singing
+    // Fees list based on talent
+    const feesList = {
+        Acting: [299, 399, 599], // Example fees for Acting
+        Dancing: [299, 399, 599], // Example fees for Dancing
+        Mimicry: [299, 399, 599], // Example fees for Mimicry
+        Singing: [299, 399, 599], // Example fees for Singing
     };
 
     // Load data from getData()
@@ -35,11 +35,11 @@ export default function AdminPage() {
     const handleTalentChange = (e) => {
         const value = e.target.value;
         setSelectedTalent(value);
-        setSelectedPrice(''); // Reset selected price when talent changes
+        setSelectedFees(''); // Reset selected fees when talent changes
     };
 
-    const handlePriceChange = (e) => {
-        setSelectedPrice(e.target.value);
+    const handleFeesChange = (e) => {
+        setSelectedFees(e.target.value);
     };
 
     const handleSubmit = async () => {
@@ -51,7 +51,7 @@ export default function AdminPage() {
         const formData = {
             _id: dataId,  // Pass the fetched _id
             selectedTalent,
-            selectedPrice,
+            selectedFees,
         };
 
         // Call the addData function to post the data
@@ -83,16 +83,16 @@ export default function AdminPage() {
                     <option value="Singing">Singing</option>
                 </select>
 
-                {/* Dropdown for Prices based on selected Talent */}
+                {/* Dropdown for Fees based on selected Talent */}
                 {selectedTalent && (
                     <select
-                        value={selectedPrice}
-                        onChange={handlePriceChange}
+                        value={selectedFees}
+                        onChange={handleFeesChange}
                         className="border border-gray-300 rounded-lg p-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
-                        <option value="">Select a price</option>
-                        {priceList[selectedTalent].map((price, idx) => (
-                            <option key={idx} value={price}>₹ {price}</option>
+                        <option value="">Select a fees</option>
+                        {feesList[selectedTalent].map((fees, idx) => (
+                            <option key={idx} value={fees}>₹ {fees}</option>
                         ))}
                     </select>
                 )}

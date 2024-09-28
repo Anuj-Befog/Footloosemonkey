@@ -10,7 +10,7 @@ export async function POST(req) {
         const extractData = await req.json();
 
         // Destructure required fields from the incoming data
-        const { _id, selectedTalent, selectedPrice } = extractData; 
+        const { _id, selectedTalent, selectedFees } = extractData; 
 
         // Check if the document with the given _id exists
         const existingEntry = await Admin.findOne({ _id });
@@ -18,7 +18,7 @@ export async function POST(req) {
         if (existingEntry) {
             // If it exists, update the existing entry
             existingEntry.talent = selectedTalent; // Update the talent
-            existingEntry.price = selectedPrice; // Update the price
+            existingEntry.fees = selectedFees; // Update the fees
 
             const updatedEntry = await existingEntry.save(); // Save the updated entry
 
@@ -29,7 +29,7 @@ export async function POST(req) {
             });
         } else {
             // If it does not exist, create a new entry
-            const admin = new Admin({ _id, talent: selectedTalent, price: selectedPrice }); // Include _id in the new document
+            const admin = new Admin({ _id, talent: selectedTalent, fees: selectedFees }); // Include _id in the new document
 
             // Create a new Admin document with the selectedValue
             const result = await admin.save();
