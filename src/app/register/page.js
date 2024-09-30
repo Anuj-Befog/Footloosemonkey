@@ -182,7 +182,7 @@ const RegisterForm = () => {
     setPaymentStatus(false);
 
     // Make API call to the serverless API with the dynamic fees
-    const data = await fetch(`${PORT}/api/razorpay`, {
+    const data = await fetch(`${PORT}api/razorpay`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -208,7 +208,7 @@ const RegisterForm = () => {
       image: '/logo.png',
       handler: async function (response) {
 
-        const verifyData = await fetch(`${PORT}/api/paymentverify`, {
+        const verifyData = await fetch(`${PORT}api/paymentverify`, {
           method: "POST",
           body: JSON.stringify({
             razorpay_payment_id: response.razorpay_payment_id,
