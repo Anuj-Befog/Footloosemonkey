@@ -199,7 +199,7 @@ const RegisterForm = () => {
     const { order } = await data.json();
 
     const options = {
-      key: "rzp_test_lzZrYAAsmWZ5MJ",
+      key: "rzp_test_Cl7u3umPOApZLL",
       name: "Foot Loose Monkey",
       amount: fees * 100, // Ensure the amount matches the fetched fees
       currency: "INR",
