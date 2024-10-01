@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoMdLocate } from "react-icons/io";
-import { getAdminData, addAdminData, getRegistrationData, addRegistrationData } from '../services/index';  // Import necessary services
+import { getAdminData } from '../services/index';
 
 const PORT = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3030'
 
@@ -38,7 +38,6 @@ const validate = (values) => {
 };
 
 const RegisterForm = () => {
-  // States for form values, errors, submission status, etc.
   const [values, setValues] = useState({
     email: "",
     participantName: "",
@@ -58,26 +57,36 @@ const RegisterForm = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState("");
-  const [options, setOptions] = useState([]);  // Options for dropdown
-  const [groupCharge, setGroupCharge] = useState([])
-  const [charges, setCharges] = useState('');
-  const [dataId, setDataId] = useState(null);  // For fetching existing registration data
+  const [paymentStatus, setPaymentStatus] = useState(false);
 
+  // For Dropdown
+  const [options, setOptions] = useState([]);
 
-  const router = useRouter();
+  // For Charges
+  const [charges, setCharges] = useState('')
 
-  // Fetch talents data from Admin
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getAdminData();
-      if (response.success && response.data) {
-        setOptions(response.data);
+      const data = await getAdminData();
+      if (data.success && data.data) {
+        console.log(data.data)
+        // setFees(data.data[0].fees); // Set the fees from the fetched data
+      } else {
+        console.error('Error fetching data:', data.message); // Corrected to 'data' instead of 'response'
       }
     };
-    fetchData();
-  }, []);
 
-  // Handle changes in form fields
+    fetchData();
+  }, []); // Removed 'fees' from dependency array
+
+  // Use a separate useEffect to log the fees when it changes
+  useEffect(() => {
+  }, [charges]);
+
+  const [dropdownValue, setDropdownValue] = useState('');
+
+  const router = useRouter()
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
@@ -112,53 +121,7 @@ const RegisterForm = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchAdminData = async () => {
-      const response = await getAdminData();
-      if (response.success && response.data) {
-        setOptions(response.data);
-        setGroupCharge(response.data)
-      }
-    };
-    fetchAdminData();
-  }, []);
-
-  // Use a separate useEffect to log the fees when it changes
-  useEffect(() => {
-  }, [charges]);
-
-  // Handle Age Criteria Change and charges calculation
-  const handleAgeCriteriaChange = (e) => {
-    const age = e.target.value;
-    setValues((prevValues) => ({ ...prevValues, ageCriteria: age }));
-
-    const selectedTalent = options.find((option) => option === values.talent);
-    console.log(selectedTalent, "select")
-    if (selectedTalent) {
-      const charge = age === "6-8" ? groupCharge[0].groupACharge : groupCharge[0].groupBCharge;
-      setCharges(charge);
-      console.log(charge, "Selected Charge")
-    }
-  };
-
-  // Dropdown Change for Talent
-  const handleDropdownChange = (e) => {
-    const value = e.target.value;
-    setDropdownValue(value);
-    setValues((prevValues) => ({
-      ...prevValues,
-      talent: value, // Update the talent in values state
-    }));
-  };
-
-  const [dropdownValue, setDropdownValue] = useState('');
-
-  const [isLocating, setIsLocating] = useState(false);
-
-  // Update the function:
   const handleLocationClick = async () => {
-    setIsLocating(true); // Start loading
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
@@ -182,53 +145,16 @@ const RegisterForm = () => {
             console.error("Error fetching address:", error);
             alert("Unable to retrieve address. Please try again.");
           }
-          setIsLocating(false); // End loading
         },
         (error) => {
           console.error("Error fetching location:", error);
           alert("Unable to retrieve location. Please try again.");
-          setIsLocating(false); // End loading
         }
       );
     } else {
       alert("Geolocation is not supported by your browser.");
-      setIsLocating(false); // End loading
     }
   };
-
-  // Define all possible categories
-  const allCategories = ["Acting", "Dancing", "Mimicry", "Singing"]; // Add any other categories here
-
-  // Load the dropdown value from getAdminData API
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getAdminData();
-      if (response.success && response.data) {
-        const fetchedCategories = response.data.map(item => item.talent); // Assuming talent field in response
-        setOptions(fetchedCategories);
-      } else {
-        console.error('Error fetching data:', response.message);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  // Submit Data in MongoDB
-
-  // Load data from getAdminData()
-  useEffect(() => {
-    const fetchRegistrationData = async () => {
-      const response = await getRegistrationData();
-      if (response.success && response.data) {
-        setDataId(response.data[0]._id); // Assuming the response contains data with _id
-      } else {
-        console.error('Error fetching data:', response.message);
-      }
-    };
-
-    fetchRegistrationData();
-  }, []);
 
   // Google Sheet Integration
   const handleSubmitGoogleForm = async () => {
@@ -251,43 +177,133 @@ const RegisterForm = () => {
       });
   };
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const validationErrors = validate(values);
-    setErrors(validationErrors);
+  // Razor Payment Gateway Integration
 
-    // If there are validation errors, prevent submission
-    if (Object.keys(validationErrors).length > 0) {
-      setIsSubmitting(false);
+  const makePayment = async () => {
+    setPaymentStatus(false);
+
+    // Make API call to the serverless API with the dynamic fees
+    const data = await fetch(`${PORT}api/razorpay`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ amount: fees * 100 }), // Send fees in paisa
+    });
+
+    // Check if the response is okay and not empty
+    if (!data.ok) {
+      console.error('Failed to fetch Razorpay order:', data.statusText);
       return;
     }
 
-    // Continue with submission if no validation errors
-    setIsSubmitting(true);
+    const { order } = await data.json();
 
-    // Fetch existing registration data
-    const registrationResponse = await getRegistrationData();
-    console.log(registrationResponse, "registrationResponse")
-    if (registrationResponse.success && registrationResponse.data.length > 0) {
-      setDataId(registrationResponse.data[0]._id);
-    }
+    const options = {
+      key: "rzp_test_Cl7u3umPOApZLL",
+      name: "Foot Loose Monkey",
+      amount: 200 * 100, // Ensure the amount matches the fetched fees
+      currency: "INR",
+      description: "Payment for Registration",
+      order_id: order.id,
+      image: '/logo.png',
+      handler: async function (response) {
 
-    // Submit form data
-    const response = await addRegistrationData({
-      _id: dataId,
-      charges,
-      ...values,
+        const verifyData = await fetch(`${PORT}api/paymentverify`, {
+          method: "POST",
+          body: JSON.stringify({
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!verifyData.ok) {
+          console.error('Failed to verify payment:', verifyData.statusText);
+          return;
+        }
+
+        const res = await verifyData.json();
+        if (res?.message === "success") {
+          setPaymentStatus(true);
+          await handleSubmitGoogleForm(); // Submit to Google Sheets after successful payment
+          alert(`Payment successful! Your payment ID = ${response.razorpay_payment_id} has been processed.`);
+
+          // Reset form after successful payment
+          setValues({
+            email: "",
+            participantName: "",
+            ageCriteria: "",
+            participantAge: "",
+            guardianNumber: "",
+            address: "",
+            talent: "",
+            termsAccepted: {
+              videoSharing: false,
+              offensiveContent: false,
+              incidents: false,
+            },
+          });
+          setErrors({});
+          setServerError("");
+        }
+      },
+      prefill: {
+        email: values.email,
+        name: values.participantName,
+        contact: values.guardianNumber,
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+
+    paymentObject.on("payment.failed", function (response) {
+      alert("Payment failed. Please try again. Contact support for help.");
     });
+  };
 
-    if (response.success) {
-      await handleSubmitGoogleForm()
-      router.push("/payment-checkout");
-    } else {
-      setServerError(response.message);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validate(values);
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      alert("Please fill in all required fields before submitting.");
+      return;
     }
 
-    setIsSubmitting(false);
+    makePayment(); // Initiate payment and form submission
+  };
+
+  // Define all possible categories
+  const allCategories = ["Acting", "Dancing", "Mimicry", "Singing"]; // Add any other categories here
+
+  // Load the dropdown value from getAdminData API
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getAdminData();
+      if (response.success && response.data) {
+        const fetchedCategories = response.data.map(item => item.talent); // Assuming talent field in response
+        setOptions(fetchedCategories);
+      } else {
+        console.error('Error fetching data:', response.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleDropdownChange = (e) => {
+    const value = e.target.value;
+    setDropdownValue(value);
+    setValues((prevValues) => ({
+      ...prevValues,
+      talent: value, // Update the talent in values state
+    }));
   };
 
   return (
@@ -318,7 +334,8 @@ const RegisterForm = () => {
               value={values.participantName}
               onChange={handleChange}
               placeholder="John Doe"
-              className={`w-full p-2 border rounded ${errors.participantName ? "border-red-500" : "border-gray-300"}`}
+              className={`w-full p-2 border rounded ${errors.participantName ? "border-red-500" : "border-gray-300"
+                }`}
             />
             {errors.participantName && (
               <p className="text-red-500 text-sm">{errors.participantName}</p>
@@ -326,35 +343,11 @@ const RegisterForm = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">
-              Participant&apos;s Talent:
-            </label>
-            <select
-              name="Talent"
-              value={dropdownValue}
-              onChange={handleDropdownChange}
-              className={`w-full p-2 border rounded ${errors.talent ? "border-red-500" : "border-gray-300"}`}
-            >
-              <option value="">Select Talent</option>
-              {allCategories.map((category) => (
-                <option
-                  key={category}
-                  value={category}
-                  disabled={!options.includes(category)} // Disable if not in fetched options
-                >
-                  {category}
-                </option>
-              ))}
-            </select>
-            {errors.talent && <p className="text-red-500 text-sm">{errors.talent}</p>}
-          </div>
-
-          <div className="mb-4">
             <label className="block text-sm font-medium mb-2">Age Criteria:</label>
             <select
               name="Age Criteria"
               value={values.ageCriteria}
-              onChange={handleAgeCriteriaChange}
+              onChange={handleChange}
               className={`w-full p-2 border rounded ${errors.ageCriteria ? "border-red-500" : "border-gray-300"
                 }`}
             >
@@ -418,6 +411,30 @@ const RegisterForm = () => {
               onClick={handleLocationClick}
             />
             {errors.address && <p className="text-red-500 text-sm">{errors.address}</p>}
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">
+              Participant&apos;s Talent:
+            </label>
+            <select
+              name="Talent"
+              value={dropdownValue}
+              onChange={handleDropdownChange}
+              className={`w-full p-2 border rounded ${errors.talent ? "border-red-500" : "border-gray-300"}`}
+            >
+              <option value="">Select Talent</option>
+              {allCategories.map((category) => (
+                <option
+                  key={category}
+                  value={category}
+                  disabled={!options.includes(category)} // Disable if not in fetched options
+                >
+                  {category}
+                </option>
+              ))}
+            </select>
+            {errors.talent && <p className="text-red-500 text-sm">{errors.talent}</p>}
           </div>
 
           <div className="mb-6">

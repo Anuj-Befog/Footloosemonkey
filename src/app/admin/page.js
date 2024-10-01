@@ -2,26 +2,26 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'; // Import from next/navigation
-import { addData, getData } from '../services/index';
+import { addAdminData, getAdminData } from '../services/index';
 
 export default function AdminPage() {
     const [selectedTalent, setSelectedTalent] = useState('');
-    const [selectedFees, setSelectedFees] = useState('');
+    const [selectedACharges, setSelectedACharges] = useState('');
+    const [selectedBCharges, setSelectedBCharges] = useState('');
     const [dataId, setDataId] = useState(null); // Store fetched _id
 
-    // Fees list based on talent
-    const feesList = {
-        Acting: [299, 399, 599], // Example fees for Acting
-        Dancing: [299, 399, 599], // Example fees for Dancing
-        Mimicry: [299, 399, 599], // Example fees for Mimicry
-        Singing: [299, 399, 599], // Example fees for Singing
-    };
+    // Charges list based on talent
+    // const chargesList = {
+    //     Acting: [299, 399],
+    //     Dancing: [299, 399],
+    //     Mimicry: [299, 399],
+    //     Singing: [299, 399],
+    // };
 
-    // Load data from getData()
+    // Load data from getAdminData()
     useEffect(() => {
-        // Fetch data and set _id
         const fetchData = async () => {
-            const response = await getData();
+            const response = await getAdminData();
             if (response.success && response.data) {
                 setDataId(response.data[0]._id); // Assuming the response contains data with _id
             } else {
@@ -35,11 +35,8 @@ export default function AdminPage() {
     const handleTalentChange = (e) => {
         const value = e.target.value;
         setSelectedTalent(value);
-        setSelectedFees(''); // Reset selected fees when talent changes
-    };
-
-    const handleFeesChange = (e) => {
-        setSelectedFees(e.target.value);
+        setSelectedACharges(''); // Reset selected charges when talent changes
+        setSelectedBCharges(''); // Reset selected charges when talent changes
     };
 
     const handleSubmit = async () => {
@@ -47,19 +44,29 @@ export default function AdminPage() {
             console.log('Data ID not found. Cannot submit form.');
         }
 
+        if (!selectedTalent || !selectedACharges || !selectedBCharges) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
         // Prepare form data to be sent to the server
         const formData = {
             _id: dataId,  // Pass the fetched _id
             selectedTalent,
-            selectedFees,
+            selectedACharges,
+            selectedBCharges,
         };
 
-        // Call the addData function to post the data
-        const response = await addData(formData);
+        // Call the addAdminData function to post the data
+        const response = await addAdminData(formData);
 
         // Check the response and navigate or display a message accordingly
         if (response.success) {
             alert("Form Saved");
+            // Optionally, reset the form after successful submission
+            setSelectedTalent('');
+            setSelectedACharges('');
+            setSelectedBCharges('');
         } else {
             // Handle the error accordingly (e.g., show an error message)
             alert(`Error: ${response.message}`);
@@ -83,17 +90,27 @@ export default function AdminPage() {
                     <option value="Singing">Singing</option>
                 </select>
 
-                {/* Dropdown for Fees based on selected Talent */}
+                {/* Dropdown for Group A Charges based on selected Talent */}
                 {selectedTalent && (
                     <select
-                        value={selectedFees}
-                        onChange={handleFeesChange}
+                        value={selectedACharges}
+                        onChange={(e) => setSelectedACharges(e.target.value)}
                         className="border border-gray-300 rounded-lg p-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
-                        <option value="">Select a fees</option>
-                        {feesList[selectedTalent].map((fees, idx) => (
-                            <option key={idx} value={fees}>₹ {fees}</option>
-                        ))}
+                        <option value="">Select Group A Charges</option>
+                        <option value={299}>₹ 299</option>
+                    </select>
+                )}
+
+                {/* Dropdown for Group B Charges based on selected Talent */}
+                {selectedTalent && (
+                    <select
+                        value={selectedBCharges}
+                        onChange={(e) => setSelectedBCharges(e.target.value)}
+                        className="border border-gray-300 rounded-lg p-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                        <option value="">Select Group B Charges</option>
+                        <option value={399}>₹ 399</option>
                     </select>
                 )}
 
