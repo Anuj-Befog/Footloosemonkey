@@ -71,16 +71,16 @@ const Footer = () => {
               <h2 className="mt-6 text-sm font-semibold uppercase">Connect with us</h2>
               <div className="flex space-x-5 mt-4">
                 <a href="https://facebook.com" className="text-white hover:text-gray-300">
-                  <Image src="/fb.png" width={40} height={40} alt="Facebook" />
+                  <Image src="/fb.png" className='w-[2.5rem] h-[2.8rem]' width={100} height={100} alt="Facebook" />
                 </a>
                 <a href="https://linkedin.com" className="text-white hover:text-gray-300">
-                  <Image src="/linkedin.png" width={40} height={40} alt="LinkedIn" />
+                  <Image src="/linkedin.png" className='w-[2.5rem] h-[2.8rem]' width={100} height={100} alt="LinkedIn" />
                 </a>
                 <a href="https://instagram.com" className="text-white hover:text-gray-300">
-                  <Image src="/insta.png" width={40} height={40} alt="Instagram" />
+                  <Image src="/insta.png" className='w-[2.5rem] h-[2.8rem]' width={100} height={100} alt="Instagram" />
                 </a>
                 <a href="https://youtube.com" className="text-white hover:text-gray-300">
-                  <Image src="/yt.png" width={40} height={40} alt="YouTube" />
+                  <Image src="/yt.png" className='w-[2.5rem] h-[2.8rem]' width={100} height={100} alt="YouTube" />
                 </a>
               </div>
             </div>

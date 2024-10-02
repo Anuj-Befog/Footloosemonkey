@@ -1,7 +1,6 @@
-'use client'; // Required when using useRouter in the App Router
+'use client'
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation'; // Import from next/navigation
 import { addAdminData, getAdminData } from '../services/index';
 
 export default function AdminPage() {
@@ -9,14 +8,6 @@ export default function AdminPage() {
     const [selectedACharges, setSelectedACharges] = useState('');
     const [selectedBCharges, setSelectedBCharges] = useState('');
     const [dataId, setDataId] = useState(null); // Store fetched _id
-
-    // Charges list based on talent
-    // const chargesList = {
-    //     Acting: [299, 399],
-    //     Dancing: [299, 399],
-    //     Mimicry: [299, 399],
-    //     Singing: [299, 399],
-    // };
 
     // Load data from getAdminData()
     useEffect(() => {

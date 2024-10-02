@@ -1,47 +1,57 @@
 "use client"
 
 import Image from 'next/image';
-import React, { useState, useRef } from 'react';
+import { useRouter } from 'next/navigation'; // Import from next/navigation
+import React, { useState, useRef, useEffect } from 'react';
+import { getRegistrationData } from '../services/index';  // Import necessary services
+
 
 const PaymentCheckout = () => {
-  const [paymentStatus, setPaymentStatus] = useState(false);
-  const [values, setValues] = useState({
-    email: "",
-    participantName: "",
-    ageCriteria: "",
-    participantAge: "",
-    guardianNumber: "",
-    address: "",
-    talent: "",
-    termsAccepted: {
-      videoSharing: false,
-      offensiveContent: false,
-      incidents: false,
-    },
-  });
-  const [errors, setErrors] = useState({});
+  const router = useRouter()
+
   const formRef = useRef(null);
-  const fees = 95; // Define dynamic fees here
 
-  // Google Sheet Integration
-  const handleSubmitGoogleForm = async () => {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxUfsJR5oWPQtvpchqO3JHz25brnjSOYrQCkpSD0g0GBVmEb0Ng_Z8BDuWw1sNRloSv/exec';
-    const formData = new FormData(formRef.current);
+  const [paymentStatus, setPaymentStatus] = useState(false);
+  const [charge, setCharge] = useState('')
+  const [registerData, setRegisterData] = useState([])
 
-    formData.append('videoSharing', values.termsAccepted.videoSharing ? 'Yes' : 'No');
-    formData.append('offensiveContent', values.termsAccepted.offensiveContent ? 'Yes' : 'No');
-    formData.append('incidents', values.termsAccepted.incidents ? 'Yes' : 'No');
+  // Load data from getRegistrationData()
+  useEffect(() => {
+    const fetchRegistrationData = async () => {
+      const response = await getRegistrationData();
+      if (response.success && response.data) {
+        setRegisterData([...response.data]); // Spread the data into a new array
+        setCharge(response.data[0].charge)
+      } else {
+        console.error('Error fetching data:', response.message);
+      }
+    };
 
-    fetch(scriptURL, { method: 'POST', body: formData })
-      .then(response => {
-        if (!response.ok) throw new Error('Failed to submit to Google Sheets');
-        formRef.current.reset(); // Reset form after submission
-      })
-      .catch(error => {
-        console.error('Error!', error.message);
-        alert("Form Submission Failed");
-      });
-  };
+    fetchRegistrationData();
+  }, []); // Empty dependency array ensures this runs only on initial render
+
+  // Set registerData when it changes
+  useEffect(() => {
+  }, [registerData]);
+
+  // Set charge when it changes
+  useEffect(() => {
+  }, [charge]);
+
+  // Calculate IGST and CGST
+  let igstRate = 9, cgstRate = 9;
+
+  const igstAmount = (charge * igstRate) / 100;
+  const cgstAmount = (charge * cgstRate) / 100;
+
+  // Calculate total amount including GST
+  const totalAmount = Number(charge) + (Number(charge) * igstRate) / 100 + (Number(charge) * cgstRate) / 100;
+
+  // Format total amount to two decimal places
+  const totalIncludingGST = Number(totalAmount.toFixed(2));
+
+  const razorpayCharge = Math.floor(totalIncludingGST)
+  console.log(razorpayCharge, 'razorpayCharge')
 
   // Razorpay Payment Gateway Integration
   const makePayment = async () => {
@@ -53,7 +63,7 @@ const PaymentCheckout = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ amount: fees * 100 }), // Send fees in paisa
+      body: JSON.stringify({ amount: razorpayCharge * 100 }), // Send charge in paisa
     });
 
     if (!data.ok) {
@@ -66,7 +76,7 @@ const PaymentCheckout = () => {
     const options = {
       key: "rzp_test_Cl7u3umPOApZLL",
       name: "Foot Loose Monkey",
-      amount: fees * 100, // Dynamic amount in paisa
+      amount: subtotal * 100, // Dynamic amount in paisa
       currency: "INR",
       description: "Payment for Registration",
       order_id: order.id,
@@ -92,31 +102,13 @@ const PaymentCheckout = () => {
         const res = await verifyData.json();
         if (res?.message === "success") {
           setPaymentStatus(true);
-          await handleSubmitGoogleForm(); // Submit to Google Sheets after successful payment
           alert(`Payment successful! Your payment ID = ${response.razorpay_payment_id} has been processed.`);
-
-          // Reset form after successful payment
-          setValues({
-            email: "",
-            participantName: "",
-            ageCriteria: "",
-            participantAge: "",
-            guardianNumber: "",
-            address: "",
-            talent: "",
-            termsAccepted: {
-              videoSharing: false,
-              offensiveContent: false,
-              incidents: false,
-            },
-          });
-          setErrors({});
         }
       },
       prefill: {
-        email: values.email,
-        name: values.participantName,
-        contact: values.guardianNumber,
+        email: '',
+        name: '',
+        contact: '',
       },
     };
 
@@ -130,24 +122,17 @@ const PaymentCheckout = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const validationErrors = validate(values);
-
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      alert("Please fill in all required fields before submitting.");
-      return;
-    }
-
-    makePayment(); // Initiate payment and form submission
+    makePayment();
   };
 
   return (
     <div className="max-w-[100rem] mx-auto md:py-10 md:px-[5%] py-5 sm:px-5 px-3 grid lg:grid-cols-3 grid-cols-1 md:gap-10 relative">
+
       {/* Cart Items */}
       <div className="cart-items col-span-2">
         <div className="cart-header flex justify-between items-center mb-2">
           <h1 className="md:text-2xl sm:text-xl text-base font-medium pb-0">Payment Checkout</h1>
-          <button className="inline-flex items-center justify-center text-sm font-medium text-white bg-[#4E1B61] md:text-sm md:px-5 px-3 md:py-2.5 py-2 rounded">
+          <button onClick={() => router.push('/register')} className="inline-flex items-center justify-center text-sm font-medium text-white bg-[#4E1B61] md:text-sm md:px-5 px-3 md:py-2.5 py-2 rounded">
             Go back
           </button>
         </div>
@@ -157,35 +142,45 @@ const PaymentCheckout = () => {
           <table className="w-full text-sm">
             <thead className="border-b">
               <tr className="border-b text-gray-600 uppercase">
-                <th className="h-12 px-1.5 text-left font-medium">Competition Info</th>
+                <th className="h-12 px-1.5 text-left font-medium">Chekout Info</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b py-1 px-10 hover:bg-muted/50">
-                <td className="p-1.5 w-96">
-                  <div className="flex items-start">
-                    <div className="img-qty flex flex-col w-[5vw] h-[5vh] mr-3">
-                      <Image
-                        alt="MSI GF 63 thin laptop"
-                        loading="lazy"
-                        width="50"
-                        height="100"
-                        className="md:w-28 w-20 md:h-24 h-20 mx-auto mb-1.5"
-                        src="/logo.png"
-                        style={{ color: 'transparent' }}
-                      />
-                    </div>
+              {
+                registerData.map((registerData, index) => {
+                  return (
+                    <tr key={index} className="border-b py-1 px-10 hover:bg-muted/50">
+                      <td className="p-1.5 w-96">
+                        <div className="flex items-start">
+                          <div className="img-qty flex flex-col w-[5vw] h-[5vh] mr-3">
+                            <Image
+                              alt="MSI GF 63 thin laptop"
+                              loading="lazy"
+                              width="50"
+                              height="100"
+                              className="md:w-28 w-20 md:h-24 h-20 mx-auto mb-1.5"
+                              src="/logo.png"
+                              style={{ color: 'transparent' }}
+                            />
+                          </div>
 
-                    <div className="text-base">
-                      <a className="font-semibold" href="/product/msi-gf63-thin-laptop/undefined">MSI GF 63 thin laptop</a>
-                      <p className="text-gray-500 font-medium uppercase text-sm mt-2 mb-1">Prachi Infotech</p>
-                      <p className="md:text-sm text-xs">
-                        <span className="text-red-600 font-medium mr-2">₹ 95</span>
-                      </p>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+                          <div className="text-base">
+                            <p className="font-semibold uppercase">{registerData.talent} COMPETITION FOR AGE {registerData.ageCriteria}</p>
+                            <div className='flex gap-1'>
+                              <p className="text-gray-500 font-medium uppercase text-sm mt-2 mb-1">{registerData.participantName} |</p>
+                              <p className="text-gray-500 font-medium uppercase text-sm mt-2 mb-1">{registerData.guardianNumber} |</p>
+                              <p className="text-gray-500 font-medium text-sm mt-2 mb-1">{registerData.email}</p>
+                            </div>
+                            <p className="md:text-sm text-xs">
+                              <span className="text-red-600 font-medium mr-2">₹ {registerData.charge}</span>
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                })
+              }
             </tbody>
           </table>
         </div>
@@ -198,7 +193,7 @@ const PaymentCheckout = () => {
             <div className="mt-4 p-4 border border-gray-200 rounded md:sticky top-32 h-fit">
               <div className="flex justify-between mb-2">
                 <p className="font-medium sm:text-base text-sm">Subtotal:</p>
-                <p className="text-sm">₹ 95</p>
+                <p className="text-sm">₹ {charge}</p>
               </div>
               <div className="flex justify-between mb-2">
                 <p className="font-medium sm:text-base text-sm">Discount:</p>
@@ -206,15 +201,15 @@ const PaymentCheckout = () => {
               </div>
               <div className="flex justify-between mb-2">
                 <p className="font-medium sm:text-base text-sm">IGST:</p>
-                <p className="text-sm">₹ 0</p>
+                <p className="text-sm">₹ {igstAmount}</p>
               </div>
               <div className="flex justify-between mb-2">
                 <p className="font-medium sm:text-base text-sm">CGST:</p>
-                <p className="text-sm">₹ 0</p>
+                <p className="text-sm">₹ {cgstAmount}</p>
               </div>
               <div className="flex justify-between mb-2">
                 <p className="font-medium sm:text-base text-sm">Total Including GST:</p>
-                <p className="text-sm">₹ 95</p>
+                <p className="text-sm">₹ {totalIncludingGST}</p>
               </div>
               <button type='submit' className="inline-flex items-center justify-center text-sm font-medium text-white bg-[#4E1B61] px-8 py-2.5 my-1 w-full rounded">
                 Pay

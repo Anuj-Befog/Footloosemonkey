@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoMdLocate } from "react-icons/io";
-import { getAdminData, addAdminData, getRegistrationData, addRegistrationData } from '../services/index';  // Import necessary services
+import { getAdminData, getRegistrationData, addRegistrationData } from '../services/index';  // Import necessary services
 
 const PORT = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3030'
 
@@ -214,9 +214,9 @@ const RegisterForm = () => {
     fetchData();
   }, []);
 
-  // Submit Data in MongoDB
+  // Submit Data in MongoDB -->
 
-  // Load data from getAdminData()
+  // Load data from getRegistrationData()
   useEffect(() => {
     const fetchRegistrationData = async () => {
       const response = await getRegistrationData();
