@@ -18,9 +18,9 @@ const About = () => {
       <h1 className="text-[40px] text-[#474FFF] text-center">About</h1>
 
       <div className="mt-12 max-w-[800px] text-center">
-        <h2 className="text-3xl font-semibold">Welcome to Foot Loose Monkey!</h2>
+        <h2 className="text-3xl font-semibold">Welcome to Footloosemonkey!</h2>
         <p className="mt-6 text-lg font-semibold">
-          At Foot Loose Monkey, we believe in the incredible potential of every child. Our platform is dedicated to uncovering and nurturing young talents in the most engaging and fun way possible. Here&apos;s everything you need to know about us.
+          At Footloosemonkey, we believe in the incredible potential of every child. Our platform is dedicated to uncovering and nurturing young talents in the most engaging and fun way possible. Here&apos;s everything you need to know about us.
         </p>
       </div>
 
@@ -64,7 +64,7 @@ const About = () => {
                 exit={{ height: 0, opacity: 0 }}
               >
                 <p className="text-lg">
-                  {index === 0 && "Foot Loose Monkey is an ultimate kid's talent competition platform focusing on singing, dancing, acting, and mimicry."}
+                  {index === 0 && "Footloosemonkey is an ultimate kid's talent competition platform focusing on singing, dancing, acting, and mimicry."}
                   {index === 1 && "Our platform is fun, encouraging, and inclusive. We provide valuable feedback, skill development, and exciting prizes to help children grow."}
                   {index === 2 && "Register, prepare, record your performance, and submit to join the competition. It's that simple!"}
                 </p>
@@ -77,7 +77,7 @@ const About = () => {
       <div className="mt-16 max-w-[800px] text-center">
         <h2 className="text-3xl font-semibold">Join Us</h2>
         <p className="mt-6 text-lg font-semibold">
-          At Foot Loose Monkey, every child is a star. We invite you to join us in this exciting journey of discovering and celebrating young talents. Let your child&apos;s imagination and creativity soar as they step into the spotlight!
+          At Footloosemonkey, every child is a star. We invite you to join us in this exciting journey of discovering and celebrating young talents. Let your child&apos;s imagination and creativity soar as they step into the spotlight!
         </p>
         <motion.button
           onClick={() => router.push('/register')}

@@ -19,6 +19,6 @@ const NotFound = () => {
 
 export default NotFound
 
-// export const metadata = {
-//   title: "404 - Foot Loose Monkey"
-// }
+export const metadata = {
+  title: "404 - Footloosemonkey"
+}

@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="mb-6 md:mb-0">
             <Link href="/" className="flex items-center">
               <Image src="/logo.png" width={90} height={90} alt="Logo" />
-              <span className="self-center text-2xl font-semibold text-white ml-3">Foot Loose Monkey</span>
+              <span className="self-center text-2xl font-semibold text-white ml-3">Footloosemonkey</span>
             </Link>
           </div>
           <div className='grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 text-white'>
@@ -88,7 +88,7 @@ const Footer = () => {
         </div>
         <hr className="my-6 border-gray-200 dark:border-gray-700" />
         <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="text-sm text-gray-200 sm:text-center">© 2023 Foot Loose Monkey. All Rights Reserved.</span>
+          <span className="text-sm text-gray-200 sm:text-center">© 2023 Footloosemonkey. All Rights Reserved.</span>
         </div>
       </div>
     </footer>

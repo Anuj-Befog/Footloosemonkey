@@ -11,7 +11,6 @@ export async function POST(req) {
 
         // Destructure required fields from the incoming data
         const { _id, email, participantName, ageCriteria, participantAge, guardianNumber, address, talent, charges, termsAccepted } = extractData;
-        console.log(charges, "Charges")
 
         // Check if the document with the given _id exists
         const existingEntry = await Registration.findOne({ _id });

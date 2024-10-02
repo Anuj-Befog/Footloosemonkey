@@ -54,6 +54,8 @@ const RegisterForm = () => {
     },
   });
 
+  const router = useRouter();
+
   // States
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -62,9 +64,6 @@ const RegisterForm = () => {
   const [groupCharge, setGroupCharge] = useState([])
   const [charges, setCharges] = useState('');
   const [dataId, setDataId] = useState(null);  // For fetching existing registration data
-
-
-  const router = useRouter();
 
   // Fetch talents data from Admin
   useEffect(() => {
@@ -133,11 +132,9 @@ const RegisterForm = () => {
     setValues((prevValues) => ({ ...prevValues, ageCriteria: age }));
 
     const selectedTalent = options.find((option) => option === values.talent);
-    console.log(selectedTalent, "select")
     if (selectedTalent) {
       const charge = age === "6-8" ? groupCharge[0].groupACharge : groupCharge[0].groupBCharge;
       setCharges(charge);
-      console.log(charge, "Selected Charge")
     }
   };
 
@@ -268,7 +265,6 @@ const RegisterForm = () => {
 
     // Fetch existing registration data
     const registrationResponse = await getRegistrationData();
-    console.log(registrationResponse, "registrationResponse")
     if (registrationResponse.success && registrationResponse.data.length > 0) {
       setDataId(registrationResponse.data[0]._id);
     }

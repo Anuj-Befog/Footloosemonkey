@@ -11,8 +11,11 @@ const PaymentCheckout = () => {
 
   const formRef = useRef(null);
 
-  const [paymentStatus, setPaymentStatus] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState(true);
   const [charge, setCharge] = useState('')
+  const [userEmail, setUserEmail] = useState('')
+  const [userName, setUserName] = useState('')
+  const [userContact, setUserContact] = useState('')
   const [registerData, setRegisterData] = useState([])
 
   // Load data from getRegistrationData()
@@ -22,6 +25,9 @@ const PaymentCheckout = () => {
       if (response.success && response.data) {
         setRegisterData([...response.data]); // Spread the data into a new array
         setCharge(response.data[0].charge)
+        setUserEmail(response.data[0].email)
+        setUserName(response.data[0].participantName)
+        setUserContact(response.data[0].guardianNumber)
       } else {
         console.error('Error fetching data:', response.message);
       }
@@ -30,13 +36,8 @@ const PaymentCheckout = () => {
     fetchRegistrationData();
   }, []); // Empty dependency array ensures this runs only on initial render
 
-  // Set registerData when it changes
   useEffect(() => {
-  }, [registerData]);
-
-  // Set charge when it changes
-  useEffect(() => {
-  }, [charge]);
+  }, [registerData, charge, userEmail, userName, userContact]);
 
   // Calculate IGST and CGST
   let igstRate = 9, cgstRate = 9;
@@ -51,7 +52,6 @@ const PaymentCheckout = () => {
   const totalIncludingGST = Number(totalAmount.toFixed(2));
 
   const razorpayCharge = Math.floor(totalIncludingGST)
-  console.log(razorpayCharge, 'razorpayCharge')
 
   // Razorpay Payment Gateway Integration
   const makePayment = async () => {
@@ -75,8 +75,8 @@ const PaymentCheckout = () => {
 
     const options = {
       key: "rzp_test_Cl7u3umPOApZLL",
-      name: "Foot Loose Monkey",
-      amount: subtotal * 100, // Dynamic amount in paisa
+      name: "Footloosemonkey",
+      amount: razorpayCharge * 100, // Dynamic amount in paisa
       currency: "INR",
       description: "Payment for Registration",
       order_id: order.id,
@@ -106,9 +106,9 @@ const PaymentCheckout = () => {
         }
       },
       prefill: {
-        email: '',
-        name: '',
-        contact: '',
+        email: userEmail || '',
+        name: userName || '',
+        contact: userContact || '',
       },
     };
 
@@ -122,7 +122,11 @@ const PaymentCheckout = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    makePayment();
+    setPaymentStatus(false);
+    setTimeout(() => {
+      makePayment();
+      setPaymentStatus(true);
+    }, 500);
   };
 
   return (
@@ -132,7 +136,7 @@ const PaymentCheckout = () => {
       <div className="cart-items col-span-2">
         <div className="cart-header flex justify-between items-center mb-2">
           <h1 className="md:text-2xl sm:text-xl text-base font-medium pb-0">Payment Checkout</h1>
-          <button onClick={() => router.push('/register')} className="inline-flex items-center justify-center text-sm font-medium text-white bg-[#4E1B61] md:text-sm md:px-5 px-3 md:py-2.5 py-2 rounded">
+          <button onClick={() => router.push('/register')} className="px-6 py-2 bg-[#003470] text-white font-semibold rounded hover:bg-[#5385ac] transition duration-300">
             Go back
           </button>
         </div>
@@ -211,7 +215,12 @@ const PaymentCheckout = () => {
                 <p className="font-medium sm:text-base text-sm">Total Including GST:</p>
                 <p className="text-sm">₹ {totalIncludingGST}</p>
               </div>
-              <button type='submit' className="inline-flex items-center justify-center text-sm font-medium text-white bg-[#4E1B61] px-8 py-2.5 my-1 w-full rounded">
+              <button
+                type='submit'
+                className={`w-full py-2 bg-purple-700 text-white font-semibold rounded ${paymentStatus ? 'hover:bg-[#003470]' : 'opacity-50 cursor-not-allowed'
+                  } transition duration-300`}
+                disabled={!paymentStatus}
+              >
                 Pay
               </button>
             </div>

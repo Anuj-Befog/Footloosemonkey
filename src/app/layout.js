@@ -7,8 +7,8 @@ import Script from 'next/script'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Foot Loose Monkey",
-  description: "Join Foot Loose Monkey, the ultimate talent competition for kids aged 5-15! Showcase your skills in dancing, singing, acting, and more in a fun, encouraging environment. Discover and celebrate young talents today!"
+  title: "Footloosemonkey",
+  description: "Join Footloosemonkey, the ultimate talent competition for kids aged 5-15! Showcase your skills in dancing, singing, acting, and more in a fun, encouraging environment. Discover and celebrate young talents today!"
 };
 
 export default function RootLayout({ children }) {
@@ -29,23 +29,23 @@ export default function RootLayout({ children }) {
         <meta name="description" content="..." />
         <meta name="keywords" content="..." />
         <meta name="author" content="..." />
-        <meta property="og:title" content="Foot Loose Monkey - Where Young Talents Shine" />
+        <meta property="og:title" content="Footloosemonkey - Where Young Talents Shine" />
         <meta property="og:description" content="..." />
         <meta property="og:image" content="/img/og-image.png" />
-        <meta property="og:url" content="https://www.footloosemonkey.com" />
+        <meta property="og:url" content="https://www.footloosemonkey.club" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Foot Loose Monkey - Where Young Talents Shine" />
+        <meta name="twitter:title" content="Footloosemonkey - Where Young Talents Shine" />
         <meta name="twitter:description" content="..." />
         <meta name="twitter:image" content="/img/twitter-image.png" />
-        <title>Foot Loose Monkey</title>
+        <title>Footloosemonkey</title>
       </head>
-      
+
       <body className={inter.className}>
         <Navbar />
         {children}
         <Footer />
       </body>
-      <Script src="https://checkout.razorpay.com/v1/checkout.js"/>
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" />
     </html>
   );
 }

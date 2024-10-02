@@ -8,7 +8,7 @@ const Singing = () => {
         <h1 className='text-center mt-7 text-5xl font-semibold text-[#FF0000]'>Singing</h1>
         <div className="flex">
           <div className="flex flex-col ml-14 mt-16">
-            <p className='text-xl font-semibold'>Welcome to the Foot Loose Monkey Singing Competition, where your voice takes center stage. Whether you sing solo or in a group, this is your chance to showcase your talent and impress our judges. </p>
+            <p className='text-xl font-semibold'>Welcome to the Footloosemonkey Singing Competition, where your voice takes center stage. Whether you sing solo or in a group, this is your chance to showcase your talent and impress our judges. </p>
             <ul className='list-disc ml-20 mt-5'>
               <li className='font-semibold'><span className='text-[#FF0000]'>Show Off Your Skills:</span> Sing your heart out in any genre you love - pop, classical, rock, or folk.</li>
               <li className='font-semibold'><span className='text-[#FF0000]'>Build Confidence: Gain performance</span> experience in a supportive environment.</li>

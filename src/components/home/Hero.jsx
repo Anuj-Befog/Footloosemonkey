@@ -48,7 +48,7 @@ const Hero = () => {
         {/* Description Paragraph */}
         <div className="mt-4">
           <p className="text-lg p-3 font-semibold text-black">
-            Welcome to Foot Loose Monkey, the ultimate kid s talent competition
+            Welcome to Footloosemonkey, the ultimate kid s talent competition
             platform! Young stars aged 5 to 15 can showcase their talents in
             dancing, singing, acting, and more. Our mission is to provide a fun,
             encouraging environment where children can express their creativity,
@@ -60,7 +60,7 @@ const Hero = () => {
 
         {/* Register Button */}
         <div className="mt-8 flex justify-center">
-          <button className="px-6 py-2 bg-[#003470] text-white font-semibold rounded hover:bg-[#01C4FA] transition duration-300"
+          <button className="px-6 py-2 bg-[#003470] text-white font-semibold rounded hover:bg-[#5385ac] transition duration-300"
             onClick={() => router.push('/register')}
           >
             Register
