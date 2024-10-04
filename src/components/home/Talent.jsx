@@ -5,25 +5,25 @@ import { motion } from 'framer-motion';
 
 const Talent = () => {
   const router = useRouter();
-  const texts = ["Singing", "Dancing", "Mimicry", "Acting", "Poetry", "Drawing"];
+  const texts = ["Singing", "Dancing", "Mimicry", "Acting"];
 
   const handleNavigate = (text) => {
     router.push(`/${text.toLowerCase()}`);
   };
 
   return (
-    <div className='w-full bg-[#E5C3FF] flex flex-col items-center justify-center p-4'>
-      <h1 className='text-[48px] text-center font-bold mb-10'>
+    <div className='w-full flex flex-col items-center justify-center p-4'>
+      <h1 className='text-5xl text-center font-semibold mb-10'>
         Showcase your Talent
       </h1>
 
-      <div className="w-[70%] flex space-x-4 overflow-x-auto scrollbar-custom pb-4">
+      <div className="w-[77%] flex space-x-4 overflow-x-auto pb-4 hide-scrollbar">
         {texts.map((text, index) => (
           <motion.div
             key={index}
-            className="min-w-[200px] rounded-xl sm:min-w-[250px] p-4 sm:p-6 bg-purple-600 border border-gray-200 rounded-lg shadow-lg flex-shrink-0 cursor-pointer"
+            className="min-w-[200px] rounded-xl sm:min-w-[250px] p-4 sm:p-6 bg-[#6e96cf] border border-gray-200 rounded-lg shadow-lg flex-shrink-0 cursor-pointer"
             onClick={() => handleNavigate(text)}
-            whileHover={{ scale: 1.05 }} // Slight scale on hover
+            whileHover={{ scale: 1.01 }}
             transition={{ duration: 0.3 }}
           >
             <svg className="w-7 h-7 text-white mb-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -35,7 +35,7 @@ const Talent = () => {
             <p className="mb-3 font-normal text-white">
               Discover your passion and shine on stage!
             </p>
-            <a href="#" className="inline-flex font-medium items-center text-[#E5C3FF] hover:underline">
+            <a href="#" className="inline-flex font-medium items-center text-white hover:underline">
               Explore Now
               <svg className="w-3 h-3 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
@@ -45,7 +45,7 @@ const Talent = () => {
         ))}
       </div>
 
-      <p className='text-lg text-center mt-10 px-6 max-w-[800px]'>
+      <p className='text-lg text-center mt-10 px-6 max-w-[800px] font-semibold'>
         Enroll your child today to let their talent shine and be celebrated!
       </p>
     </div>

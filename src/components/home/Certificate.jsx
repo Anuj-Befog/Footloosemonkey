@@ -5,18 +5,18 @@ import { motion } from 'framer-motion';
 const Certificate = () => {
   return (
     <div className="bg-white w-full py-16 flex flex-col items-center">
-      <h1 className="text-[40px] text-[#004873] text-center">Certifications and Prizes</h1>
+      <h1 className='text-5xl text-center font-semibold mt-14 '>Certifications and Prizes</h1>
 
-      <div className="mt-6 px-6 max-w-[800px] text-center">
-        <p className="text-lg text-[#004873]">
+      <div className="mt-6 px-6 max-w-[1000px] text-center">
+        <p className="text-lg">
           Earn certifications that not only showcase your skills but also open doors to new opportunities. Our certification programs are designed to validate your expertise and help you stand out in your field. With each certificate, you build credibility and gain recognition for your achievements.
         </p>
-        <p className="mt-4 text-lg text-[#004873]">
+        <p className="mt-4 text-lg">
           Beyond certificates, we offer exciting prizes that celebrate your success and motivate you to push your limits. These rewards are more than just trophies; they are symbols of your dedication and hard work. Join us and start your journey towards excellence today.
         </p>
       </div>
 
-      <div className="flex flex-wrap gap-10 justify-center mt-10">
+      <div className="flex flex-wrap gap-10 justify-center mt-20">
         {['/certificate-1.png', '/certificate-2.png', '/certificate-1.png', '/certificate-2.png'].map((src, index) => (
           <motion.div
             key={index}

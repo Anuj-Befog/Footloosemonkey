@@ -4,11 +4,31 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaBars } from 'react-icons/fa'
 import Link from 'next/link'
-import Alert from './Alert'
+import { getAdminData } from '../../app/services/index';  // Import necessary services
 
 const Navbar = () => {
+
+  const [isVisible, setIsVisible] = useState(true);
+
+  // Function to handle closing the alert
+  const closeAlert = () => {
+    setIsVisible(false);
+  };
+
+  const [datas, setDatas] = useState([])
+
+  useEffect(() => {
+    const fetchAdminData = async () => {
+      const response = await getAdminData();
+      if (response.success && response.data) {
+        setDatas(response.data);
+      }
+    };
+    fetchAdminData();
+  }, []);
+
   const [isOpen, setIsOpen] = useState(false)
-  const [navbarBg, setNavbarBg] = useState('bg-[lightcoral]')
+  const [navbarBg, setNavbarBg] = useState('bg-blue-500')
 
   // Function to toggle the drawer
   const toggleDrawer = () => {
@@ -18,9 +38,9 @@ const Navbar = () => {
   // Function to handle scroll for changing navbar background
   const handleScroll = () => {
     if (window.scrollY > 50) {
-      setNavbarBg('bg-purple-700 text-white')
+      setNavbarBg('bg-[#6e96cf] text-white')
     } else {
-      setNavbarBg('bg-[lightcoral] text-white')
+      setNavbarBg('bg-blue-500 text-white')
     }
   }
 
@@ -35,8 +55,55 @@ const Navbar = () => {
     <>
       {/* Sticky Navbar with background change on scroll */}
       <nav className={`${navbarBg} text-white sticky top-0 z-50 transition-colors duration-300`}>
-        <Alert />
-        <div className="flex flex-row  items-center justify-between w-full px-6 py-4">
+
+        {/* Alert */}
+        {isVisible && (
+          <div className="flex justify-around items-center bg-[#6e96cf] p-2">
+            <div className="xl:flex xl:flex-row xl:items-center py-2 xl:space-x-2 mx-auto text-center">
+              {
+                datas.map((item, index) => {
+                  return (
+                    <div key={index} className="leading-6 lg:text-lg text-[#fff] font-rubik flex">
+                      <Link href={'/register'}>
+                        <div className='text-xl font-semibold'>
+                          Get ready for the <strong>{item.talent}</strong> Competition at <strong>Footloosemonkey</strong>! Registrations are now
+                          <span className="p-1 px-2 mx-[0.5rem] w-auto bg-white dark:bg-[#181a1b] text-[#6e96cf] lg:text-l font-rubik font-semibold rounded-md">
+                            LIVE
+                          </span>
+                        </div>
+                      </Link>
+                    </div>
+                  )
+                })
+              }
+              <button
+                aria-label="close"
+                onClick={closeAlert}
+                className="rotate-45 text-4xl text-[#fff] relative left-[3rem] transition-transform duration-500 hover:rotate-[405deg]"  // 45deg + 360deg
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-plus border-2 border-white"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="M12 5v14"></path>
+                </svg>
+              </button>
+
+            </div>
+          </div>
+        )}
+
+        {/* Navbar */}
+        <div className="flex flex-row border-t-2 items-center justify-between w-full px-6 py-4">
           {/* Logo */}
           <Link href='/'>
             <Image src="/logo.png" width={45} height={45} className="my-1" alt="Logo" />
@@ -51,10 +118,10 @@ const Navbar = () => {
 
           {/* Nav Items - Hidden on Small Screens */}
           <div className="hidden lg:flex flex-row items-center gap-12">
-            <Link href="/" className="text-xl font-semibold hover:text-black transition-colors duration-200">Home</Link>
-            <Link href="/" className="text-xl font-semibold hover:text-black transition-colors duration-200">Competition</Link>
-            <Link href="/register" className="text-xl font-semibold hover:text-black transition-colors duration-200">Register</Link>
-            <Link href="/" className="text-xl font-semibold hover:text-black transition-colors duration-200">About Us</Link>
+            <Link href="/" className="text-xl font-semibold hover:underline transition-colors duration-200">Home</Link>
+            <Link href="/" className="text-xl font-semibold hover:underline transition-colors duration-200">Competition</Link>
+            <Link href="/register" className="text-xl font-semibold hover:underline transition-colors duration-200">Register</Link>
+            <Link href="/" className="text-xl font-semibold hover:underline transition-colors duration-200">About Us</Link>
           </div>
         </div>
       </nav>

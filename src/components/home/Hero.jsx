@@ -12,42 +12,42 @@ const Hero = () => {
     <motion.div
       initial={{ opacity: 0 }}  // Initial state for animation
       animate={{ opacity: 1 }}  // Final state for animation
-      transition={{ duration: 1 }}  // Duration of the fade effect
-      className="relative flex flex-col lg:flex-row w-full h-auto bg-[#E5C3FF] opacity-[80%] p-6 lg:p-16"
+      transition={{ duration: 0.5 }}  // Duration of the fade effect
+      className="relative flex flex-col lg:flex-row w-full h-auto opacity-[80%] p-6 lg:p-16"
     >
       {/* Left Side Content */}
       <div className="flex flex-col justify-center lg:w-1/2">
         {/* Main Heading */}
         <div className="mt-8 lg:mt-0">
-          <h1 className="text-4xl font-semibold text-black">
+          <h1 className="text-5xl font-semibold text-black">
             If your kid can{" "}
             <TypingEffect
-              text={['dance', 'sing', 'mimic']}
-              speed={100}
+              text={['dance', 'sing', 'act', 'mimic']}
+              speed={200}
               eraseSpeed={50}
-              typingDelay={500}
-              className="text-[#003470] font-bold"
+              typingDelay={100}
+              className="text-blue-500 font-bold"
             />
           </h1>
         </div>
 
         {/* Subheading */}
         <div className="mt-6">
-          <p className="text-base text-blue-500 font-semibold">
+          <p className="text-base font-semibold text-gray-700">
             Lights, Camera, talent. Your video is just a stage away!
           </p>
         </div>
 
         {/* Shows We Accepted */}
         <div className="mt-10">
-          <h2 className="text-2xl font-semibold text-[#003470]">
+          <h2 className="text-3xl font-semibold text-black">
             Shows that We Accepted
           </h2>
         </div>
 
         {/* Description Paragraph */}
         <div className="mt-4">
-          <p className="text-lg p-3 font-semibold text-black">
+          <p className="text-lg text-black">
             Welcome to Footloosemonkey, the ultimate kid s talent competition
             platform! Young stars aged 5 to 15 can showcase their talents in
             dancing, singing, acting, and more. Our mission is to provide a fun,
@@ -59,8 +59,8 @@ const Hero = () => {
         </div>
 
         {/* Register Button */}
-        <div className="mt-8 flex justify-center">
-          <button className="px-6 py-2 bg-[#003470] text-white font-semibold rounded hover:bg-[#5385ac] transition duration-300"
+        <div className="mt-8">
+          <button className="px-6 py-2 bg-[#003470] text-white font-semibold rounded hover:bg-[#0076ff] transition duration-300"
             onClick={() => router.push('/register')}
           >
             Register

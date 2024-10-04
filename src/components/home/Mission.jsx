@@ -11,14 +11,14 @@ const Mission = () => {
 
   useEffect(() => {
     if (inView) {
-      controls.start({ opacity: 1, y: 0 }); 
+      controls.start({ opacity: 1, y: 0 });
     }
   }, [controls, inView]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev === 1 ? 0 : prev + 1));
-    }, 2500); 
+    }, 2500);
     return () => clearInterval(interval);
   }, []);
 
@@ -35,13 +35,13 @@ const Mission = () => {
 
   return (
     <motion.div
-      ref={ref} 
-      initial="hidden" 
-      animate={controls} 
+      ref={ref}
+      initial="hidden"
+      animate={controls}
       variants={fadeInVariants}
-      className="w-full min-h-[729px] py-16 flex flex-col lg:flex-row items-center"
+      className="w-full min-h-[729px] flex flex-col lg:flex-row items-center"
     >
-      <div className="w-full lg:w-1/2 flex justify-center lg:order-1 order-2 mb-8 lg:mb-0">
+      <div className="w-full lg:w-1/2 flex justify-center lg:order-1 order-2 mb-2 lg:mb-0">
         <motion.div
           key={currentImage}
           initial="hidden"
@@ -67,7 +67,7 @@ const Mission = () => {
           Welcome to Footloosemonkey, where young stars shine bright! Our mission is to provide a fun, safe, and inspiring platform for children aged 6 to 10 to showcase their talents in singing, dancing, acting, mimicry, and more. At Footloosemonkey, we believe every child is unique and talented in their own way, and we are here to celebrate and nurture that talent. Join us in our exciting competitions, make new friends, and discover your amazing potential!
         </p>
         <div>
-          <button className="px-6 py-2 bg-[#003470] text-white font-semibold rounded hover:bg-[#5385ac] transition duration-300">
+          <button className="px-6 py-2 bg-[#003470] text-white font-semibold rounded hover:bg-[#0076ff] transition duration-300">
             Know More
           </button>
         </div>

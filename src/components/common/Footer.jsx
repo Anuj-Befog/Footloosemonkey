@@ -5,7 +5,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className='bg-purple-500 w-full py-8'>
+    <footer className='bg-[#6e96cf] w-full py-8'>
       <div className='max-w-screen-xl mx-auto px-4 lg:px-8'>
         <div className='md:flex md:justify-between'>
           <div className="mb-6 md:mb-0">
@@ -16,72 +16,63 @@ const Footer = () => {
           </div>
           <div className='grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 text-white'>
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase">Quick Links</h2>
+              <h2 className="mb-6 text-base font-semibold uppercase">Quick Links</h2>
               <ul className="font-medium">
                 <li className="mb-4">
-                  <a href="/" className="hover:underline">Home</a>
+                  <Link href="/" className="hover:underline">Home</Link>
                 </li>
                 <li className="mb-4">
-                  <a href="/competition" className="hover:underline">Competition</a>
+                  <Link href="/register" className="hover:underline">Registration</Link>
                 </li>
                 <li className="mb-4">
-                  <a href="/register" className="hover:underline">Registration</a>
+                  <Link href="/register" className="hover:underline">Competition</Link>
                 </li>
                 <li className="mb-4">
-                  <a href="/about" className="hover:underline">About Us</a>
+                  <Link href="/about" className="hover:underline">About Us</Link>
                 </li>
                 <li>
-                  <a href="#top" className="hover:underline">Jump to top</a>
+                  <Link href="#top" className="hover:underline">Jump to top</Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase">Our Competition</h2>
+              <h2 className="mb-6 text-base font-semibold uppercase">Our Competition</h2>
               <ul className="font-medium">
                 <li className="mb-4">
-                  <a href="/dancing" className="hover:underline">Dancing</a>
+                  <Link href="/acting" className="hover:underline">Mimicry</Link>
                 </li>
                 <li className="mb-4">
-                  <a href="/singing" className="hover:underline">Singing</a>
+                  <Link href="/dancing" className="hover:underline">Dancing</Link>
                 </li>
                 <li className="mb-4">
-                  <a href="/drawing" className="hover:underline">Drawing</a>
+                  <Link href="/singing" className="hover:underline">Singing</Link>
                 </li>
                 <li className="mb-4">
-                  <a href="/mimicry" className="hover:underline">Mimicry</a>
-                </li>
-                <li>
-                  <a href="/poetry" className="hover:underline">Poetry</a>
+                  <Link href="/mimicry" className="hover:underline">Mimicry</Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold uppercase">About</h2>
+              <h2 className="mb-6 text-base font-semibold uppercase">About</h2>
               <ul className="font-medium">
                 <li className="mb-4">
-                  <a href="/company" className="hover:underline">Company</a>
+                  <Link href="/company" className="hover:underline">Company</Link>
                 </li>
                 <li className="mb-4">
-                  <a href="/privacy" className="hover:underline">Privacy Policy</a>
-                </li>
-                <li className="mb-4">
-                  <a href="/cookies" className="hover:underline">Cookie Policy</a>
+                  <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
                 </li>
               </ul>
-              <h2 className="mt-6 text-sm font-semibold uppercase">Connect with us</h2>
+              <h2 className="mt-6 text-base font-semibold uppercase">Connect with us -</h2>
               <div className="flex space-x-5 mt-4">
-                <a href="https://facebook.com" className="text-white hover:text-gray-300">
-                  <Image src="/fb.png" className='w-[2.5rem] h-[2.8rem]' width={100} height={100} alt="Facebook" />
-                </a>
-                <a href="https://linkedin.com" className="text-white hover:text-gray-300">
-                  <Image src="/linkedin.png" className='w-[2.5rem] h-[2.8rem]' width={100} height={100} alt="LinkedIn" />
-                </a>
-                <a href="https://instagram.com" className="text-white hover:text-gray-300">
-                  <Image src="/insta.png" className='w-[2.5rem] h-[2.8rem]' width={100} height={100} alt="Instagram" />
-                </a>
-                <a href="https://youtube.com" className="text-white hover:text-gray-300">
-                  <Image src="/yt.png" className='w-[2.5rem] h-[2.8rem]' width={100} height={100} alt="YouTube" />
-                </a>
+                <Link href="https://facebook.com" target="_blank" className="text-white hover:text-gray-300">
+                  <Image src="/social/facebook.png" className='w-[2rem] h-[2rem]' width={100} height={100} alt="Facebook" />
+                </Link>
+                <Link href="https://www.instagram.com/footloosemonkey" target="_blank" className="text-white hover:text-gray-300">
+                  <Image src="/social/instagram.png" className='w-[2rem] h-[2rem]' width={100} height={100} alt="Instagram" />
+                </Link>
+                <Link href="https://youtube.com" target="_blank" className="text-white hover:text-gray-300">
+                  <Image src="/social/youtube.png" className='w-[2rem] h-[2rem]' width={100} height={100} alt="YouTube" />
+                </Link>
               </div>
             </div>
           </div>

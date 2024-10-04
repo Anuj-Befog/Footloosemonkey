@@ -136,7 +136,7 @@ const PaymentCheckout = () => {
       <div className="cart-items col-span-2">
         <div className="cart-header flex justify-between items-center mb-2">
           <h1 className="md:text-2xl sm:text-xl text-base font-medium pb-0">Payment Checkout</h1>
-          <button onClick={() => router.push('/register')} className="px-6 py-2 bg-[#003470] text-white font-semibold rounded hover:bg-[#5385ac] transition duration-300">
+          <button onClick={() => router.push('/register')} className="px-6 py-2 bg-[#003470] text-white font-semibold rounded hover:bg-[#0076ff] transition duration-300">
             Go back
           </button>
         </div>
