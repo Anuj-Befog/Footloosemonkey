@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from "next/image";
+import Link from 'next/link';
 export default function Mimicry() {
   return (
     <div className='bg-[#E0F7FA] pt-10 pb-14'>
@@ -18,14 +19,16 @@ export default function Mimicry() {
             </p>
 
             <p className='mt-20 text-2xl'>Register today and let your voice be heard!</p>
-            <button className="mt-8 ml-40 font-bold py-2 px-4 rounded">
-              <Image
-                src="/registerbtn.png"
-                alt="Dancer"
-                width={250}
-                height={250}
-              />
-            </button>
+            <Link href="/register">
+              <button className="mt-8 ml-40 font-bold py-2 px-4 rounded">
+                <Image
+                  src="/registerbtn.png"
+                  alt="Dancer"
+                  width={250}
+                  height={250}
+                />
+              </button>
+            </Link>
           </div>
         </div>
         <Image
@@ -38,26 +41,15 @@ export default function Mimicry() {
 
       </div>
       <div className="mt-8">
-        <h3 className="text-3xl text-center font-bold">
+        <h3 className="text-4xl text-center font-bold mb-10">
           Our <span className="text-sky-700">Winners</span>
         </h3>
-        <div className="flex mt-24 gap-14 justify-center">
-          {/* Replace these divs with actual winner images and details */}
-          <div className="bg-gray-200 h-32 w-32"></div>
-          <div className="bg-gray-200 h-32 w-32"></div>
-          <div className="bg-gray-200 h-32 w-32"></div>
-          <div className="bg-gray-200 h-32 w-32"></div>
-          <div className="bg-gray-200 h-32 w-32"></div>
-        </div>
-        <div className="flex justify-end mr-24">
-          <button className="mt-4  py-2 px-4 rounded">
-            <Image
-              src="/seeMore.png"
-              alt="Dancer"
-              width={150}
-              height={150}
-            />
-          </button>
+        <div className='flex justify-center mt-10 gap-14'>
+          <Image src="/winner.png" width={178} height={164} alt="winner" />
+          <Image src="/winner.png" width={178} height={164} alt="winner" />
+          <Image src="/winner.png" width={178} height={164} alt="winner" />
+          <Image src="/winner.png" width={178} height={164} alt="winner" />
+          <Image src="/winner.png" width={178} height={164} alt="winner" />
         </div>
       </div>
     </div>

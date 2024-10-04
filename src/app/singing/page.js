@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const Singing = () => {
@@ -16,36 +17,31 @@ const Singing = () => {
             </ul>
             <p className='mt-5 text-xl font-semibold'>Don’t miss out on this fantastic opportunity to become a star! Register now and let your voice be heard across the world.</p>
             <p className='mt-10 text-xl font-semibold'>Register today and start your journey to stardom!</p>
-            <Image 
-              src="/register-sing-btn.png" 
-              width={292} 
-              height={39} 
-              className='mx-auto mt-10' 
-              alt="Register button for singing competition" 
-            />
+            <Link href="/register">
+              <Image
+                src="/register-sing-btn.png"
+                width={292}
+                height={39}
+                className='mx-auto mt-10'
+                alt="Register button for singing competition"
+              />
+            </Link>
           </div>
-          <Image 
-            src="/singing-page.png" 
-            width={503} 
-            height={503} 
-            alt="Singing competition page image" 
+          <Image
+            src="/singing-page.png"
+            width={503}
+            height={503}
+            alt="Singing competition page image"
           />
         </div>
         <h1 className='mt-12 text-3xl text-center'>Our <span className='text-[#FF0000]'>Winners</span></h1>
         <div className='flex justify-center mt-10 gap-14'>
-          <Image src="/sing-win.png" width={178} height={164} alt="Singing competition winner" />
-          <Image src="/sing-win.png" width={178} height={164} alt="Singing competition winner" />
-          <Image src="/sing-win.png" width={178} height={164} alt="Singing competition winner" />
-          <Image src="/sing-win.png" width={178} height={164} alt="Singing competition winner" />
-          <Image src="/sing-win.png" width={178} height={164} alt="Singing competition winner" />
+          <Image src="/winner.png" width={178} height={164} alt="winner" />
+          <Image src="/winner.png" width={178} height={164} alt="winner" />
+          <Image src="/winner.png" width={178} height={164} alt="winner" />
+          <Image src="/winner.png" width={178} height={164} alt="winner" />
+          <Image src="/winner.png" width={178} height={164} alt="winner" />
         </div>
-        <Image 
-          src="/see-more.png" 
-          width={126} 
-          height={27} 
-          className='absolute right-[118px] mt-[79px]' 
-          alt="See more button" 
-        />
       </div>
     </div>
   )

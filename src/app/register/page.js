@@ -194,7 +194,7 @@ const RegisterForm = () => {
   };
 
   // Define all possible categories
-  const allCategories = ["Acting", "Dancing", "Mimicry", "Singing", "Drawing", "Poetry"]; // Add any other categories here
+  const allCategories = ["Acting", "Dancing", "Mimicry", "Singing"]; // Add any other categories here
 
   // Load the dropdown value from getAdminData API
   useEffect(() => {
@@ -287,7 +287,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="bg-[#E5C3FF] p-6 space-y-4">
+    <div className="bg-[#c3dbff] p-6 space-y-4">
       <div className="w-full max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
         <h1 className="text-2xl font-semibold mb-6">Registration Form</h1>
         <form name="submit-to-google-sheet" onSubmit={handleSubmit}>
@@ -470,7 +470,7 @@ const RegisterForm = () => {
           <button
             type="submit"
             disabled={isSubmitting} // Disable if submitting or there are errors
-            className={`w-full py-2 bg-purple-700 text-white font-semibold rounded ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#003470]'} transition duration-300`}
+            className={`w-full py-2 bg-[#003470] text-white font-semibold rounded ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#0076ff]'} transition duration-300`}
           >
             Submit
           </button>

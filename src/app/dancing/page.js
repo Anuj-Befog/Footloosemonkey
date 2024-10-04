@@ -78,17 +78,12 @@ export default function Dancing() {
           <h3 className="text-4xl text-center font-bold mb-10">
             Our <span className="text-sky-700">Winners</span>
           </h3>
-          <div className="flex mt-4 gap-14 justify-center">
-            {/* Replace these divs with actual winner images and details */}
-            <div className="h-32 w-32 flex justify-center items-center">
-              <Image src="/avatar.jpg" width={150} height={150} alt="winner" />
-            </div>
-            <div className="h-32 w-32 flex justify-center items-center">
-              <Image src="/avatar.jpg" width={150} height={150} alt="winner" />
-            </div>
-            <div className="h-32 w-32 flex justify-center items-center">
-              <Image src="/avatar.jpg" width={150} height={150} alt="winner" />
-            </div>
+          <div className='flex justify-center mt-10 gap-14'>
+            <Image src="/winner.png" width={178} height={164} alt="winner" />
+            <Image src="/winner.png" width={178} height={164} alt="winner" />
+            <Image src="/winner.png" width={178} height={164} alt="winner" />
+            <Image src="/winner.png" width={178} height={164} alt="winner" />
+            <Image src="/winner.png" width={178} height={164} alt="winner" />
           </div>
         </div>
       </div>
