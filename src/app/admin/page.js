@@ -80,6 +80,7 @@ export default function AdminPage() {
                     <option value="Mimicry">Mimicry</option>
                     <option value="Singing">Singing</option>
                     <option value="Drawing">Drawing</option>
+                    <option value="Poetry">Poetry</option>
                 </select>
 
                 {/* Dropdown for Group A Charges based on selected Talent */}

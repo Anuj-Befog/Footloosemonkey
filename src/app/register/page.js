@@ -194,7 +194,7 @@ const RegisterForm = () => {
   };
 
   // Define all possible categories
-  const allCategories = ["Acting", "Dancing", "Mimicry", "Singing"]; // Add any other categories here
+  const allCategories = ["Acting", "Dancing", "Mimicry", "Singing", "Drawing", "Poetry"]; // Add any other categories here
 
   // Load the dropdown value from getAdminData API
   useEffect(() => {
