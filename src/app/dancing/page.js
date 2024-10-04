@@ -1,8 +1,6 @@
-// components/Button.js
-
-import React from "react";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+
 export default function Dancing() {
   return (
     <div className="bg-[#E0F7FA]">

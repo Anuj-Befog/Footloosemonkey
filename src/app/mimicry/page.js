@@ -1,8 +1,6 @@
-// components/Button.js
-
-import React from 'react';
 import Image from "next/image";
 import Link from 'next/link';
+
 export default function Mimicry() {
   return (
     <div className='bg-[#E0F7FA] pt-10 pb-14'>
