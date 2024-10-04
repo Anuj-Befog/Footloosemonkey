@@ -12,7 +12,7 @@ const Talent = () => {
   };
 
   return (
-    <div className='w-full flex flex-col items-center justify-center p-4'>
+    <div className='w-full flex flex-col items-center justify-center p-4 bg-[aliceblue]'>
       <h1 className='text-5xl text-center font-semibold mb-10'>
         Showcase your Talent
       </h1>

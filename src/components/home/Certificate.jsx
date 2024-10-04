@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 const Certificate = () => {
   return (
-    <div className="bg-white w-full py-16 flex flex-col items-center">
+    <div className="bg-[aliceblue] w-full py-16 flex flex-col items-center">
       <h1 className='text-5xl text-center font-semibold mt-14 '>Certifications and Prizes</h1>
 
       <div className="mt-6 px-6 max-w-[1000px] text-center">

@@ -14,7 +14,7 @@ const About = () => {
   const texts = ["Singing", "Dancing", "Acting", "Mimicry"];
 
   return (
-    <div className="py-16 px-8 w-full flex flex-col items-center">
+    <div className="py-16 px-8 w-full flex flex-col items-center bg-[aliceblue]">
       <h1 className="text-5xl font-semibold ">About</h1>
 
       <div className="mt-12 max-w-[800px] text-center">
