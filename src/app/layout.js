@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import Script from 'next/script'
+import Alert from "@/components/common/Alert";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -41,6 +42,7 @@ export default function RootLayout({ children }) {
       </head>
 
       <body className={inter.className}>
+        <Alert />
         <Navbar />
         {children}
         <Footer />

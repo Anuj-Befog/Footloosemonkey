@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [navbarBg, setNavbarBg] = useState('bg-transparent')
+  const [navbarBg, setNavbarBg] = useState('bg-[lightcoral]')
 
   // Function to toggle the drawer
   const toggleDrawer = () => {
@@ -19,7 +19,7 @@ const Navbar = () => {
     if (window.scrollY > 50) {
       setNavbarBg('bg-purple-700 text-white')
     } else {
-      setNavbarBg('bg-transparent text-dark')
+      setNavbarBg('bg-[lightcoral] text-white')
     }
   }
 
@@ -33,7 +33,7 @@ const Navbar = () => {
   return (
     <>
       {/* Sticky Navbar with background change on scroll */}
-      <nav className={`${navbarBg} sticky top-0 z-50 transition-colors duration-300`}>
+      <nav className={`${navbarBg} text-white sticky top-0 z-50 transition-colors duration-300`}>
         <div className="flex flex-row  items-center justify-between w-full px-6 py-4">
           {/* Logo */}
           <Link href='/'>
@@ -49,10 +49,10 @@ const Navbar = () => {
 
           {/* Nav Items - Hidden on Small Screens */}
           <div className="hidden lg:flex flex-row items-center gap-12">
-            <Link href="/" className="text-xl font-semibold hover:text-blue-500 transition-colors duration-200">Home</Link>
-            <Link href="/" className="text-xl font-semibold hover:text-blue-500 transition-colors duration-200">Competition</Link>
-            <Link href="/register" className="text-xl font-semibold hover:text-blue-500 transition-colors duration-200">Register</Link>
-            <Link href="/" className="text-xl font-semibold hover:text-blue-500 transition-colors duration-200">About Us</Link>
+            <Link href="/" className="text-xl font-semibold hover:text-black transition-colors duration-200">Home</Link>
+            <Link href="/" className="text-xl font-semibold hover:text-black transition-colors duration-200">Competition</Link>
+            <Link href="/register" className="text-xl font-semibold hover:text-black transition-colors duration-200">Register</Link>
+            <Link href="/" className="text-xl font-semibold hover:text-black transition-colors duration-200">About Us</Link>
           </div>
         </div>
       </nav>
