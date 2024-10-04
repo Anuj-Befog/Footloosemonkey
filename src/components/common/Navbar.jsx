@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaBars } from 'react-icons/fa'
 import Link from 'next/link'
+import Alert from './Alert'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -34,6 +35,7 @@ const Navbar = () => {
     <>
       {/* Sticky Navbar with background change on scroll */}
       <nav className={`${navbarBg} text-white sticky top-0 z-50 transition-colors duration-300`}>
+        <Alert />
         <div className="flex flex-row  items-center justify-between w-full px-6 py-4">
           {/* Logo */}
           <Link href='/'>

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { getAdminData } from '../../app/services/index';  // Import necessary services
+import Link from 'next/link';
 
 const Alert = () => {
     const [isVisible, setIsVisible] = useState(true);
@@ -29,13 +30,15 @@ const Alert = () => {
         <>
 
             {isVisible && (
-                <div className="w-[100vw] flex justify-around items-center bg-[#6e96cf] p-4 px-8">
+                <div className="w-[100vw] flex justify-around items-center bg-[#6e96cf] p-2">
                     <div className="xl:flex xl:flex-row xl:items-center py-2 xl:space-x-2 mx-auto text-center">
                         {
                             datas.map((item, index) => {
                                 return (
                                     <div key={index} className="leading-6 lg:text-lg text-[#fff] font-rubik">
-                                        <p className='text-xl'>Get ready for the <strong>{item.talent}</strong> Competition at <strong>Footloosemonkey</strong>! Registrations are now <em>live</em>. 🥳🎉</p>
+                                        <Link href={'/register'}>
+                                            <p className='text-xl'>Get ready for the <strong>{item.talent}</strong> Competition at <strong>Footloosemonkey</strong>! Registrations are now <em>live</em>. 🥳🎉</p>
+                                        </Link>
                                     </div>
 
                                 )
