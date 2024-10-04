@@ -8,6 +8,7 @@ export default function AdminPage() {
     const [selectedACharges, setSelectedACharges] = useState('');
     const [selectedBCharges, setSelectedBCharges] = useState('');
     const [dataId, setDataId] = useState(null); // Store fetched _id
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     // Load data from getAdminData()
     useEffect(() => {
@@ -31,14 +32,19 @@ export default function AdminPage() {
     };
 
     const handleSubmit = async () => {
-        if (!dataId) {
-            console.log('Data ID not found. Cannot submit form.');
-        }
-
+        // Form validation
         if (!selectedTalent || !selectedACharges || !selectedBCharges) {
             alert("Please fill in all fields.");
             return;
         }
+
+        if (!dataId) {
+            console.log('Data ID not found. Cannot submit form.');
+            return;
+        }
+
+        // Disable the button during form submission
+        setIsSubmitting(true);
 
         // Prepare form data to be sent to the server
         const formData = {
@@ -62,6 +68,9 @@ export default function AdminPage() {
             // Handle the error accordingly (e.g., show an error message)
             alert(`Error: ${response.message}`);
         }
+
+        // Re-enable the button after submission process is complete
+        setIsSubmitting(false);
     };
 
     return (
@@ -108,8 +117,9 @@ export default function AdminPage() {
                 )}
 
                 <button
+                    disabled={isSubmitting}
                     onClick={handleSubmit}
-                    className="w-full bg-blue-500 text-white font-semibold py-2 rounded-lg shadow hover:bg-blue-600 transition duration-200"
+                    className={`w-full bg-blue-500 text-white font-semibold py-2 rounded-lg shadow ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ' hover:bg-blue-600 cursor-pointer'} transition duration-200`}
                 >
                     Submit
                 </button>

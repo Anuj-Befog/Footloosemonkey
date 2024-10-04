@@ -24,11 +24,8 @@ const Alert = () => {
         fetchAdminData();
     }, []);
 
-    console.log(datas)
-
     return (
         <>
-
             {isVisible && (
                 <div className="w-[100vw] flex justify-around items-center bg-[#6e96cf] p-2">
                     <div className="xl:flex xl:flex-row xl:items-center py-2 xl:space-x-2 mx-auto text-center">
