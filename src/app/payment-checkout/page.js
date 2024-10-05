@@ -1,60 +1,80 @@
-"use client"
+"use client";
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation'; // Import from next/navigation
+import { useRouter } from 'next/navigation';
 import React, { useState, useRef, useEffect } from 'react';
-import { getRegistrationData } from '../services/index';  // Import necessary services
-
+import { getRegistrationData, addPaymentData } from '../services/index';
 
 const PaymentCheckout = () => {
-  const router = useRouter()
-
+  const router = useRouter();
   const formRef = useRef(null);
 
   const [paymentStatus, setPaymentStatus] = useState(true);
-  const [charge, setCharge] = useState('')
-  const [userEmail, setUserEmail] = useState('')
-  const [userName, setUserName] = useState('')
-  const [userContact, setUserContact] = useState('')
-  const [registerData, setRegisterData] = useState([])
+  const [userEmail, setUserEmail] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userContact, setUserContact] = useState('');
+  const [userAddress, setUserAddress] = useState('');
+  const [charge, setCharge] = useState('');
+  const [userTalent, setUserTalent] = useState('');
+  const [userAgeCriteria, setUserAgeCriteria] = useState('');
+  const [userParticipantAge, setUserParticipantAge] = useState('');
+  const [registerData, setRegisterData] = useState([]);
 
   // Load data from getRegistrationData()
   useEffect(() => {
     const fetchRegistrationData = async () => {
       const response = await getRegistrationData();
       if (response.success && response.data) {
-        setRegisterData([...response.data]); // Spread the data into a new array
-        setCharge(response.data[0].charge)
-        setUserEmail(response.data[0].email)
-        setUserName(response.data[0].participantName)
-        setUserContact(response.data[0].guardianNumber)
+        setRegisterData([...response.data]);
+        setUserEmail(response.data[0].email);
+        setUserName(response.data[0].participantName);
+        setUserContact(response.data[0].guardianNumber);
+        setUserAddress(response.data[0].address)
+        setCharge(response.data[0].charge);
+        setUserTalent(response.data[0].talent)
+        setUserAgeCriteria(response.data[0].ageCriteria)
+        setUserParticipantAge(response.data[0].participantAge)
       } else {
         console.error('Error fetching data:', response.message);
       }
     };
 
     fetchRegistrationData();
-  }, []); // Empty dependency array ensures this runs only on initial render
-
-  useEffect(() => {
-  }, [registerData, charge, userEmail, userName, userContact]);
+  }, []);
 
   // Calculate IGST and CGST
-  let igstRate = 9, cgstRate = 9;
-
+  const igstRate = 9, cgstRate = 9;
   const igstAmount = (charge * igstRate) / 100;
   const cgstAmount = (charge * cgstRate) / 100;
-
-  // Calculate total amount including GST
-  const totalAmount = Number(charge) + (Number(charge) * igstRate) / 100 + (Number(charge) * cgstRate) / 100;
-
-  // Format total amount to two decimal places
+  const totalAmount = Number(charge) + igstAmount + cgstAmount;
   const totalIncludingGST = Number(totalAmount.toFixed(2));
+  const razorpayCharge = Math.floor(totalIncludingGST);
 
-  const razorpayCharge = Math.floor(totalIncludingGST)
+  // Handle payment data
+  const handlePaymentData = async (paymentId, status) => {
+    const paymentData = {
+      email: userEmail,
+      participantName: userName,
+      guardianNumber: userContact,
+      address: userAddress,
+      charge: charge,
+      talent: userTalent,
+      ageCriteria: userAgeCriteria,
+      participantAge: userParticipantAge,
+      paymentId: paymentId,
+      status: status,
+    };
+
+    const response = await addPaymentData(paymentData);
+    if (response.success) {
+      
+    } else {
+      console.error("Error adding payment data:", response.message);
+    }
+  };
 
   // Razorpay Payment Gateway Integration
-  const makePayment = async () => {
+  const initiatePayment = async () => {
     setPaymentStatus(false);
 
     // Make API call to the server for Razorpay order
@@ -96,6 +116,7 @@ const PaymentCheckout = () => {
 
         if (!verifyData.ok) {
           console.error('Failed to verify payment:', verifyData.statusText);
+          await handlePaymentData(response.razorpay_payment_id, 'failed');
           return;
         }
 
@@ -103,30 +124,30 @@ const PaymentCheckout = () => {
         if (res?.message === "success") {
           setPaymentStatus(true);
           alert(`Payment successful! Your payment ID = ${response.razorpay_payment_id} has been processed.`);
+          await handlePaymentData(response.razorpay_payment_id, 'success');
+        } else {
+          await handlePaymentData(response.razorpay_payment_id, 'failed');
         }
       },
+      theme: {
+        color: "#004873",
+      },
       prefill: {
-        email: userEmail || '',
-        name: userName || '',
-        contact: userContact || '',
+        name: userName || '', // User's name from state
+        email: userEmail || '', // User's email from state
+        contact: userContact || '', // User's contact number from state
       },
     };
 
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
-
-    paymentObject.on("payment.failed", function (response) {
-      alert("Payment failed. Please try again. Contact support for help.");
-    });
   };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setPaymentStatus(false);
-    setTimeout(() => {
-      makePayment();
-      setPaymentStatus(true);
-    }, 500);
+    initiatePayment(); // Call to initiate payment
   };
 
   return (
@@ -140,51 +161,45 @@ const PaymentCheckout = () => {
               Go back
             </button>
           </div>
-
           {/* Cart Table */}
           <div className="relative w-full overflow-auto">
             <table className="w-full text-sm">
               <thead className="border-b">
                 <tr className="border-b text-gray-600 uppercase">
-                  <th className="h-12 px-1.5 text-left font-medium">Chekout Info</th>
+                  <th className="h-12 px-1.5 text-left font-medium">Checkout Info</th>
                 </tr>
               </thead>
               <tbody>
-                {
-                  registerData.map((registerData, index) => {
-                    return (
-                      <tr key={index} className="border-b py-1 px-10 hover:bg-muted/50">
-                        <td className="p-1.5 w-96">
-                          <div className="flex items-start">
-                            <div className="img-qty flex flex-col w-[5vw] h-[5vh] mr-3">
-                              <Image
-                                alt="MSI GF 63 thin laptop"
-                                loading="lazy"
-                                width="50"
-                                height="100"
-                                className="md:w-28 w-20 md:h-24 h-20 mx-auto mb-1.5"
-                                src="/logo.png"
-                                style={{ color: 'transparent' }}
-                              />
-                            </div>
-
-                            <div className="text-base">
-                              <p className="font-semibold uppercase">{registerData.talent} COMPETITION FOR AGE {registerData.ageCriteria}</p>
-                              <div className='flex gap-1'>
-                                <p className="text-gray-500 font-medium uppercase text-sm mt-2 mb-1">{registerData.participantName} |</p>
-                                <p className="text-gray-500 font-medium uppercase text-sm mt-2 mb-1">{registerData.guardianNumber} |</p>
-                                <p className="text-gray-500 font-medium text-sm mt-2 mb-1">{registerData.email}</p>
-                              </div>
-                              <p className="md:text-sm text-xs">
-                                <span className="text-red-600 font-medium mr-2">₹ {registerData.charge}</span>
-                              </p>
-                            </div>
+                {registerData.map((registerData, index) => (
+                  <tr key={index} className="border-b py-1 px-10 hover:bg-muted/50">
+                    <td className="p-1.5 w-96">
+                      <div className="flex items-start">
+                        <div className="img-qty flex flex-col w-[5vw] h-[5vh] mr-3">
+                          <Image
+                            alt="MSI GF 63 thin laptop"
+                            loading="lazy"
+                            width="50"
+                            height="100"
+                            className="md:w-28 w-20 md:h-24 h-20 mx-auto mb-1.5"
+                            src="/logo.png"
+                            style={{ color: 'transparent' }}
+                          />
+                        </div>
+                        <div className="text-base">
+                          <p className="font-semibold uppercase">{registerData.talent} COMPETITION FOR AGE {registerData.ageCriteria}</p>
+                          <div className='flex gap-1'>
+                            <p className="text-gray-500 font-medium uppercase text-sm mt-2 mb-1">{registerData.participantName} |</p>
+                            <p className="text-gray-500 font-medium uppercase text-sm mt-2 mb-1">{registerData.guardianNumber} |</p>
+                            <p className="text-gray-500 font-medium text-sm mt-2 mb-1">{registerData.email}</p>
                           </div>
-                        </td>
-                      </tr>
-                    )
-                  })
-                }
+                          <p className="md:text-sm text-xs">
+                            <span className="text-red-600 font-medium mr-2">₹ {registerData.charge}</span>
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

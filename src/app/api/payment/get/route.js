@@ -1,5 +1,5 @@
 import connectToDB from "@/app/db/connectToDB";
-import Registration from "@/app/models/Registration";
+import Payment from "@/app/models/Payment";
 import { NextResponse } from "next/server";
 
 export const dynamic = 'force-dynamic'
@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic'
 export async function GET(req) {
     try {
         await connectToDB();
-        const extractData = await Registration.find();
+        const extractData = await Payment.find();
         if (extractData) {
             return NextResponse.json({
                 success: true,
