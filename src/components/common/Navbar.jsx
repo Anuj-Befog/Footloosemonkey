@@ -77,7 +77,7 @@ const Navbar = () => {
 
         {/* Alert */}
         {isVisible && (
-          <div className="flex justify-around items-center bg-[#6e96cf] p-2">
+          <div className="flex justify-around items-center bg-[#6e96cf] border-b-2 p-2">
             <div className="xl:flex xl:flex-row xl:items-center py-2 xl:space-x-2 mx-auto text-center">
               {
                 datas.map((item, index) => {
@@ -122,7 +122,7 @@ const Navbar = () => {
         )}
 
         {/* Navbar */}
-        <div className="flex flex-row border-t-2 items-center justify-between w-full px-6 py-4">
+        <div className="flex flex-row items-center justify-between w-full px-6 py-4">
           {/* Logo */}
           <Link href='/'>
             <Image src="/logo.png" width={45} height={45} className="my-1" alt="Logo" />
