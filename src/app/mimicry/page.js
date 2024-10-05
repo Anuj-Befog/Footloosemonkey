@@ -1,55 +1,75 @@
-import Image from "next/image";
+import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Mimicry() {
+const Mimicry = () => {
   return (
-    <div className='bg-[#E0F7FA] pt-10 pb-14'>
-      <h2 className="text-6xl text-center font-bold mb-20 my-8">Mimicry</h2>
-      <div className="flex ml-14">
-        <div>
-          <div className="mt-8">
-            <h3 className="text-3xl text-sky-700 font-bold">Unleash Your Inner Performer with Mimicry!</h3>
-            <p className='text-2xl mt-16 mx-8'>Do you have a knack for imitating voices, sounds, or even your favorite characters? Join our Mimicry competition and show off your unique talent! Whether it&apos;s a famous celebrity, a cartoon character, or any funny sound, we want to see your best impersonations.</p>
-          </div>
-          <div className="mt-8">
-            <p className="mt-16 text-2xl ">
-              Mimicry is all about creativity, humor, and originality. This is your chance to make everyone laugh, impress the judges, and win exciting prizes. Don&apos;t miss out on this fun opportunity to showcase your talent!
+    <div className='bg-[#E0F7FA]'>
+      <div className="pt-10 pb-14 container">
+        <h2 className="text-5xl text-center font-bold mb-20">Mimicry Competition</h2>
+        <div className="flex ml-14">
+          <div>
+            <h1 className="text-2xl font-semibold text-[#004873] mb-6">
+              Master the Art of Imitation with Our Mimicry Competition!
+            </h1>
+            <p className="text-xl mb-8">
+              Can you sound just like a famous celebrity or a cartoon character? This is your chance to shine by mimicking voices and actions with precision and fun!
             </p>
-
-            <p className='mt-20 text-2xl'>Register today and let your voice be heard!</p>
-            <Link href="/register">
-              <button className="mt-8 ml-40 font-bold py-2 px-4 rounded">
-                <Image
-                  src="/registerbtn.png"
-                  alt="Dancer"
-                  width={250}
-                  height={250}
-                />
-              </button>
-            </Link>
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold">Why Join?</h3>
+              <ul className="text-left text-xl mx-16 list-disc list-inside mt-4 space-y-2">
+                <li><span className="font-semibold text-sky-900">Show Your Talent:</span> Entertain everyone with your mimicry skills.</li>
+                <li><span className="font-semibold text-sky-900">Build Confidence:</span> Mimicry is all about observation, creativity, and execution.</li>
+                <li><span className="font-semibold text-sky-900">Win Prizes:</span> Compete for awards and the opportunity to wow the audience.</li>
+              </ul>
+            </div>
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold">Who Can Participate?</h3>
+              <p className="text-xl mt-7 mx-14">All budding comedians and mimicry enthusiasts between 5 and 15 years old.</p>
+            </div>
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold">How to Join:</h3>
+              <ol className="text-left text-xl mx-16 list-disc list-inside mt-4 space-y-2">
+                <li><span className="font-semibold text-sky-900">Register:</span> Click the button below to join.</li>
+                <li><span className="font-semibold text-sky-900">Prepare Your Mimicry:</span> Study your favorite personalities and practice mimicking them.</li>
+                <li><span className="font-semibold text-sky-900">Submit:</span> Record your mimicry and upload it for our judges!</li>
+              </ol>
+            </div>
           </div>
+          <Image
+            src="/competition/mimicry.png"
+            alt="Dancer"
+            width={500}
+            height={400}
+            className="h-[50rem]"
+          />
         </div>
-        <Image
-          src="/mimicry.png"
-          alt="Dancer"
-          width={600}
-          height={600}
-          className="-my-20"
-        />
-
-      </div>
-      <div className="mt-8">
-        <h3 className="text-4xl text-center font-bold mb-10">
-          Our <span className="text-sky-700">Winners</span>
-        </h3>
-        <div className='flex justify-center mt-10 gap-14'>
-          <Image src="/winner.png" width={178} height={164} alt="winner" />
-          <Image src="/winner.png" width={178} height={164} alt="winner" />
-          <Image src="/winner.png" width={178} height={164} alt="winner" />
-          <Image src="/winner.png" width={178} height={164} alt="winner" />
-          <Image src="/winner.png" width={178} height={164} alt="winner" />
+        <div className="pt-32">
+          <p className="pt-4 text-xl text-center mx-16">
+            Step into the world of mimicry and become the next impressionist star! Have fun, impress the audience, and claim your moment in the spotlight.
+          </p>
+        </div>
+        <div className="text-center">
+          <Link href="/register">
+            <button className="mt-10 font-bold py-2 px-4 rounded">
+              <Image src="/competition/registerbtn.png" alt="Register Button" width={250} height={250} />
+            </button>
+          </Link>
+        </div>
+        <div className="mt-[6rem]">
+          <h3 className="text-4xl text-center font-bold mb-10">
+            Our <span className="text-sky-700">Winners</span>
+          </h3>
+          <div className="flex justify-center mt-10 gap-14">
+            <Image key={1} src="/competition/winner.png" width={178} height={164} alt="winner" />
+            <Image key={2} src="/competition/winner.png" width={178} height={164} alt="winner" />
+            <Image key={3} src="/competition/winner.png" width={178} height={164} alt="winner" />
+            <Image key={4} src="/competition/winner.png" width={178} height={164} alt="winner" />
+            <Image key={5} src="/competition/winner.png" width={178} height={164} alt="winner" />
+          </div>
         </div>
       </div>
     </div>
   );
 }
+
+export default Mimicry;

@@ -67,7 +67,7 @@ const Mission = () => {
           Welcome to Footloosemonkey, where young stars shine bright! Our mission is to provide a fun, safe, and inspiring platform for children aged 6 to 10 to showcase their talents in singing, dancing, acting, mimicry, and more. At Footloosemonkey, we believe every child is unique and talented in their own way, and we are here to celebrate and nurture that talent. Join us in our exciting competitions, make new friends, and discover your amazing potential!
         </p>
         <div>
-          <button className="px-6 py-2 bg-[#003470] text-white font-semibold rounded hover:bg-[#0076ff] transition duration-300">
+          <button className="px-6 py-2 bg-[#5600ff] text-white font-semibold rounded hover:bg-[#0076ff] transition duration-300">
             Know More
           </button>
         </div>

@@ -1,90 +1,73 @@
-import Link from "next/link";
-import Image from "next/image";
+import Image from 'next/image';
+import Link from 'next/link';
 
-export default function Dancing() {
+const Dancing = () => {
   return (
-    <div className="bg-[#E0F7FA]">
+    <div className='bg-[#E0F7FA]'>
       <div className="pt-10 pb-14 container">
-        <h2 className="text-5xl text-center font-bold mb-20">Dancing</h2>
+        <h2 className="text-5xl text-center font-bold mb-20">Dancing Competition</h2>
         <div className="flex ml-14">
           <div>
+            <h1 className="text-2xl font-semibold text-[#004873] mb-6">
+              Let the Rhythm Move You in Our Dancing Competition!
+            </h1>
             <p className="text-xl mb-8">
-              Do you love to dance? Show off your best moves and join our exciting
-              dance competition! Whether you groove to hip-hop, twirl in ballet,
-              or shake it to jazz, we want to see your unique style.
+              Show off your best moves and take the stage with confidence. Whether you love hip-hop, ballet, or freestyle, this competition is open to all dance styles!
             </p>
-            <div className="mt-8">
-              <h3 className="text-2xl font-bold">Why Participate?</h3>
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold">Why Join?</h3>
               <ul className="text-left text-xl mx-16 list-disc list-inside mt-4 space-y-2">
-                <li>
-                  <span className="font-semibold text-sky-900">
-                    Express Your Creativity:
-                  </span>{" "}
-                  Let your dance tell a story and showcase your passion.
-                </li>
-                <li>
-                  <span className="font-semibold  text-sky-900">
-                    Build Confidence:
-                  </span>{" "}
-                  Gain confidence by performing in front of an audience.
-                </li>
-                <li>
-                  <span className="font-semibold  text-sky-900">
-                    Win Amazing Prizes:
-                  </span>{" "}
-                  Compete for exciting prizes and recognition.
-                </li>
-                <li>
-                  <span className="font-semibold  text-sky-900">Have Fun:</span>{" "}
-                  Enjoy a fun and supportive environment where everyone celebrates
-                  your talent.
-                </li>
+                <li><span className="font-semibold text-sky-900">Show Your Talent:</span> Impress the judges with your unique dance routine.</li>
+                <li><span className="font-semibold text-sky-900">Build Confidence:</span> Step into the spotlight and feel the thrill of performing on stage.</li>
+                <li><span className="font-semibold text-sky-900">Win Prizes:</span> Compete for a chance to win exciting awards and be recognized for your talent.</li>
               </ul>
             </div>
-            <div className="mt-8">
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold">Who Can Participate?</h3>
+              <p className="text-xl mt-7 mx-14">Anyone who loves dancing and wants to show their passion for performance.</p>
+            </div>
+            <div className="mt-12">
               <h3 className="text-2xl font-bold">How to Join:</h3>
-              <ol className="text-left text-xl mx-16 list-decimal list-inside mt-4 space-y-2">
-                <li>Register on our website.</li>
-                <li>Upload a video of your best dance performance.</li>
-                <li>Wait for the results and get ready to shine!</li>
+              <ol className="text-left text-xl mx-16 list-disc list-inside mt-4 space-y-2">
+                <li><span className="font-semibold text-sky-900">Register:</span> Click the Register button to sign up.</li>
+                <li><span className="font-semibold text-sky-900">Prepare Your Act:</span> Rehearse and perfect your dance routine.</li>
+                <li><span className="font-semibold text-sky-900">Perform on Stage:</span> Bring your routine to life and impress the crowd!</li>
               </ol>
-              <p className="mt-4 text-xl mx-16">
-                Don&apos;t miss this chance to be a dance star! Click the button below
-                to register and start your journey to the spotlight.
-              </p>
-              <Link href="/register">
-                <button className="mt-8 ml-40 font-bold py-2 px-4 rounded">
-                  <Image
-                    src="/registerbtn.png"
-                    alt="Dancer"
-                    width={250}
-                    height={250}
-                  />
-                </button>
-              </Link>
             </div>
           </div>
           <Image
-            src="/dancer.png"
+            src="/competition/dancer.png"
             alt="Dancer"
-            width={580}
+            width={600}
             height={400}
             className="my-[-10rem]"
           />
         </div>
-        <div className="mt-[8rem]">
+        <div className="pt-56">
+          <p className="pt-4 text-xl text-center mx-16">Join the competition and let the rhythm take over as you dance your way to victory!</p>
+        </div>
+        <div className="text-center">
+          <Link href="/register">
+            <button className="mt-10 font-bold py-2 px-4 rounded">
+              <Image src="/competition/registerbtn.png" alt="Dancer" width={250} height={250} />
+            </button>
+          </Link>
+        </div>
+        <div className="mt-[6rem]">
           <h3 className="text-4xl text-center font-bold mb-10">
             Our <span className="text-sky-700">Winners</span>
           </h3>
           <div className='flex justify-center mt-10 gap-14'>
-            <Image src="/winner.png" width={178} height={164} alt="winner" />
-            <Image src="/winner.png" width={178} height={164} alt="winner" />
-            <Image src="/winner.png" width={178} height={164} alt="winner" />
-            <Image src="/winner.png" width={178} height={164} alt="winner" />
-            <Image src="/winner.png" width={178} height={164} alt="winner" />
+            <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
+            <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
+            <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
+            <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
+            <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
           </div>
         </div>
       </div>
     </div>
   );
 }
+
+export default Dancing;

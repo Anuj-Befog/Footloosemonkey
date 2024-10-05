@@ -1,49 +1,73 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from 'next/image';
+import Link from 'next/link';
 
 const Singing = () => {
   return (
-    <div className='bg-[#FFD8D8] pt-10 pb-14'>
-      <div className='w-full h-[950px]'>
-        <h1 className='text-center mt-7 text-5xl font-semibold text-[#FF0000]'>Singing</h1>
-        <div className="flex">
-          <div className="flex flex-col ml-14 mt-16">
-            <p className='text-xl font-semibold'>Welcome to the Footloosemonkey Singing Competition, where your voice takes center stage. Whether you sing solo or in a group, this is your chance to showcase your talent and impress our judges. </p>
-            <ul className='list-disc ml-20 mt-5'>
-              <li className='font-semibold'><span className='text-[#FF0000]'>Show Off Your Skills:</span> Sing your heart out in any genre you love - pop, classical, rock, or folk.</li>
-              <li className='font-semibold'><span className='text-[#FF0000]'>Build Confidence: Gain performance</span> experience in a supportive environment.</li>
-              <li className='font-semibold'><span className='text-[#FF0000]'>Win Exciting Prizes:</span> Compete for amazing rewards and recognition</li>
-            </ul>
-            <p className='mt-5 text-xl font-semibold'>Don’t miss out on this fantastic opportunity to become a star! Register now and let your voice be heard across the world.</p>
-            <p className='mt-10 text-xl font-semibold'>Register today and start your journey to stardom!</p>
-            <Link href="/register">
-              <Image
-                src="/register-sing-btn.png"
-                width={292}
-                height={39}
-                className='mx-auto mt-10'
-                alt="Register button for singing competition"
-              />
-            </Link>
+    <div className='bg-[#E0F7FA]'>
+      <div className="pt-10 pb-14 container">
+        <h1 className='text-5xl text-center font-bold mb-20'>Singing Competition</h1>
+        <div className="flex ml-14">
+          <div className="w-[65%]">
+            <h1 className="text-2xl font-semibold text-[#004873] mb-6">
+              Let Your Voice Soar in Our Singing Competition!
+            </h1>
+            <p className="text-xl mb-8">
+              Take the stage and showcase your vocal talent in our exciting Singing Competition. Whether you’re a solo singer or part of a group, this is your moment to shine!
+            </p>
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold">Why Join?</h3>
+              <ul className="text-left text-xl mx-16 list-disc list-inside mt-4 space-y-2">
+                <li><span className="font-semibold text-sky-900">Showcase Your Skills:</span> Sing your heart out in any genre of your choice - pop, classical, rock, or folk.</li>
+                <li><span className="font-semibold text-sky-900">Build Confidence:</span> Gain valuable performance experience and enhance your stage presence.</li>
+                <li><span className="font-semibold text-sky-900">Win Exciting Prizes:</span> Compete for amazing rewards and get recognized for your talent.</li>
+              </ul>
+            </div>
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold">Who Can Participate?</h3>
+              <p className="text-xl mt-7 mx-14">All aspiring singers between the ages of 5 to 15 who love to sing and want to share their passion with the world!</p>
+            </div>
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold">How to Join:</h3>
+              <ol className="text-left text-xl mx-16 list-disc list-inside mt-4 space-y-2">
+                <li><span className="font-semibold text-sky-900">Register:</span> Click the Register button to sign up.</li>
+                <li><span className="font-semibold text-sky-900">Prepare Your Act:</span> Practice your song and get ready to perform.</li>
+                <li><span className="font-semibold text-sky-900">Perform on Stage:</span> Share your talent and impress the judges!</li>
+              </ol>
+            </div>
           </div>
           <Image
-            src="/singing-page.png"
-            width={503}
-            height={503}
-            alt="Singing competition page image"
+            src="/competition/singing.png"
+            alt="Singing"
+            width={400}
+            height={400}
+            className="mt-[-4rem] h-[52rem]"
           />
         </div>
-        <h1 className='mt-12 text-3xl text-center'>Our <span className='text-[#FF0000]'>Winners</span></h1>
-        <div className='flex justify-center mt-10 gap-14'>
-          <Image src="/winner.png" width={178} height={164} alt="winner" />
-          <Image src="/winner.png" width={178} height={164} alt="winner" />
-          <Image src="/winner.png" width={178} height={164} alt="winner" />
-          <Image src="/winner.png" width={178} height={164} alt="winner" />
-          <Image src="/winner.png" width={178} height={164} alt="winner" />
+        <div className="pt-32">
+          <p className="pt-4 text-xl text-center mx-16">Join the competition and let your voice be heard! Whether it’s pop, classical, or folk, sing your way to stardom!</p>
+        </div>
+        <div className="text-center">
+          <Link href="/register">
+            <button className="mt-10 font-bold py-2 px-4 rounded">
+              <Image src="/competition/registerbtn.png" alt="Register Button" width={250} height={250} />
+            </button>
+          </Link>
+        </div>
+        <div className="mt-[6rem]">
+          <h3 className="text-4xl text-center font-bold mb-10">
+            Our <span className="text-sky-700">Winners</span>
+          </h3>
+          <div className='flex justify-center mt-10 gap-14'>
+            <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
+            <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
+            <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
+            <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
+            <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
+          </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Singing
+export default Singing;

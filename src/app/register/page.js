@@ -470,7 +470,7 @@ const RegisterForm = () => {
           <button
             type="submit"
             disabled={isSubmitting} // Disable if submitting or there are errors
-            className={`w-full py-2 bg-[#003470] text-white font-semibold rounded ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#0076ff]'} transition duration-300`}
+            className={`w-full py-2 bg-[#5600ff] text-white font-semibold rounded ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#0076ff]'} transition duration-300`}
           >
             Submit
           </button>
