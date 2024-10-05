@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaBars } from 'react-icons/fa'
 import Link from 'next/link'
-import { getAdminData } from '../../app/services/index';  // Import necessary services
+import { getAdminData, getRegistrationData } from '../../app/services/index';  // Import necessary services
 
 const Navbar = () => {
 
@@ -26,6 +26,25 @@ const Navbar = () => {
     };
     fetchAdminData();
   }, []);
+
+  const [competition, setCompetition] = useState('')
+
+  // Load data from getRegistrationData()
+  useEffect(() => {
+    const fetchRegistrationData = async () => {
+      const response = await getRegistrationData();
+      if (response.success && response.data) {
+        setCompetition(response.data[0].talent.toLowerCase());
+      } else {
+        console.error('Error fetching data:', response.message);
+      }
+    };
+
+    fetchRegistrationData();
+  }, []); // Empty dependency array ensures this runs only on initial render
+
+  useEffect(() => {
+  }, [competition]);
 
   const [isOpen, setIsOpen] = useState(false)
   const [navbarBg, setNavbarBg] = useState('bg-blue-500')
@@ -119,7 +138,7 @@ const Navbar = () => {
           {/* Nav Items - Hidden on Small Screens */}
           <div className="hidden lg:flex flex-row items-center gap-12">
             <Link href="/" className="text-xl font-semibold hover:underline transition-colors duration-200">Home</Link>
-            <Link href="/" className="text-xl font-semibold hover:underline transition-colors duration-200">Competition</Link>
+            <Link href={`/${competition}`} className="text-xl font-semibold hover:underline transition-colors duration-200">Competition</Link>
             <Link href="/register" className="text-xl font-semibold hover:underline transition-colors duration-200">Register</Link>
             <Link href="/" className="text-xl font-semibold hover:underline transition-colors duration-200">About Us</Link>
           </div>
