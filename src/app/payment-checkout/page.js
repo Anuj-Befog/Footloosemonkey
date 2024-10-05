@@ -136,7 +136,7 @@ const PaymentCheckout = () => {
         <div className="cart-items col-span-2">
           <div className="cart-header flex justify-between items-center mb-2">
             <h1 className="md:text-2xl sm:text-xl text-base font-medium pb-0">Payment Checkout</h1>
-            <button onClick={() => router.push('/register')} className="px-6 py-2 bg-[#5600ff] text-white font-semibold rounded hover:bg-[#0076ff] transition duration-300">
+            <button onClick={() => router.push('/register')} className="px-6 py-2 bg-[#004873] text-white font-semibold rounded hover:bg-[#0076ff] transition duration-300">
               Go back
             </button>
           </div>
@@ -217,7 +217,7 @@ const PaymentCheckout = () => {
                 </div>
                 <button
                   type='submit'
-                  className={`w-full py-2 bg-[#5600ff] text-white font-semibold rounded ${paymentStatus ? 'hover:bg-[#0076ff]' : 'opacity-50 cursor-not-allowed'
+                  className={`w-full py-2 bg-[#004873] text-white font-semibold rounded ${paymentStatus ? 'hover:bg-[#0076ff]' : 'opacity-50 cursor-not-allowed'
                     } transition duration-300`}
                   disabled={!paymentStatus}
                 >

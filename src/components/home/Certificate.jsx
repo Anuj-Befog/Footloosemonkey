@@ -6,7 +6,7 @@ import Link from 'next/link';
 const Certificate = () => {
   return (
     <div className="bg-[aliceblue] w-full py-16 flex flex-col items-center">
-      <h1 className='text-5xl text-center font-semibold mt-14 '>Certifications and Prizes</h1>
+      <h1 className='text-5xl text-center font-semibold mt-14 text-sky-700'>Certifications and Prizes</h1>
 
       <div className="mt-6 px-6 max-w-[1000px] text-center">
         <p className="text-lg">

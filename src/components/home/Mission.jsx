@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion'; // Ensure to import correctly
+import Link from 'next/link';
 
 const Mission = () => {
   const [currentImage, setCurrentImage] = useState(0); // State for current image index in slider
@@ -62,14 +63,16 @@ const Mission = () => {
 
       {/* Content Section */}
       <div className="w-full flex flex-col items-center justify-center lg:w-1/2 lg:order-2 order-1 px-6 lg:px-16 py-8">
-        <h1 className="text-3xl lg:text-[35px] font-semibold mb-6">Our Mission</h1>
+        <h1 className="text-3xl lg:text-[35px] font-semibold mb-6 text-sky-700">Our Mission</h1>
         <p className="text-lg mb-6">
           Welcome to Footloosemonkey, where young stars shine bright! Our mission is to provide a fun, safe, and inspiring platform for children aged 6 to 10 to showcase their talents in singing, dancing, acting, mimicry, and more. At Footloosemonkey, we believe every child is unique and talented in their own way, and we are here to celebrate and nurture that talent. Join us in our exciting competitions, make new friends, and discover your amazing potential!
         </p>
         <div>
-          <button className="px-6 py-2 bg-[#5600ff] text-white font-semibold rounded hover:bg-[#0076ff] transition duration-300">
-            Know More
-          </button>
+          <Link href="/about">
+            <button className="px-6 py-2 bg-[#004873] text-white font-semibold rounded hover:bg-[#0076ff] transition duration-300">
+              Know More
+            </button>
+          </Link>
         </div>
       </div>
     </motion.div>

@@ -140,7 +140,7 @@ const Navbar = () => {
             <Link href="/" className="text-xl font-semibold hover:underline transition-colors duration-200">Home</Link>
             <Link href={`/${competition}`} className="text-xl font-semibold hover:underline transition-colors duration-200">Competition</Link>
             <Link href="/register" className="text-xl font-semibold hover:underline transition-colors duration-200">Register</Link>
-            <Link href="/" className="text-xl font-semibold hover:underline transition-colors duration-200">About Us</Link>
+            <Link href="/about" className="text-xl font-semibold hover:underline transition-colors duration-200">About Us</Link>
           </div>
         </div>
       </nav>
@@ -151,7 +151,7 @@ const Navbar = () => {
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            className="fixed top-0 left-0 w-64 h-full bg-[#5600ff] shadow-lg z-40"
+            className="fixed top-0 left-0 w-64 h-full bg-[#004873] shadow-lg z-40"
           >
             <div className="flex flex-col items-start p-6 mt-20 font-bold">
               <button

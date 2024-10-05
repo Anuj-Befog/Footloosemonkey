@@ -6,7 +6,7 @@ import Link from 'next/link'
 const Contact = () => {
   return (
     <div className='bg-[aliceblue] flex flex-col items-center w-full pb-7 pt-10 px-4 sm:px-6 lg:px-8'>
-      <h1 className='text-5xl font-semibold'>Contact Us</h1>
+      <h1 className='text-5xl font-semibold text-sky-700'>Contact Us</h1>
       <p className='text-lg mt-2 text-center'>
         For more information or any queries, feel free to reach out to us at:
       </p>

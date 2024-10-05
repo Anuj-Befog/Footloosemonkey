@@ -15,7 +15,7 @@ const About = () => {
 
   return (
     <div className="py-16 px-8 w-full flex flex-col items-center bg-[aliceblue]">
-      <h1 className="text-5xl font-semibold ">About</h1>
+      <h1 className="text-5xl font-semibold text-sky-700">About Us</h1>
 
       <div className="mt-12 max-w-[800px] text-center">
         <h2 className="text-3xl font-semibold">Welcome to Footloosemonkey!</h2>
@@ -32,12 +32,12 @@ const About = () => {
       </div>
 
       <div className="mt-12 w-full max-w-[800px]">
-        <h2 className="text-3xl font-semibold text-center mb-6">What We Offer</h2>
+        <h2 className="text-4xl pt-14 font-semibold text-center mb-6">What We Offer</h2>
         <div className="grid grid-cols-2 gap-6 md:grid-cols-4 justify-center">
           {texts.map((text, key) => (
             <motion.div
               key={key}
-              className="flex justify-center items-center rounded-full bg-[#6e96cf] text-white w-full h-[45px]"
+              className="flex justify-center items-center rounded-full bg-[#004873] text-white w-full h-[45px]"
               whileHover={{ scale: 1.05 }}
             >
               <p className="text-lg">{text}</p>
@@ -75,13 +75,13 @@ const About = () => {
       </div>
 
       <div className="mt-16 max-w-[900px] text-center">
-        <h2 className="text-4xl font-semibold">Join Us</h2>
+        <h2 className="text-4xl font-semibold text-sky-700">Join Us</h2>
         <p className="mt-6 text-lg">
           At Footloosemonkey, every child is a star. We invite you to join us in this exciting journey of discovering and celebrating young talents. Let your child&apos;s imagination and creativity soar as they step into the spotlight!
         </p>
         <motion.button
           onClick={() => router.push('/register')}
-          className="mt-8 bg-[#004873] hover:bg-[#0076ff] text-white px-6 py-2 rounded-lg"
+          className="mt-8 bg-[#004873] hover:bg-[#0076ff] text-white px-6 py-2 rounded-lg transition duration-300"
           whileHover={{ scale: 1.05 }}
         >
           Register Now
