@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const Certificate = () => {
   return (
@@ -29,11 +30,13 @@ const Certificate = () => {
               className="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center transition-opacity duration-300"
               whileHover={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }} // Dark mask on hover
             >
-              <motion.button
-                className="bg-[#E5C3FF] text-white px-4 py-2 rounded opacity-0 hover:opacity-100 transition-opacity duration-300"
-              >
-                Get Prize
-              </motion.button>
+              <Link href="/register">
+                <motion.button
+                  className="bg-[#E5C3FF] text-white px-4 py-2 rounded opacity-0 hover:opacity-100 transition-opacity duration-300"
+                >
+                  Get Prize
+                </motion.button>
+              </Link>
             </motion.div>
           </motion.div>
         ))}

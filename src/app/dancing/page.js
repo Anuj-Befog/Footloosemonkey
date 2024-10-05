@@ -40,10 +40,10 @@ const Dancing = () => {
             alt="Dancer"
             width={600}
             height={400}
-            className="my-[-10rem]"
+            className="my-[-10rem] h-[62rem]"
           />
         </div>
-        <div className="pt-56">
+        <div className="pt-32">
           <p className="pt-4 text-xl text-center mx-16">Join the competition and let the rhythm take over as you dance your way to victory!</p>
         </div>
         <div className="text-center">
