@@ -1,9 +1,30 @@
 "use client"
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { getRegistrationData } from '../../app/services/index';  // Import necessary services
+
 
 const Footer = () => {
+  const [competition, setCompetition] = useState('')
+
+  // Load data from getRegistrationData()
+  useEffect(() => {
+    const fetchRegistrationData = async () => {
+      const response = await getRegistrationData();
+      if (response.success && response.data) {
+        setCompetition(response.data[0].talent.toLowerCase());
+      } else {
+        console.error('Error fetching data:', response.message);
+      }
+    };
+
+    fetchRegistrationData();
+  }, []); // Empty dependency array ensures this runs only on initial render
+
+  useEffect(() => {
+  }, [competition]);
+
   return (
     <footer className='bg-[#6e96cf] w-full py-8'>
       <div className='max-w-screen-xl mx-auto px-4 lg:px-8'>
@@ -25,7 +46,7 @@ const Footer = () => {
                   <Link href="/register" className="hover:underline">Registration</Link>
                 </li>
                 <li className="mb-4">
-                  <Link href="/register" className="hover:underline">Competition</Link>
+                  <Link href={`/${competition}`} className="hover:underline">Competition</Link>
                 </li>
                 <li className="mb-4">
                   <Link href="/about" className="hover:underline">About Us</Link>

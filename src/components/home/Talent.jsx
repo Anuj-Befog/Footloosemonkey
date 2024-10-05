@@ -17,7 +17,7 @@ const Talent = () => {
         Showcase your Talent
       </h1>
 
-      <div className="w-[77%] flex space-x-4 overflow-x-auto pb-4 hide-scrollbar">
+      <div className="w-[77%] flex space-x-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-[#6e96cf] scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
         {texts.map((text, index) => (
           <motion.div
             key={index}
