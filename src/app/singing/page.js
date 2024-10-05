@@ -24,7 +24,7 @@ const Singing = () => {
             </div>
             <div className="mt-12">
               <h3 className="text-2xl font-bold">Who Can Participate?</h3>
-              <p className="text-xl mt-7 mx-14">All aspiring singers between the ages of 5 to 15 who love to sing and want to share their passion with the world!</p>
+              <p className="text-xl mt-7 mx-14">All aspiring singers between the ages of 6 to 12 who love to sing and want to share their passion with the world!</p>
             </div>
             <div className="mt-12">
               <h3 className="text-2xl font-bold">How to Join:</h3>
@@ -49,7 +49,7 @@ const Singing = () => {
         <div className="text-center">
           <Link href="/register">
             <button className="mt-10 font-bold py-2 px-4 rounded">
-              <Image src="/competition/registerbtn.png" alt="Register Button" width={250} height={250} />
+              <Image src="/competition/registerbtn.png" alt="Register Button" width={300} height={300} />
             </button>
           </Link>
         </div>

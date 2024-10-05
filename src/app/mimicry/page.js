@@ -51,7 +51,7 @@ const Mimicry = () => {
         <div className="text-center">
           <Link href="/register">
             <button className="mt-10 font-bold py-2 px-4 rounded">
-              <Image src="/competition/registerbtn.png" alt="Register Button" width={250} height={250} />
+              <Image src="/competition/registerbtn.png" alt="Register Button" width={300} height={300} />
             </button>
           </Link>
         </div>

@@ -86,7 +86,7 @@ const Navbar = () => {
                       <Link href={'/register'}>
                         <div className='text-xl font-semibold'>
                           Get ready for the <strong>{item.talent}</strong> Competition at <strong>Footloosemonkey</strong>! Registrations are now
-                          <span className="p-1 px-2 mx-[0.5rem] w-auto bg-white dark:bg-[#181a1b] text-[#6e96cf] lg:text-l font-rubik font-semibold rounded-md">
+                          <span className="p-1 px-2 mx-[0.5rem] w-auto bg-red-500 dark:bg-[#181a1b] text-white lg:text-l font-rubik font-semibold rounded-md">
                             LIVE
                           </span>
                         </div>
@@ -122,10 +122,10 @@ const Navbar = () => {
         )}
 
         {/* Navbar */}
-        <div className="flex flex-row items-center justify-between w-full px-6 py-4">
+        <div className="flex flex-row items-center justify-between w-full px-6 py-4 h-[5rem] relative">
           {/* Logo */}
           <Link href='/'>
-            <Image src="/logo.png" width={45} height={45} className="my-1" alt="Logo" />
+            <Image src="/logo.png" width={65} height={65} className="my-1 absolute top-0" alt="Logo" />
           </Link>
 
           {/* Hamburger Menu Icon for Small Screens */}

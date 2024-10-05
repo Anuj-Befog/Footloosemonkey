@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 
 const Hero = () => {
   const router = useRouter()
-  
+
   return (
     <motion.div
       initial={{ opacity: 0 }}  // Initial state for animation
@@ -49,7 +49,7 @@ const Hero = () => {
         <div className="mt-4">
           <p className="text-lg text-black">
             Welcome to Footloosemonkey, the ultimate kid s talent competition
-            platform! Young stars aged 5 to 15 can showcase their talents in
+            platform! Young stars aged 6 to 12 can showcase their talents in
             dancing, singing, acting, and more. Our mission is to provide a fun,
             encouraging environment where children can express their creativity,
             build confidence, and compete for exciting prizes. Join us in
