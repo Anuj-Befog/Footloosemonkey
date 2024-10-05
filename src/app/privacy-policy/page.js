@@ -37,7 +37,7 @@ export default function PrivacyPolicy() {
 
                     <h2 className="text-3xl font-semibold mb-6 text-sky-700">Contact Us</h2>
                     <p className="text-lg leading-8 text-gray-700 mb-4">
-                        If you have any questions about this Privacy Policy, please contact us at support@footloosemonkey.club.
+                        If you have any questions about this Privacy Policy, please contact us at footloosemonkey@gmail.com.
                     </p>
                 </div>
             </div>
