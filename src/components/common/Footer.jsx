@@ -77,10 +77,10 @@ const Footer = () => {
               <h2 className="mb-6 text-base font-semibold uppercase">About</h2>
               <ul className="font-medium">
                 <li className="mb-4">
-                  <Link href="/company" className="hover:underline">Company</Link>
+                  <Link href="/about" className="hover:underline">Company</Link>
                 </li>
                 <li className="mb-4">
-                  <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
+                  <Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link>
                 </li>
               </ul>
               <h2 className="mt-6 text-base font-semibold uppercase">Connect with us -</h2>
