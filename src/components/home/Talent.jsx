@@ -13,15 +13,15 @@ const Talent = () => {
 
   return (
     <div className='w-full flex flex-col items-center justify-center p-4 bg-[aliceblue]'>
-      <h1 className='text-5xl text-center font-semibold mb-10 text-sky-700'>
+      <h1 className='text-5xl mt-14 md:mt-2 text-center font-semibold mb-10 text-sky-700'>
         Showcase your Talent
       </h1>
 
-      <div className="w-[77%] flex space-x-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-[#6e96cf] scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
+      <div className="w-[100%] md:w-[77%] flex space-x-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-[#6e96cf] scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
         {texts.map((text, index) => (
           <motion.div
             key={index}
-            className="min-w-[200px] rounded-xl sm:min-w-[250px] p-4 sm:p-6 bg-[#6e96cf] border border-gray-200 rounded-lg shadow-lg flex-shrink-0 cursor-pointer"
+            className="min-w-[200px] md:rounded-xl sm:min-w-[250px] overflow-hidden p-4 sm:p-6 bg-[#6e96cf] border border-gray-200 rounded-lg shadow-lg flex-shrink-0 cursor-pointer"
             onClick={() => handleNavigate(text)}
             whileHover={{ scale: 1.01 }}
             transition={{ duration: 0.3 }}

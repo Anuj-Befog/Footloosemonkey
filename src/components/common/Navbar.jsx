@@ -70,6 +70,12 @@ const Navbar = () => {
     }
   }, [])
 
+  const handleCloseMenu = () => {
+    setTimeout(() => {
+      toggleDrawer();
+    }, 300);
+  }
+
   return (
     <>
       {/* Sticky Navbar with background change on scroll */}
@@ -84,7 +90,7 @@ const Navbar = () => {
                   return (
                     <div key={index} className="leading-6 lg:text-lg text-[#fff] font-rubik flex">
                       <Link href={'/register'}>
-                        <div className='text-xl font-semibold'>
+                        <div className='md:text-xl leading-8 font-semibold sm:text-lg'>
                           Get ready for the <strong>{item.talent}</strong> Competition at <strong>Footloosemonkey</strong>! Registrations are now
                           <span className="p-1 px-2 mx-[0.5rem] w-auto bg-red-500 dark:bg-[#181a1b] text-white lg:text-l font-rubik font-semibold rounded-md">
                             LIVE
@@ -98,7 +104,7 @@ const Navbar = () => {
               <button
                 aria-label="close"
                 onClick={closeAlert}
-                className="rotate-45 text-4xl text-[#fff] relative left-[3rem] transition-transform duration-500 hover:rotate-[405deg]"  // 45deg + 360deg
+                className="rotate-45 text-4xl text-[#fff] relative lg:left-[3rem] left-0 mt-[1rem] lg:mt-0 transition-transform duration-500 hover:rotate-[405deg]"  // 45deg + 360deg
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -110,13 +116,12 @@ const Navbar = () => {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="lucide lucide-plus border-2 border-white"
+                  className="lucide lucide-plus border-2 border-white hover:border-2 hover:border-white hover:scale-105 hover:bg-red-500 transition transition-300"
                 >
                   <path d="M5 12h14"></path>
                   <path d="M12 5v14"></path>
                 </svg>
               </button>
-
             </div>
           </div>
         )}
@@ -151,19 +156,27 @@ const Navbar = () => {
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            className="fixed top-0 left-0 w-64 h-full bg-[#004873] shadow-lg z-40"
+            className="fixed top-0 left-0 w-64 h-full bg-[#6e96cf] shadow-lg z-40"
           >
-            <div className="flex flex-col items-start p-6 mt-20 font-bold">
+            <div className="flex flex-col items-start p-6 mt-[18rem] font-bold">
               <button
-                className="text-xl mb-6 text-white"
+                className="text-xl font-bold mb-6 text-white"
                 onClick={toggleDrawer}
               >
                 Close
               </button>
-              <h1 className="text-xl font-semibold  hover:text-blue-300 transition-colors duration-200 mb-4">Home</h1>
-              <h1 className="text-xl font-semibold  hover:text-blue-300 transition-colors duration-200 mb-4">Competition</h1>
-              <h1 className="text-xl font-semibold  hover:text-blue-300 transition-colors duration-200 mb-4">Register</h1>
-              <h1 className="text-xl font-semibold  hover:text-blue-300 transition-colors duration-200">About Us</h1>
+              <Link href="/" onClick={handleCloseMenu}>
+                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Home</h1>
+              </Link>
+              <Link href={`/${competition}`} onClick={handleCloseMenu}>
+                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Competition</h1>
+              </Link>
+              <Link href="/register" onClick={handleCloseMenu}>
+                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Register</h1>
+              </Link>
+              <Link href="/about" onClick={handleCloseMenu}>
+                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200">About Us</h1>
+              </Link>
             </div>
           </motion.div>
         )}

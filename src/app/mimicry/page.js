@@ -40,10 +40,10 @@ const Mimicry = () => {
             alt="Dancer"
             width={500}
             height={400}
-            className="h-[50rem]"
+            className="h-[50rem] hidden md:block"
           />
         </div>
-        <div className="pt-32">
+        <div className="md:pt-32 pt-16">
           <p className="pt-4 text-xl text-center mx-16">
             Step into the world of mimicry and become the next impressionist star! Have fun, impress the audience, and claim your moment in the spotlight.
           </p>
@@ -56,15 +56,16 @@ const Mimicry = () => {
           </Link>
         </div>
         <div className="mt-[6rem]">
-          <h3 className="text-4xl text-center font-bold mb-10">
+          <h3 className="text-5xl text-center font-bold mb-10">
             Our <span className="text-sky-700">Winners</span>
           </h3>
-          <div className="flex justify-center mt-10 gap-14">
-            <Image key={1} src="/competition/winner.png" width={178} height={164} alt="winner" />
-            <Image key={2} src="/competition/winner.png" width={178} height={164} alt="winner" />
-            <Image key={3} src="/competition/winner.png" width={178} height={164} alt="winner" />
-            <Image key={4} src="/competition/winner.png" width={178} height={164} alt="winner" />
-            <Image key={5} src="/competition/winner.png" width={178} height={164} alt="winner" />
+          {/* Responsive Grid Layout */}
+          <div className="flex justify-center items-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center mt-10">
+              <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
+              <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
+              <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
+            </div>
           </div>
         </div>
       </div>

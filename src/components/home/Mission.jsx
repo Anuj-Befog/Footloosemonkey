@@ -42,7 +42,7 @@ const Mission = () => {
       variants={fadeInVariants}
       className="w-full min-h-[729px] flex flex-col lg:flex-row items-center bg-[aliceblue]"
     >
-      <div className="w-full lg:w-1/2 flex justify-center lg:order-1 order-2 mb-2 lg:mb-0">
+      <div className="md:w-full w-[90%] lg:w-1/2 flex justify-center lg:order-1 order-2 mb-2 lg:mb-0">
         <motion.div
           key={currentImage}
           initial="hidden"

@@ -83,7 +83,7 @@ const Footer = () => {
                   <Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link>
                 </li>
               </ul>
-              <h2 className="mt-6 text-base font-semibold uppercase">Connect with us -</h2>
+              <h2 className="mt-6 text-base font-bold uppercase">Connect with us </h2>
               <div className="flex items-center space-x-5 mt-4">
                 <div onClick={() => window.location.href = 'mailto:footloosemonkey@gmail.com'} target="_blank" className="text-white cursor-pointer hover:text-gray-300">
                   <Image src="/social/gmail.png" className='w-[2.5rem] h-[2.5rem]' width={100} height={100} alt="YouTube" />

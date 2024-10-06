@@ -40,10 +40,10 @@ const Dancing = () => {
             alt="Dancer"
             width={600}
             height={400}
-            className="my-[-10rem] h-[62rem]"
+            className="my-[-10rem] h-[62rem] hidden md:block"
           />
         </div>
-        <div className="pt-32">
+        <div className="md:pt-32 pt-16">
           <p className="pt-4 text-xl text-center mx-16">Join the competition and let the rhythm take over as you dance your way to victory!</p>
         </div>
         <div className="text-center">
@@ -54,15 +54,16 @@ const Dancing = () => {
           </Link>
         </div>
         <div className="mt-[6rem]">
-          <h3 className="text-4xl text-center font-bold mb-10">
+          <h3 className="text-5xl text-center font-bold mb-10">
             Our <span className="text-sky-700">Winners</span>
           </h3>
-          <div className='flex justify-center mt-10 gap-14'>
-            <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
-            <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
-            <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
-            <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
-            <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
+          {/* Responsive Grid Layout */}
+          <div className="flex justify-center items-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center mt-10">
+              <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
+              <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
+              <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
+            </div>
           </div>
         </div>
       </div>
