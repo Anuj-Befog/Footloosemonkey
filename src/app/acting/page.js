@@ -5,8 +5,8 @@ const Acting = () => {
   return (
     <div className="bg-[#E0F7FA]">
       <div className="pt-10 pb-14 container">
-        <h2 className="text-5xl text-center font-bold mb-20">Acting Competition</h2>
-        <div className="flex ml-14">
+        <h2 className="text-5xl text-center font-bold md:mb-20 mb-14">Acting Competition</h2>
+        <div className="flex md:ml-14">
           <div>
             <h1 className="text-2xl font-semibold text-[#004873] mb-6">
               Unleash Your Inner Star with Our Acting Competition!
@@ -16,7 +16,7 @@ const Acting = () => {
             </p>
             <div className="mt-12">
               <h3 className="text-2xl font-bold">Why Join?</h3>
-              <ul className="text-left text-xl mx-16 list-disc list-inside mt-4 space-y-2">
+              <ul className="text-left text-xl md:mx-16 list-disc list-inside mt-4 space-y-2">
                 <li><span className="font-semibold text-sky-900">Show Your Talent:</span> Perform your favorite scenes, monologues, or create your own original skits.</li>
                 <li><span className="font-semibold text-sky-900">Build Confidence:</span> Acting helps you become more confident and expressive.</li>
                 <li><span className="font-semibold text-sky-900">Win Prizes:</span> Stand a chance to win awesome prizes and recognition for your talent.</li>
@@ -24,11 +24,11 @@ const Acting = () => {
             </div>
             <div className="mt-12">
               <h3 className="text-2xl font-bold">Who Can Participate?</h3>
-              <p className="text-xl mt-7 mx-14">All young stars aged 6 to 12 who love acting and performing!</p>
+              <p className="text-xl mt-7 md:mx-14">All young stars aged 6 to 12 who love acting and performing!</p>
             </div>
             <div className="mt-12">
               <h3 className="text-2xl font-bold">How to Join:</h3>
-              <ol className="text-left text-xl mx-16 list-disc list-inside mt-4 space-y-2">
+              <ol className="text-left text-xl md:mx-16 list-disc list-inside mt-4 space-y-2">
                 <li><span className="font-semibold text-sky-900">Register:</span> Click the Register button below to sign up.</li>
                 <li><span className="font-semibold text-sky-900">Prepare Your Act:</span> Practice your performance and get ready to impress the judges.</li>
                 <li><span className="font-semibold text-sky-900">Submit Your Video:</span> Record your act and upload it to our platform.</li>
@@ -44,7 +44,7 @@ const Acting = () => {
           />
         </div>
         <div className="md:pt-32 pt-16">
-          <p className="pt-4 text-xl text-center mx-16">
+          <p className="pt-4 text-xl text-center md:mx-16">
             Join us and step into the world of acting where your imagination knows no bounds! Show the world what you&apos;ve got and become the next big star!
           </p>
         </div>

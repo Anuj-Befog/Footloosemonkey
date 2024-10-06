@@ -5,8 +5,8 @@ const Dancing = () => {
   return (
     <div className='bg-[#E0F7FA]'>
       <div className="pt-10 pb-14 container">
-        <h2 className="text-5xl text-center font-bold mb-20">Dancing Competition</h2>
-        <div className="flex ml-14">
+        <h2 className="text-5xl text-center font-bold md:mb-20 mb-14">Dancing Competition</h2>
+        <div className="flex md:ml-14">
           <div>
             <h1 className="text-2xl font-semibold text-[#004873] mb-6">
               Let the Rhythm Move You in Our Dancing Competition!

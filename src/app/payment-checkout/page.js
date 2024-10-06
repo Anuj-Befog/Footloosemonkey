@@ -67,7 +67,7 @@ const PaymentCheckout = () => {
 
     const response = await addPaymentData(paymentData);
     if (response.success) {
-      
+
     } else {
       console.error("Error adding payment data:", response.message);
     }
@@ -162,7 +162,7 @@ const PaymentCheckout = () => {
             </button>
           </div>
           {/* Cart Table */}
-          <div className="relative w-full overflow-auto">
+          <div className="relative w-full">
             <table className="w-full text-sm">
               <thead className="border-b">
                 <tr className="border-b text-gray-600 uppercase">
@@ -170,10 +170,10 @@ const PaymentCheckout = () => {
                 </tr>
               </thead>
               <tbody>
-                {registerData.map((registerData, index) => (
+                {registerData.map((data, index) => (
                   <tr key={index} className="border-b py-1 px-10 hover:bg-muted/50">
-                    <td className="p-1.5 w-96">
-                      <div className="flex items-start">
+                    <td className="p-1.5">
+                      <div className="flex flex-col md:flex-row items-start">
                         <div className="img-qty flex flex-col w-[5vw] h-[5vh] mr-3">
                           <Image
                             alt="MSI GF 63 thin laptop"
@@ -182,18 +182,17 @@ const PaymentCheckout = () => {
                             height="100"
                             className="md:w-28 w-20 md:h-24 h-20 mx-auto mb-1.5"
                             src="/logo.png"
-                            style={{ color: 'transparent' }}
                           />
                         </div>
                         <div className="text-base">
-                          <p className="font-semibold uppercase">{registerData.talent} COMPETITION FOR AGE {registerData.ageCriteria}</p>
+                          <p className="font-semibold uppercase">{data.talent} COMPETITION FOR AGE {data.ageCriteria}</p>
                           <div className='flex gap-1'>
-                            <p className="text-gray-500 font-medium uppercase text-sm mt-2 mb-1">{registerData.participantName} |</p>
-                            <p className="text-gray-500 font-medium uppercase text-sm mt-2 mb-1">{registerData.guardianNumber} |</p>
-                            <p className="text-gray-500 font-medium text-sm mt-2 mb-1">{registerData.email}</p>
+                            <p className="text-gray-500 font-medium uppercase text-sm">{data.participantName} |</p>
+                            <p className="text-gray-500 font-medium uppercase text-sm">{data.guardianNumber} |</p>
+                            <p className="text-gray-500 font-medium text-sm">{data.email}</p>
                           </div>
                           <p className="md:text-sm text-xs">
-                            <span className="text-red-600 font-medium mr-2">₹ {registerData.charge}</span>
+                            <span className="text-red-600 font-medium mr-2">₹ {data.charge}</span>
                           </p>
                         </div>
                       </div>
