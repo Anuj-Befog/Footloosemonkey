@@ -158,7 +158,7 @@ const Navbar = () => {
             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
             className="fixed top-0 left-0 w-64 h-full bg-[#6e96cf] shadow-lg z-40 flex items-center"
           >
-            <div className="flex flex-col items-start p-6 font-bold">
+            <div className="flex flex-col items-start p-6 mt-24 font-bold">
               <button
                 className="text-xl font-bold mb-6 text-white"
                 onClick={toggleDrawer}
