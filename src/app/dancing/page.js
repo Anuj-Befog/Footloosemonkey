@@ -53,19 +53,6 @@ const Dancing = () => {
             </button>
           </Link>
         </div>
-        <div className="mt-[6rem]">
-          <h3 className="text-5xl text-center font-bold mb-10">
-            Our <span className="text-sky-700">Winners</span>
-          </h3>
-          {/* Responsive Grid Layout */}
-          <div className="flex justify-center items-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center mt-10">
-              <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
-              <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
-              <Image src="/competition/winner.png" width={178} height={164} alt="winner" />
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
