@@ -32,10 +32,10 @@ const Footer = () => {
           <div className="mb-6 md:mb-0">
             <Link href="/" className="flex items-center">
               <Image src="/logo.png" width={90} height={90} alt="Logo" />
-              <span className="self-center text-2xl font-semibold text-white ml-3">Footloosemonkey</span>
+              <span className="self-center text-2xl font-bold text-white ml-3">Footloosemonkey</span>
             </Link>
           </div>
-          <div className='grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 text-white'>
+          <div className='grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-4 items-baseline text-white'>
             <div>
               <h2 className="mb-6 text-base font-semibold uppercase">Quick Links</h2>
               <ul className="font-medium">
@@ -82,10 +82,19 @@ const Footer = () => {
                 <li className="mb-4">
                   <Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link>
                 </li>
+                <li className="mb-4">
+                  <Link href="/refund-policy" className="hover:underline">Refund Policy</Link>
+                </li>
+                <li className="mb-4">
+                  <Link href="/terms-condition-policy" className="hover:underline">Terms and Condition</Link>
+                </li>
               </ul>
+
+            </div>
+            <div>
               <h2 className="mt-6 text-base font-bold uppercase">Connect with us </h2>
               <div className="flex items-center space-x-5 mt-4">
-                <div onClick={() => window.location.href = 'mailto:footloosemonkey@gmail.com'} target="_blank" className="text-white cursor-pointer hover:text-gray-300">
+                <div onClick={() => window.location.href = 'mailto:contact@footloosemonkey.club'} target="_blank" className="text-white cursor-pointer hover:text-gray-300">
                   <Image src="/social/gmail.png" className='w-[2.5rem] h-[2.5rem]' width={100} height={100} alt="YouTube" />
                 </div>
                 <Link href="https://www.facebook.com/profile.php?id=61559932162853" target="_blank" className="text-white hover:text-gray-300">
@@ -99,8 +108,8 @@ const Footer = () => {
           </div>
         </div>
         <hr className="my-6 border-gray-200 dark:border-gray-700" />
-        <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="text-sm text-gray-200 sm:text-center">© 2023 Footloosemonkey. All Rights Reserved.</span>
+        <div className="sm:flex sm:items-center text-center sm:justify-between">
+          <span className="text-sm text-gray-200 sm:text-center">© {new Date().getFullYear()} <b>Footloosemonkey</b> - A&W Technologies. All Rights Reserved.</span>
         </div>
       </div>
     </footer>

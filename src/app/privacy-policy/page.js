@@ -5,7 +5,7 @@ export default function PrivacyPolicy() {
                 <h1 className="text-5xl font-bold text-center mb-12 text-sky-700">Privacy Policy</h1>
 
                 <div className="bg-white shadow-lg p-8 rounded-lg">
-                    <h2 className="text-3xl font-semibold mb-6 text-sky-700">Introduction</h2>
+                    <h2 className="text-[2.5rem] font-semibold mb-6 text-sky-700">Introduction</h2>
                     <p className="text-lg leading-8 text-gray-700 mb-4">
                         At Footloose Monkey, we value your privacy and are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and safeguard your data.
                     </p>
@@ -37,7 +37,7 @@ export default function PrivacyPolicy() {
 
                     <h2 className="text-3xl font-semibold mb-6 text-sky-700">Contact Us</h2>
                     <p className="text-lg leading-8 text-gray-700 mb-4">
-                        If you have any questions about this Privacy Policy, please contact us at footloosemonkey@gmail.com.
+                        If you have any questions about this Privacy Policy, please contact us at contact@footloosemonkey.club.
                     </p>
                 </div>
             </div>
