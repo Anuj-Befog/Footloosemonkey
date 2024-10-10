@@ -82,7 +82,7 @@ export default function TermsAndConditions() {
                         <li>Company: A&W Technologies</li>
                         <li>Email: contact@footloosemonkey.club</li>
                         <li>Phone: +91 7985322738</li>
-                        <li>Address: Lucknow, Uttar Pradesh</li>
+                        <li>Address: Near engineering college chauraha lucknow UP 226021</li>
                     </ul>
                 </div>
             </div>
