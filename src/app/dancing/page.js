@@ -16,7 +16,7 @@ const Dancing = () => {
             </p>
             <div className="mt-12">
               <h3 className="text-2xl font-bold">Why Join?</h3>
-              <ul className="text-left text-xl mx-16 list-disc list-inside mt-4 space-y-2">
+              <ul className="text-left text-xl md:mx-16 list-disc list-inside mt-4 space-y-2">
                 <li><span className="font-semibold text-sky-900">Show Your Talent:</span> Impress the judges with your unique dance routine.</li>
                 <li><span className="font-semibold text-sky-900">Build Confidence:</span> Step into the spotlight and feel the thrill of performing on stage.</li>
                 <li><span className="font-semibold text-sky-900">Win Prizes:</span> Compete for a chance to win exciting awards and be recognized for your talent.</li>
@@ -24,11 +24,11 @@ const Dancing = () => {
             </div>
             <div className="mt-12">
               <h3 className="text-2xl font-bold">Who Can Participate?</h3>
-              <p className="text-xl mt-7 mx-14">All aspiring dancers between the ages of 6 to 12 who love to dancing and want to share their passion with the world!</p>
+              <p className="text-xl mt-7 md:mx-14">All aspiring dancers between the ages of 6 to 12 who love to dancing and want to share their passion with the world!</p>
             </div>
             <div className="mt-12">
               <h3 className="text-2xl font-bold">How to Join:</h3>
-              <ol className="text-left text-xl mx-16 list-disc list-inside mt-4 space-y-2">
+              <ol className="text-left text-xl md:mx-16 list-disc list-inside mt-4 space-y-2">
                 <li><span className="font-semibold text-sky-900">Register:</span> Click the Register button to sign up.</li>
                 <li><span className="font-semibold text-sky-900">Prepare Your Act:</span> Rehearse and perfect your dance routine.</li>
                 <li><span className="font-semibold text-sky-900">Perform on Stage:</span> Bring your routine to life and impress the crowd!</li>
@@ -44,7 +44,7 @@ const Dancing = () => {
           />
         </div>
         <div className="md:pt-32 pt-16">
-          <p className="pt-4 text-xl text-center mx-16">Join the competition and let the rhythm take over as you dance your way to victory!</p>
+          <p className="pt-4 text-xl text-center md:mx-16">Join the competition and let the rhythm take over as you dance your way to victory!</p>
         </div>
         <div className="text-center">
           <Link href="/register">
