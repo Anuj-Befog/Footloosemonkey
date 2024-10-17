@@ -94,7 +94,7 @@ const PaymentCheckout = () => {
     const { order } = await data.json();
 
     const options = {
-      key: "rzp_test_Cl7u3umPOApZLL",
+      key: "rzp_live_lcjTYdvpbHEPK7",
       name: "Footloosemonkey",
       amount: razorpayCharge * 100, // Dynamic amount in paisa
       currency: "INR",
