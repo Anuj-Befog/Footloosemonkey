@@ -86,7 +86,7 @@ export default function AboutUs() {
                             <div className="absolute -top-8 left-4 bg-sky-600 text-white px-4 py-2 rounded-lg text-lg">Most Popular</div>
                             <h3 className="text-4xl font-semibold text-sky-700 mt-8">6-8 Years</h3>
                             <p className="text-5xl font-extrabold text-gray-900 mt-4">₹299</p>
-                            <p className="text-gray-600 mt-2">GST included</p>
+                            <p className="text-gray-600 mt-2">Plus GST</p>
                             <p className="text-lg text-gray-500 mt-4">Includes stage performance, feedback, and exciting activities!</p>
                             <Link href="/register">
                                 <button className="mt-8 bg-sky-700 hover:bg-sky-800 text-white py-3 px-8 rounded-full transition">Register</button>
@@ -99,7 +99,7 @@ export default function AboutUs() {
                             <div className="absolute -top-8 left-4 bg-cyan-600 text-white px-4 py-2 rounded-lg text-lg">Best Value</div>
                             <h3 className="text-4xl font-semibold text-sky-700 mt-8">9-12 Years</h3>
                             <p className="text-5xl font-extrabold text-gray-900 mt-4">₹399</p>
-                            <p className="text-gray-600 mt-2">GST included</p>
+                            <p className="text-gray-600 mt-2">Plus GST</p>
                             <p className="text-lg text-gray-500 mt-4">Perfect for experienced performers aiming to compete for bigger prizes.</p>
                             <Link href="/register">
                                 <button className="mt-8 bg-cyan-600 hover:bg-cyan-700 text-white py-3 px-8 rounded-full transition">Register</button>

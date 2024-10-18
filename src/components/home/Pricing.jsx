@@ -13,7 +13,7 @@ const Pricing = () => {
           <Image src="/home/pricing-young.png" alt="Young Contestent" width={300} height={200} className="mx-auto rounded-lg mb-6" />
           <h3 className="text-3xl font-semibold text-sky-600 mb-4">6-8 Years</h3>
           <p className="text-4xl font-bold text-gray-700 mb-2">₹299</p>
-          <p className="text-lg text-gray-500 mb-6">GST included</p>
+          <p className="text-lg text-gray-500 mb-6">Plus GST</p>
           <p className="text-md text-gray-600">
             Perfect for young stars starting their journey. Includes stage performance, judge feedback, and fun activities!
           </p>
@@ -27,7 +27,7 @@ const Pricing = () => {
           <Image src="/home/pricing-old.png" alt="Older Contestent" width={300} height={200} className="mx-auto rounded-lg mb-6" />
           <h3 className="text-3xl font-semibold text-sky-600 mb-4">9-12 Years</h3>
           <p className="text-4xl font-bold text-gray-700 mb-2">₹399</p>
-          <p className="text-lg text-gray-500 mb-6">GST included</p>
+          <p className="text-lg text-gray-500 mb-6">Plus GST</p>
           <p className="text-md text-gray-600">
             Ideal for more experienced performers who want to showcase their talent and compete for bigger rewards.
           </p>
