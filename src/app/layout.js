@@ -26,18 +26,20 @@ export default function RootLayout({ children }) {
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="..." />
-        <meta name="keywords" content="..." />
+        <meta name="description" content="Join Footloosemonkey, the ultimate talent competition for kids aged 6-12! Showcase your skills in dancing, singing, acting, and more in a fun, encouraging environment. Discover and celebrate young talents today!" />
+        <meta name="keywords" content="Footloosemonkey" />
         <meta name="author" content="..." />
         <meta property="og:title" content="Footloosemonkey - Where Young Talents Shine" />
-        <meta property="og:description" content="..." />
+        <meta property="og:description" content="Join Footloosemonkey, the ultimate talent competition for kids aged 6-12! Showcase your skills in dancing, singing, acting, and more in a fun, encouraging environment. Discover and celebrate young talents today!" />
         <meta property="og:image" content="/img/og-image.png" />
         <meta property="og:url" content="https://www.footloosemonkey.club" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Footloosemonkey - Where Young Talents Shine" />
-        <meta name="twitter:description" content="..." />
+        <meta name="twitter:description" content="Join Footloosemonkey, the ultimate talent competition for kids aged 6-12! Showcase your skills in dancing, singing, acting, and more in a fun, encouraging environment. Discover and celebrate young talents today!" />
         <meta name="twitter:image" content="/img/twitter-image.png" />
         <title>Footloosemonkey</title>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8590034113156778"
+          crossorigin="anonymous"></script>
       </head>
 
       <body className={inter.className}>
