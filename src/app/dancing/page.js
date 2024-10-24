@@ -24,7 +24,7 @@ const Dancing = () => {
             </div>
             <div className="mt-12">
               <h3 className="text-2xl font-bold">Who Can Participate?</h3>
-              <p className="text-xl mt-7 md:mx-14">All aspiring dancers between the ages of 6 to 12 who love to dancing and want to share their passion with the world!</p>
+              <p className="text-xl mt-7 md:mx-14">All aspiring dancers between the ages of 3 to 12 who love to dancing and want to share their passion with the world!</p>
             </div>
             <div className="mt-12">
               <h3 className="text-2xl font-bold">How to Join:</h3>

@@ -18,7 +18,7 @@ export default function Home() {
       <Certificate />
       <About />
       <Pricing />
-      <Voting />
+      {/* <Voting /> */}
       <Contact />
     </>
   );

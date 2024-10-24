@@ -27,7 +27,7 @@ const About = () => {
       <div className="mt-12 max-w-[800px] text-center">
         <h2 className="text-3xl font-semibold">Our Mission</h2>
         <p className="mt-6 text-lg">
-          Our mission is simple yet powerful: To provide a stage for young stars to shine. We aim to create a supportive and inspiring environment where children aged 6 to 12 can showcase their talents, build confidence, and experience the joy of performing.
+          Our mission is simple yet powerful: To provide a stage for young stars to shine. We aim to create a supportive and inspiring environment where children aged 3 to 12 can showcase their talents, build confidence, and experience the joy of performing.
         </p>
       </div>
 

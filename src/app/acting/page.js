@@ -24,7 +24,7 @@ const Acting = () => {
             </div>
             <div className="mt-12">
               <h3 className="text-2xl font-bold">Who Can Participate?</h3>
-              <p className="text-xl mt-7 md:mx-14">All young stars aged 6 to 12 who love acting and performing!</p>
+              <p className="text-xl mt-7 md:mx-14">All young stars aged 3 to 12 who love acting and performing!</p>
             </div>
             <div className="mt-12">
               <h3 className="text-2xl font-bold">How to Join:</h3>
