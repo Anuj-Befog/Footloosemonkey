@@ -63,6 +63,7 @@ const RegisterForm = () => {
   const [options, setOptions] = useState([]);  // Options for dropdown
   const [groupCharge, setGroupCharge] = useState([])
   const [charges, setCharges] = useState('');
+  const [ageRange, setAgeRange] = useState({ min: 0, max: 100 }); // Default age range
   const [dataId, setDataId] = useState(null);  // For fetching existing registration data
 
   // Fetch talents data from Admin
@@ -80,6 +81,7 @@ const RegisterForm = () => {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
+    // Map names to state
     const nameMapping = {
       "Email": "email",
       "Participant Name": "participantName",
@@ -104,6 +106,16 @@ const RegisterForm = () => {
         },
       }));
     } else {
+      // Check for age input and ensure it's within the specified range
+      if (mappedName === "participantAge" && (value < ageRange.min || value > ageRange.max)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          participantAge: `Participant's age must be between ${ageRange.min} and ${ageRange.max} years.`,
+        }));
+      } else {
+        setErrors((prevErrors) => ({ ...prevErrors, participantAge: "" })); // Clear the age error if valid
+      }
+
       setValues((prevValues) => ({
         ...prevValues,
         [mappedName]: value,
@@ -127,15 +139,37 @@ const RegisterForm = () => {
   }, [charges]);
 
   // Handle Age Criteria Change and charges calculation
+  // Handle age criteria change and set charges + min/max age range
   const handleAgeCriteriaChange = (e) => {
-    const age = e.target.value;
-    setValues((prevValues) => ({ ...prevValues, ageCriteria: age }));
+    const ageCriteria = e.target.value;
+    setValues((prevValues) => ({ ...prevValues, ageCriteria }));
 
-    const selectedTalent = options.find((option) => option === values.talent);
-    if (selectedTalent) {
-      const charge = age === "6-8" ? groupCharge[0].groupACharge : groupCharge[0].groupBCharge;
-      setCharges(charge);
+    let charge, minAge, maxAge;
+
+    switch (ageCriteria) {
+      case "3-5":
+        charge = groupCharge[0]?.groupACharge;
+        minAge = 3;
+        maxAge = 5;
+        break;
+      case "6-8":
+        charge = groupCharge[0]?.groupBCharge;
+        minAge = 6;
+        maxAge = 8;
+        break;
+      case "9-12":
+        charge = groupCharge[0]?.groupCCharge;
+        minAge = 9;
+        maxAge = 12;
+        break;
+      default:
+        charge = '';
+        minAge = 0;
+        maxAge = 12;
     }
+
+    setCharges(charge);
+    setAgeRange({ min: minAge, max: maxAge });
   };
 
   // Dropdown Change for Talent
@@ -355,29 +389,27 @@ const RegisterForm = () => {
                 }`}
             >
               <option value="">Select Age Criteria</option>
-              <option value="6-8">6-8 years</option>
-              <option value="9-12">9-12 years</option>
+              <option value="3-5">3-5 years (Group A)</option>
+              <option value="6-8">6-8 years (Group B)</option>
+              <option value="9-12">9-12 years (Group C)</option>
             </select>
+
             {errors.ageCriteria && (
               <p className="text-red-500 text-sm">{errors.ageCriteria}</p>
             )}
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">
-              Participant&apos;s Age:
-            </label>
+            <label className="block text-sm font-medium mb-2">Participant&apos;s Age:</label>
             <input
               type="number"
               name="Participant Age"
               value={values.participantAge}
               onChange={handleChange}
-              placeholder="Age of participant"
-              className={`w-full p-2 border rounded ${errors.participantAge ? "border-red-500" : "border-gray-300"
-                }`}
+              min={ageRange.min}
+              max={ageRange.max}
+              className={`w-full p-2 border rounded ${errors.participantAge ? "border-red-500" : "border-gray-300"}`}
             />
-            {errors.participantAge && (
-              <p className="text-red-500 text-sm">{errors.participantAge}</p>
-            )}
+            {errors.participantAge && <p className="text-red-500 text-sm">{errors.participantAge}</p>}
           </div>
 
           <div className="mb-4">
