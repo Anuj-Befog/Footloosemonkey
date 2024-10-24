@@ -5,8 +5,63 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FaBars } from 'react-icons/fa'
 import Link from 'next/link'
 import { getAdminData, getRegistrationData } from '../../app/services/index';  // Import necessary services
+import gsap from 'gsap';
 
 const Navbar = () => {
+
+  // Alert Animation
+  useEffect(() => {
+    const tl = gsap.timeline({ repeat: -1 });
+
+    // Alert 1 appears
+    tl.from('#alert1', {
+      duration: 0.2,
+      opacity: 1,
+      display: 'none',
+      ease: 'elastic.out'
+    })
+      .to('#alert1', {
+        duration: 1,
+        opacity: 1,
+        display: 'flex',
+        ease: 'elastic.in'
+      })
+      // Alert 1 disappears
+      .to('#alert1', {
+        duration: 0.2,
+        opacity: 1,
+        display: 'none',
+        ease: 'elastic.out',
+        delay: 1  // Pause before it disappears
+      })
+      // Alert 2 appears
+      .from('#alert2', {
+        duration: 0.2,
+        opacity: 1,
+        display: 'none',
+        ease: 'elastic.out'
+      })
+      .to('#alert2', {
+        duration: 1,
+        opacity: 1,
+        display: 'flex',
+        ease: 'elastic.in'
+      })
+      // Alert 2 disappears
+      .to('#alert2', {
+        duration: 0.2,
+        opacity: 1,
+        display: 'none',
+        ease: 'elastic.out',
+        delay: 1  // Pause before it disappears
+      })
+      .from('#alert1', {
+        opacity: 1,
+        display: 'none',
+        ease: 'elastic.out',
+        delay: 0.0000001 // Pause before it appears again 
+      })
+  }, []);
 
   const [isVisible, setIsVisible] = useState(true);
 
@@ -59,7 +114,7 @@ const Navbar = () => {
     if (window.scrollY > 50) {
       setNavbarBg('bg-[#6e96cf] text-white')
     } else {
-      setNavbarBg('bg-blue-500 text-white')
+      setNavbarBg('bg-[burlywood] text-white')
     }
   }
 
@@ -83,29 +138,26 @@ const Navbar = () => {
 
         {/* Alert */}
         {isVisible && (
-          <div className="flex justify-around items-center bg-[#6e96cf] border-b-2 p-2">
-            <div className="xl:flex xl:flex-row xl:items-center py-2 xl:space-x-2 mx-auto text-center">
-              {
-                datas.map((item, index) => {
-                  return (
-                    <div key={index} className="leading-6 lg:text-lg text-[#fff] font-rubik flex">
-                      <Link href={'/register'}>
-                        <div className='md:text-xl leading-8 font-semibold sm:text-lg'>
-                          Get ready for the <strong>{item.talent}</strong> Competition at <strong>Footloosemonkey</strong>! Registrations are now
-                          <span className="p-1 px-2 mx-[0.5rem] w-auto bg-red-500 dark:bg-[#181a1b] text-white lg:text-l font-rubik font-semibold rounded-md">
-                            LIVE
-                          </span>
-                        </div>
-                      </Link>
-                    </div>
-                  )
-                })
-              }
+          <div className="flex justify-around items-center bg-[#6e96cf] h-[8vh] border-b-2 p-2">
+            {/* Alert1 */}
+            <div id='alert1' className="xl:flex xl:flex-row xl:items-center py-2 xl:space-x-2 mx-auto text-center">
+              <div className="flex leading-6 lg:text-lg text-[#fff] font-rubik">
+                <Link href={'/register'}>
+                  <div className='md:text-xl leading-8 font-semibold sm:text-lg'>
+                    Get ready for the <strong>Dancing1</strong> Competition at <strong>Footloosemonkey</strong>! Registrations are now
+                    <span className="p-1 px-2 mx-[0.5rem] w-auto bg-red-500 dark:bg-[#181a1b] text-white lg:text-l font-rubik font-semibold rounded-md">
+                      LIVE
+                    </span>
+                  </div>
+                </Link>
+              </div>
+
               <button
                 aria-label="close"
                 onClick={closeAlert}
-                className="rotate-45 text-4xl text-[#fff] relative lg:left-[3rem] left-0 mt-[1rem] lg:mt-0 transition-transform duration-500 hover:rotate-[405deg]"  // 45deg + 360deg
+                className="rotate-45 text-4xl text-[#fff] hover:scale-125 relative lg:left-[3rem] left-0 mt-[1rem] lg:mt-0 transition-transform duration-500"
               >
+                {/* Close button SVG */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="32"
@@ -116,7 +168,44 @@ const Navbar = () => {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="lucide lucide-plus border-2 border-white hover:border-2 hover:border-white hover:scale-105 hover:bg-red-500 transition transition-300"
+                  className="lucide lucide-plus transition transition-300"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="M12 5v14"></path>
+                </svg>
+              </button>
+            </div>
+
+            {/* Alert2 */}
+            <div id='alert2' className="xl:flex xl:flex-row xl:items-center py-2 xl:space-x-2 mx-auto text-center" style={{ display: 'none' }}>
+              <div className="flex leading-6 lg:text-lg text-[#fff] font-rubik">
+                <Link href={'/register'}>
+                  <div className='md:text-xl leading-8 font-semibold sm:text-lg'>
+                    Get ready for the <strong>Dancing2</strong> Competition at <strong>Footloosemonkey</strong>! Registrations are now
+                    <span className="p-1 px-2 mx-[0.5rem] w-auto bg-red-500 dark:bg-[#181a1b] text-white lg:text-l font-rubik font-semibold rounded-md">
+                      LIVE
+                    </span>
+                  </div>
+                </Link>
+              </div>
+
+              <button
+                aria-label="close"
+                onClick={closeAlert}
+                className="rotate-45 text-4xl text-[#fff] hover:scale-125 relative lg:left-[3rem] left-0 mt-[1rem] lg:mt-0 transition-transform duration-500"
+              >
+                {/* Close button SVG */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-plus transition transition-300"
                 >
                   <path d="M5 12h14"></path>
                   <path d="M12 5v14"></path>

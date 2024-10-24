@@ -21,13 +21,13 @@ export default function RootLayout({ children }) {
         <meta name="description" content="Join Footloosemonkey, the ultimate talent competition for kids aged 6-12! Showcase your skills in dancing, singing, acting, and more in a fun, encouraging environment. Discover and celebrate young talents today!" />
         <meta name="keywords" content="Footloosemonkey, talent competition, kids talent, singing competition, dancing competition" />
         <meta name="author" content="A&W Technologies" />
-        
+
         {/* Open Graph Tags for Social Sharing */}
         <meta property="og:title" content="Footloosemonkey - Where Young Talents Shine" />
         <meta property="og:description" content="Join Footloosemonkey, the ultimate talent competition for kids aged 6-12! Showcase your skills in dancing, singing, acting, and more in a fun, encouraging environment. Discover and celebrate young talents today!" />
         <meta property="og:image" content="/img/og-image.png" />
         <meta property="og:url" content="https://www.footloosemonkey.club" />
-        
+
         {/* Twitter Cards */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Footloosemonkey - Where Young Talents Shine" />
