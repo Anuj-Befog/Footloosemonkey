@@ -9,6 +9,14 @@ import gsap from 'gsap';
 
 const Navbar = () => {
 
+  // Alert State
+  const [isVisible, setIsVisible] = useState(true);
+
+  // Function to handle closing the alert
+  const closeAlert = () => {
+    setIsVisible(false);
+  };
+
   // Alert Animation
   useEffect(() => {
     const tl = gsap.timeline({ repeat: -1 });
@@ -21,7 +29,7 @@ const Navbar = () => {
       ease: 'elastic.out'
     })
       .to('#alert1', {
-        duration: 1,
+        duration: 2,
         opacity: 1,
         display: 'flex',
         ease: 'elastic.in'
@@ -42,7 +50,7 @@ const Navbar = () => {
         ease: 'elastic.out'
       })
       .to('#alert2', {
-        duration: 1,
+        duration: 2,
         opacity: 1,
         display: 'flex',
         ease: 'elastic.in'
@@ -55,6 +63,49 @@ const Navbar = () => {
         ease: 'elastic.out',
         delay: 1  // Pause before it disappears
       })
+      // Alert 3 appears
+      .from('#alert3', {
+        duration: 0.2,
+        opacity: 1,
+        display: 'none',
+        ease: 'elastic.out'
+      })
+      .to('#alert3', {
+        duration: 2,
+        opacity: 1,
+        display: 'flex',
+        ease: 'elastic.in'
+      })
+      // Alert 3 disappears
+      .to('#alert3', {
+        duration: 0.2,
+        opacity: 1,
+        display: 'none',
+        ease: 'elastic.out',
+        delay: 1  // Pause before it disappears
+      })
+      // Alert 4 appears
+      .from('#alert4', {
+        duration: 0.2,
+        opacity: 1,
+        display: 'none',
+        ease: 'elastic.out'
+      })
+      .to('#alert4', {
+        duration: 2,
+        opacity: 1,
+        display: 'flex',
+        ease: 'elastic.in'
+      })
+      // Alert 4 disappears
+      .to('#alert4', {
+        duration: 0.2,
+        opacity: 1,
+        display: 'none',
+        ease: 'elastic.out',
+        delay: 1  // Pause before it disappears
+      })
+      // Alert 1 disappears with delay
       .from('#alert1', {
         opacity: 1,
         display: 'none',
@@ -62,13 +113,6 @@ const Navbar = () => {
         delay: 0.0000001 // Pause before it appears again 
       })
   }, []);
-
-  const [isVisible, setIsVisible] = useState(true);
-
-  // Function to handle closing the alert
-  const closeAlert = () => {
-    setIsVisible(false);
-  };
 
   const [datas, setDatas] = useState([])
 
@@ -144,7 +188,7 @@ const Navbar = () => {
               <div className="flex leading-6 lg:text-lg text-[#fff] font-rubik">
                 <Link href={'/register'}>
                   <div className='md:text-xl leading-8 font-semibold sm:text-lg'>
-                    Get ready for the <strong>Dancing1</strong> Competition at <strong>Footloosemonkey</strong>! Registrations are now
+                    Get ready for the <strong className='capitalize'>{(competition)}</strong> Competition at <strong>Footloosemonkey</strong>! Registrations are now
                     <span className="p-1 px-2 mx-[0.5rem] w-auto bg-red-500 dark:bg-[#181a1b] text-white lg:text-l font-rubik font-semibold rounded-md">
                       LIVE
                     </span>
@@ -181,10 +225,75 @@ const Navbar = () => {
               <div className="flex leading-6 lg:text-lg text-[#fff] font-rubik">
                 <Link href={'/register'}>
                   <div className='md:text-xl leading-8 font-semibold sm:text-lg'>
-                    Get ready for the <strong>Dancing2</strong> Competition at <strong>Footloosemonkey</strong>! Registrations are now
-                    <span className="p-1 px-2 mx-[0.5rem] w-auto bg-red-500 dark:bg-[#181a1b] text-white lg:text-l font-rubik font-semibold rounded-md">
-                      LIVE
-                    </span>
+                    <strong>Footloose Monkey</strong> competition: <strong>25th Oct to 10th Nov</strong>! Showcase your talent and shine!
+                  </div>
+                </Link>
+              </div>
+
+              <button
+                aria-label="close"
+                onClick={closeAlert}
+                className="rotate-45 text-4xl text-[#fff] hover:scale-125 relative lg:left-[3rem] left-0 mt-[1rem] lg:mt-0 transition-transform duration-500"
+              >
+                {/* Close button SVG */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-plus transition transition-300"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="M12 5v14"></path>
+                </svg>
+              </button>
+            </div>
+
+            {/* Alert3 */}
+            <div id='alert3' className="xl:flex xl:flex-row xl:items-center py-2 xl:space-x-2 mx-auto text-center" style={{ display: 'none' }}>
+              <div className="flex leading-6 lg:text-lg text-[#fff] font-rubik">
+                <Link href={'/register'}>
+                  <div className='md:text-xl leading-8 font-semibold sm:text-lg'>
+                    Voting lines for <strong>Footloose Monkey</strong> open on <strong>11th November</strong>! Cast your vote now.
+                  </div>
+                </Link>
+              </div>
+
+              <button
+                aria-label="close"
+                onClick={closeAlert}
+                className="rotate-45 text-4xl text-[#fff] hover:scale-125 relative lg:left-[3rem] left-0 mt-[1rem] lg:mt-0 transition-transform duration-500"
+              >
+                {/* Close button SVG */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-plus transition transition-300"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="M12 5v14"></path>
+                </svg>
+              </button>
+            </div>
+
+            {/* Alert4 */}
+            <div id='alert4' className="xl:flex xl:flex-row xl:items-center py-2 xl:space-x-2 mx-auto text-center" style={{ display: 'none' }}>
+              <div className="flex leading-6 lg:text-lg text-[#fff] font-rubik">
+                <Link href={'/register'}>
+                  <div className='md:text-xl leading-8 font-semibold sm:text-lg'>
+                    Winners of the <strong>Footloose Monkey</strong> competition will be declared on <strong>20th November 2024</strong>! Stay tuned.
                   </div>
                 </Link>
               </div>
