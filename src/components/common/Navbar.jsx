@@ -158,7 +158,7 @@ const Navbar = () => {
     if (window.scrollY > 50) {
       setNavbarBg('bg-[#6e96cf] text-white')
     } else {
-      setNavbarBg('bg-[burlywood] text-white')
+      setNavbarBg('bg-[#d2a263] text-white')
     }
   }
 
