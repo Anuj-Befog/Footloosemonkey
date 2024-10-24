@@ -5,6 +5,7 @@ const AdminSchema = new mongoose.Schema({
     talent: { type: String },
     groupACharge: { type: String },
     groupBCharge: { type: String },
+    groupCCharge: { type: String },
 });
 
 const Admin = mongoose.models.Admin || mongoose.model('Admin', AdminSchema);

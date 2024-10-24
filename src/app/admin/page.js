@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useState, useEffect } from 'react';
 import { addAdminData, getAdminData } from '../services/index';
@@ -7,14 +7,15 @@ export default function AdminPage() {
     const [selectedTalent, setSelectedTalent] = useState('');
     const [selectedACharges, setSelectedACharges] = useState('');
     const [selectedBCharges, setSelectedBCharges] = useState('');
+    const [selectedCCharges, setSelectedCCharges] = useState('');
     const [dataId, setDataId] = useState(null); // Store fetched _id
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Load data from getAdminData()
     useEffect(() => {
         const fetchData = async () => {
             const response = await getAdminData();
-            if (response.success && response.data) {
+            if (response.success && response.data && response.data.length > 0) {
                 setDataId(response.data[0]._id); // Assuming the response contains data with _id
             } else {
                 console.error('Error fetching data:', response.message);
@@ -27,13 +28,15 @@ export default function AdminPage() {
     const handleTalentChange = (e) => {
         const value = e.target.value;
         setSelectedTalent(value);
-        setSelectedACharges(''); // Reset selected charges when talent changes
-        setSelectedBCharges(''); // Reset selected charges when talent changes
+        // Reset selected charges when talent changes
+        setSelectedACharges('');
+        setSelectedBCharges('');
+        setSelectedCCharges('');
     };
 
     const handleSubmit = async () => {
         // Form validation
-        if (!selectedTalent || !selectedACharges || !selectedBCharges) {
+        if (!selectedTalent || !selectedACharges || !selectedBCharges || !selectedCCharges) {
             alert("Please fill in all fields.");
             return;
         }
@@ -52,7 +55,10 @@ export default function AdminPage() {
             selectedTalent,
             selectedACharges,
             selectedBCharges,
+            selectedCCharges,
         };
+
+        console.log('Form Data:', formData);
 
         // Call the addAdminData function to post the data
         const response = await addAdminData(formData);
@@ -64,6 +70,7 @@ export default function AdminPage() {
             setSelectedTalent('');
             setSelectedACharges('');
             setSelectedBCharges('');
+            setSelectedCCharges('');
         } else {
             // Handle the error accordingly (e.g., show an error message)
             alert(`Error: ${response.message}`);
@@ -98,7 +105,7 @@ export default function AdminPage() {
                         className="border border-gray-300 rounded-lg p-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                         <option value="">Select Group A Charges</option>
-                        <option value={299}>₹ 299</option>
+                        <option value={199}>₹ 199</option>
                     </select>
                 )}
 
@@ -106,10 +113,22 @@ export default function AdminPage() {
                 {selectedTalent && (
                     <select
                         value={selectedBCharges}
-                        onChange={(e) => setSelectedBCharges(e.target.value)}
+                        onChange={(e) => setSelectedBCharges(e.target.value)} // Corrected state update
                         className="border border-gray-300 rounded-lg p-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                         <option value="">Select Group B Charges</option>
+                        <option value={299}>₹ 299</option>
+                    </select>
+                )}
+
+                {/* Dropdown for Group C Charges based on selected Talent */}
+                {selectedTalent && (
+                    <select
+                        value={selectedCCharges}
+                        onChange={(e) => setSelectedCCharges(e.target.value)} // Corrected state update
+                        className="border border-gray-300 rounded-lg p-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                        <option value="">Select Group C Charges</option>
                         <option value={399}>₹ 399</option>
                     </select>
                 )}
