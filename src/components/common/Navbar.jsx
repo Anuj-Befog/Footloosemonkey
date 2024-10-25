@@ -182,7 +182,7 @@ const Navbar = () => {
 
         {/* Alert */}
         {isVisible && (
-          <div className="flex justify-around items-center bg-[#6e96cf] min-h-[8vh] border-b-2 p-2">
+          <div className="flex justify-around items-center bg-[#6e96cf] h-[19vh] md:h-[11vh] border-b-2 p-2">
             {/* Alert1 */}
             <div id='alert1' className="xl:flex xl:flex-row xl:items-center py-2 xl:space-x-2 mx-auto text-center">
               <div className="flex leading-6 lg:text-lg text-[#fff] font-rubik">
