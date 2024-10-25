@@ -178,11 +178,11 @@ const Navbar = () => {
   return (
     <>
       {/* Sticky Navbar with background change on scroll */}
-      <nav className={`${navbarBg} text-white sticky top-0 z-50 transition-colors duration-300`}>
+      <nav className={`${navbarBg} md:relative text-white sticky top-0 z-50 transition-colors duration-300`}>
 
         {/* Alert */}
         {isVisible && (
-          <div className="flex justify-around items-center bg-[#6e96cf] h-[19vh] md:h-[11vh] border-b-2 p-2">
+          <div className="flex justify-around items-center bg-[#6e96cf] h-[19vh] md:h-[8vh] border-b-2 p-2">
             {/* Alert1 */}
             <div id='alert1' className="xl:flex xl:flex-row xl:items-center py-2 xl:space-x-2 mx-auto text-center">
               <div className="flex leading-6 lg:text-lg text-[#fff] font-rubik">
