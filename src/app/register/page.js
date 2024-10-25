@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoMdLocate } from "react-icons/io";
 import { getAdminData, getRegistrationData, addRegistrationData } from '../services/index';  // Import necessary services
-import { cookies } from "next/headers";
+import Cookies from 'js-cookie';
 
 const PORT = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3030'
 
@@ -286,18 +286,19 @@ const RegisterForm = () => {
   const registrationSuccess = true; // Update based on your registration logic
 
   // Handle form submission
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate(values);
     setErrors(validationErrors);
 
-    // If there are validation errors, prevent submission
+    // Prevent submission if there are validation errors
     if (Object.keys(validationErrors).length > 0) {
       setIsSubmitting(false);
       return;
     }
 
-    // Continue with submission if no validation errors
+    // Proceed with submission if no validation errors
     setIsSubmitting(true);
 
     // Fetch existing registration data
@@ -314,16 +315,15 @@ const RegisterForm = () => {
     });
 
     if (response.success) {
-      await handleSubmitGoogleForm()
+      // Google Form submission
+      await handleSubmitGoogleForm();
 
+      // Set 'isRegistered' cookie to true if registration is successful
       if (registrationSuccess) {
-        cookies().set({
-          name: 'isRegistered',
-          value: 'true',
-          path: '/',
-          maxAge: 60 * 60 * 24, // 1 day
-        });
+        Cookies.set('isRegistered', 'true', { expires: 1, path: '/' });
       }
+
+      // Redirect to payment-checkout page
       router.push("/payment-checkout");
     } else {
       setServerError(response.message);
@@ -331,6 +331,7 @@ const RegisterForm = () => {
 
     setIsSubmitting(false);
   };
+
 
   return (
     <div className="bg-[#c3dbff] p-6 space-y-4">

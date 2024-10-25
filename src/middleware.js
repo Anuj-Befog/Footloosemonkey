@@ -19,5 +19,5 @@ export function middleware(request) {
 
 // Config to apply middleware on specific paths
 export const config = {
-  matcher: ['/payment-checkout', '/another-protected-path*'],  // add more paths as needed
+  matcher: ['/payment-checkout'], 
 };
