@@ -138,7 +138,6 @@ const RegisterForm = () => {
   useEffect(() => {
   }, [charges]);
 
-  // Handle Age Criteria Change and charges calculation
   // Handle age criteria change and set charges + min/max age range
   const handleAgeCriteriaChange = (e) => {
     const ageCriteria = e.target.value;

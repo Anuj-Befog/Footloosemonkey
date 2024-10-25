@@ -8,6 +8,7 @@
 
 # testing
 /coverage
+/test.txt
 
 # next.js
 /.next/
@@ -15,6 +16,8 @@
 
 # production
 /build
+.env
+.env.local
 
 # misc
 .DS_Store

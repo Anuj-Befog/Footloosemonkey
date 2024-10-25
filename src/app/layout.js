@@ -45,12 +45,6 @@ export default function RootLayout({ children }) {
 
         {/* Page Title */}
         <title>Footloosemonkey</title>
-
-        {/* Google Ads Meta Tags */}
-        <meta name="google-adsense-account" content="ca-pub-8590034113156778"></meta>
-
-        {/* Google Ads Script */}
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8590034113156778" crossorigin="anonymous"></script>
       </head>
 
       <body className={inter.className}>
