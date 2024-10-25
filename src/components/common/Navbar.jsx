@@ -146,7 +146,7 @@ const Navbar = () => {
   }, [competition]);
 
   const [isOpen, setIsOpen] = useState(false)
-  const [navbarBg, setNavbarBg] = useState('bg-[#d2a263]')
+  const [navbarBg, setNavbarBg] = useState('bg-[#6e96cf]')
 
   // Function to toggle the drawer
   const toggleDrawer = () => {
@@ -158,7 +158,7 @@ const Navbar = () => {
     if (window.scrollY > 50) {
       setNavbarBg('bg-[#6e96cf] text-white')
     } else {
-      setNavbarBg('bg-[#d2a263] text-white')
+      setNavbarBg('bg-[#6e96cf] text-white')
     }
   }
 
@@ -178,7 +178,7 @@ const Navbar = () => {
   return (
     <>
       {/* Sticky Navbar with background change on scroll */}
-      <nav className={`${navbarBg} md:relative text-white sticky top-0 z-50 transition-colors duration-300`}>
+      <nav className={`${navbarBg} text-white sticky top-0 z-50 transition-colors duration-300`}>
 
         {/* Alert */}
         {isVisible && (
@@ -216,7 +216,7 @@ const Navbar = () => {
 
 
               {/* Alert4 */}
-              <div id='alert4' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center"  style={{ display: 'none' }}>
+              <div id='alert4' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
                 <Link href={'/register'}>
                   <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[85vw] md:w-full'>
                     Winners of the <strong>Footloose Monkey</strong> competition will be declared on <strong>20th November 2024</strong>! Stay tuned.
