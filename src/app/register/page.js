@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoMdLocate } from "react-icons/io";
 import { getAdminData, getRegistrationData, addRegistrationData } from '../services/index';  // Import necessary services
+import { cookies } from "next/headers";
 
 const PORT = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3030'
 
@@ -281,6 +282,9 @@ const RegisterForm = () => {
       });
   };
 
+  // Registration logic here
+  const registrationSuccess = true; // Update based on your registration logic
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -311,6 +315,15 @@ const RegisterForm = () => {
 
     if (response.success) {
       await handleSubmitGoogleForm()
+
+      if (registrationSuccess) {
+        cookies().set({
+          name: 'isRegistered',
+          value: 'true',
+          path: '/',
+          maxAge: 60 * 60 * 24, // 1 day
+        });
+      }
       router.push("/payment-checkout");
     } else {
       setServerError(response.message);

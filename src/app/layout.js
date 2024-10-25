@@ -43,6 +43,10 @@ export default function RootLayout({ children }) {
         <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
 
+        {/* Google Adsense */}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8590034113156778"
+          crossorigin="anonymous"></script>
+
         {/* Page Title */}
         <title>Footloosemonkey</title>
       </head>
