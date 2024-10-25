@@ -146,7 +146,7 @@ const Navbar = () => {
   }, [competition]);
 
   const [isOpen, setIsOpen] = useState(false)
-  const [navbarBg, setNavbarBg] = useState('bg-blue-500')
+  const [navbarBg, setNavbarBg] = useState('bg-[#d2a263]')
 
   // Function to toggle the drawer
   const toggleDrawer = () => {
@@ -182,12 +182,12 @@ const Navbar = () => {
 
         {/* Alert */}
         {isVisible && (
-          <div className="flex justify-around items-center bg-[#6e96cf] h-[19vh] md:h-[8vh] border-b-2 p-2">
-            {/* Alert1 */}
-            <div id='alert1' className="xl:flex xl:flex-row xl:items-center py-2 xl:space-x-2 mx-auto text-center">
-              <div className="flex leading-6 lg:text-lg text-[#fff] font-rubik">
+          <div className="relative flex justify-between items-center bg-[#6e96cf] h-[17vh] md:h-[8vh] border-b-2 py-2">
+            <div className="flex justify-between w-full items-center text-center">
+              {/* Alert1 */}
+              <div id='alert1' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[90vw] md:[95vw] text-center justify-center">
                 <Link href={'/register'}>
-                  <div className='md:text-xl leading-8 font-semibold sm:text-lg'>
+                  <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[85vw] md:w-full'>
                     Get ready for the <strong className='capitalize'>{(competition)}</strong> Competition at <strong>Footloosemonkey</strong>! Registrations are now
                     <span className="p-1 px-2 mx-[0.5rem] w-auto bg-red-500 dark:bg-[#181a1b] text-white lg:text-l font-rubik font-semibold rounded-md">
                       LIVE
@@ -196,130 +196,42 @@ const Navbar = () => {
                 </Link>
               </div>
 
-              <button
-                aria-label="close"
-                onClick={closeAlert}
-                className="rotate-45 text-4xl text-[#fff] hover:scale-125 relative lg:left-[3rem] left-0 mt-[1rem] lg:mt-0 transition-transform duration-500"
-              >
-                {/* Close button SVG */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-plus transition transition-300"
-                >
-                  <path d="M5 12h14"></path>
-                  <path d="M12 5v14"></path>
-                </svg>
-              </button>
-            </div>
-
-            {/* Alert2 */}
-            <div id='alert2' className="xl:flex xl:flex-row xl:items-center py-2 xl:space-x-2 mx-auto text-center" style={{ display: 'none' }}>
-              <div className="flex leading-6 lg:text-lg text-[#fff] font-rubik">
+              {/* Alert2 */}
+              <div id='alert2' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
                 <Link href={'/register'}>
-                  <div className='md:text-xl leading-8 font-semibold sm:text-lg'>
+                  <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[85vw] md:w-full'>
                     <strong>Footloose Monkey</strong> competition: <strong>25th Oct to 10th Nov</strong>! Showcase your talent and shine!
                   </div>
                 </Link>
               </div>
 
-              <button
-                aria-label="close"
-                onClick={closeAlert}
-                className="rotate-45 text-4xl text-[#fff] hover:scale-125 relative lg:left-[3rem] left-0 mt-[1rem] lg:mt-0 transition-transform duration-500"
-              >
-                {/* Close button SVG */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-plus transition transition-300"
-                >
-                  <path d="M5 12h14"></path>
-                  <path d="M12 5v14"></path>
-                </svg>
-              </button>
-            </div>
-
-            {/* Alert3 */}
-            <div id='alert3' className="xl:flex xl:flex-row xl:items-center py-2 xl:space-x-2 mx-auto text-center" style={{ display: 'none' }}>
-              <div className="flex leading-6 lg:text-lg text-[#fff] font-rubik">
+              {/* Alert3 */}
+              <div id='alert3' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
                 <Link href={'/register'}>
-                  <div className='md:text-xl leading-8 font-semibold sm:text-lg'>
+                  <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[82vw] md:w-full'>
                     Voting lines for <strong>Footloose Monkey</strong> open on <strong>11th November</strong>! Cast your vote now.
                   </div>
                 </Link>
               </div>
 
-              <button
-                aria-label="close"
-                onClick={closeAlert}
-                className="rotate-45 text-4xl text-[#fff] hover:scale-125 relative lg:left-[3rem] left-0 mt-[1rem] lg:mt-0 transition-transform duration-500"
-              >
-                {/* Close button SVG */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-plus transition transition-300"
-                >
-                  <path d="M5 12h14"></path>
-                  <path d="M12 5v14"></path>
-                </svg>
-              </button>
-            </div>
 
-            {/* Alert4 */}
-            <div id='alert4' className="xl:flex xl:flex-row xl:items-center py-2 xl:space-x-2 mx-auto text-center" style={{ display: 'none' }}>
-              <div className="flex leading-6 lg:text-lg text-[#fff] font-rubik">
+              {/* Alert4 */}
+              <div id='alert4' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center"  style={{ display: 'none' }}>
                 <Link href={'/register'}>
-                  <div className='md:text-xl leading-8 font-semibold sm:text-lg'>
+                  <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[85vw] md:w-full'>
                     Winners of the <strong>Footloose Monkey</strong> competition will be declared on <strong>20th November 2024</strong>! Stay tuned.
                   </div>
                 </Link>
               </div>
 
-              <button
+              {/* Close Button */}
+              <div
                 aria-label="close"
                 onClick={closeAlert}
-                className="rotate-45 text-4xl text-[#fff] hover:scale-125 relative lg:left-[3rem] left-0 mt-[1rem] lg:mt-0 transition-transform duration-500"
+                className='absolute w-[10vw] border-l-2 md:w-[5vw] h-[16.8vh] md:h-[7.8vh] flex justify-center items-center text-white bg-[#6e96cf] hover:bg-red-500 transition-colors transition-300 cursor-pointer right-0 top-0 text-2xl font-bold'
               >
-                {/* Close button SVG */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-plus transition transition-300"
-                >
-                  <path d="M5 12h14"></path>
-                  <path d="M12 5v14"></path>
-                </svg>
-              </button>
+                X
+              </div>
             </div>
           </div>
         )}
