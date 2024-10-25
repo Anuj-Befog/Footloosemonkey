@@ -255,6 +255,8 @@ const Navbar = () => {
             <Link href="/" className="text-xl font-semibold hover:underline transition-colors duration-200">Home</Link>
             <Link href={`/${competition}`} className="text-xl font-semibold hover:underline transition-colors duration-200">Competition</Link>
             <Link href="/register" className="text-xl font-semibold hover:underline transition-colors duration-200">Register</Link>
+            <Link href="/verifyuser" className="text-xl font-semibold hover:underline transition-colors duration-200">Submission</Link>
+            <Link href="/spotlight" className="text-xl font-semibold hover:underline transition-colors duration-200">Spotlight</Link>
             <Link href="/about" className="text-xl font-semibold hover:underline transition-colors duration-200">About Us</Link>
           </div>
         </div>

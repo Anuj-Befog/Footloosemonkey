@@ -10,7 +10,7 @@ const NotFound = () => {
             <span className="sr-only">Error</span>404
           </h2>
           <p className="mb-4 text-lg font-light text-white-500 dark:text-white-400">Sorry, we can&apos;t find that page. You&apos;ll find lots to explore on the home page. </p>
-          <Link href="/" className="px-8 py-4 text-xl font-semibold rounded bg-purple-600 text-gray-50 hover:text-gray-200">Back to home</Link>
+          <Link href="/" className="px-8 py-4 text-xl font-semibold rounded bg-blue-400 hover:bg-blue-500 text-white">Back to home</Link>
         </div>
       </div>
     </section>

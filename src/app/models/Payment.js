@@ -13,6 +13,7 @@ const paymentSchema = new mongoose.Schema({
     status: { type: String }, // Group charge based on age category
 });
 
-const Payment = mongoose.models.payment || mongoose.model('Payment', paymentSchema);
+// Avoid recompiling the model if it already exists
+const Payment = mongoose.models.Payment || mongoose.model('Payment', paymentSchema);
 
 export default Payment;
