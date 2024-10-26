@@ -3,7 +3,7 @@ import React from 'react'
 
 const NotFound = () => {
   return (
-    <section className="flex">
+    <section className="flex bg-[aliceblue]">
       <div className="py-24 px-4 mx-auto max-w-screen-xl">
         <div className="flex flex-col gap-6 max-w-md text-center">
           <h2 className="font-extrabold text-9xl text-white-600 dark:text-white-100">
