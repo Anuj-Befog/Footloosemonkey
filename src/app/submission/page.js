@@ -1,96 +1,251 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react'
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function SubmissionPage() {
-    const [file, setFile] = useState (null)
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
-    const [isUploading, setIsUploading] = useState(false)
+const UploadForm = () => {
+    const [email, setEmail] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [videoFile, setVideoFile] = useState(null);
+    const [profilePicFile, setProfilePicFile] = useState(null);
 
-    const router = useRouter()
-    //max file size of 100 mb
+    // Participant data
+    const [formData, setFormData] = useState({
+        participantId: '',
+        participantName: '',
+        participantEmail: '',
+        participantAge: '',
+        participantAgeCriteria: '',
+        participanTalent: '',
+        postTitle: '',
+        description: '',
+        originalSize: '',
+        partcipantAddress: '',
+        participantNumber: '',
+        participantCharge: '',
+        participantPaymentID: '',
+        participantPaymentStatus: ''
+    });
 
-    const MAX_FILE_SIZE = 100 * 1024 * 1024
+    // Fetch data based on email
+    useEffect(() => {
+        const fetchData = async () => {
+            if (!email) return;
+
+            setLoading(true);
+            setError('');
+
+            try {
+                // Check if the user already has an existing submission
+                const checkResponse = await axios.get(`/api/checksubmission?email=${encodeURIComponent(email)}`);
+                console.log("Submission check response:", checkResponse.data);
+
+                if (checkResponse.data.success) {
+                    setError("You have already uploaded a video. Multiple uploads are not allowed.");
+                    setTimeout(() => {
+                        alert("You have already uploaded a video. Multiple uploads are not allowed.");
+                    }, 1000);
+                    setEmail(''); // Clear email field
+                    return; // Stop further execution if the user has already uploaded
+                }
+
+                // Fetch payment data by email if no submission exists
+                const response = await axios.get(`/api/payment/getDataByEmail?email=${encodeURIComponent(email)}`);
+                console.log('Payment data:', response.data);
+
+                if (response.data.success && response.data.data.length > 0) {
+                    const participantData = response.data.data[0];
+                    const {
+                        participantName,
+                        participantAge,
+                        ageCriteria: participantAgeCriteria,
+                        talent: participanTalent,
+                        guardianNumber: participantNumber,
+                        address: partcipantAddress,
+                        charge: participantCharge,
+                        paymentId: participantPaymentID,
+                        status: participantPaymentStatus
+                    } = participantData;
+
+                    setFormData(prev => ({
+                        ...prev,
+                        participantId: email.split('@')[0], // Generate participantId from email
+                        participantName,
+                        participantEmail: email,
+                        participantAge,
+                        participantAgeCriteria,
+                        participanTalent,
+                        participantNumber,
+                        partcipantAddress,
+                        participantCharge,
+                        participantPaymentID,
+                        participantPaymentStatus,
+                    }));
+                } else {
+                    setError('No user found for this email.');
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error.response?.data || error.message);
+                setError('Error fetching data. Please try again.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        const handler = setTimeout(() => {
+            fetchData();
+        }, 500); // Debounce for 500 ms
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [email]);
+
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleFileChange = (e) => {
+        const { name, files } = e.target;
+        if (name === 'file') {
+            setVideoFile(files[0]);
+        } else if (name === 'profilepic') {
+            setProfilePicFile(files[0]);
+        }
+    };
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        if (!file) return;
+        e.preventDefault();
+        const data = new FormData();
 
-        if (file.size > MAX_FILE_SIZE) {
-            //TODO: add notification
-            alert("File size too large")
-            return;
+        // Append form data
+        for (const key in formData) {
+            data.append(key, formData[key]);
         }
 
-        setIsUploading(true)
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("title", title);
-        formData.append("description", description);
-        formData.append("originalSize", file.size.toString());
+        // Append files
+        data.append('file', videoFile);
+        data.append('profilepic', profilePicFile);
 
         try {
-            await axios.post("/api/video-upload", formData)
-            // check for 200 response
-            router.push("/")
+            setLoading(true);
+            const response = await axios.post('http://localhost:3000/api/submission', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log('Upload success:', response.data);
+
+            // Reset form after successful upload
+            setFormData({
+                participantId: '',
+                participantName: '',
+                participantEmail: '',
+                participantAge: '',
+                participantAgeCriteria: '',
+                participanTalent: '',
+                postTitle: '',
+                description: '',
+                originalSize: '',
+                partcipantAddress: '',
+                participantNumber: '',
+                participantCharge: '',
+                participantPaymentID: '',
+                participantPaymentStatus: ''
+            });
+            setVideoFile(null);
+            setProfilePicFile(null);
         } catch (error) {
-            console.log(error)
+            console.error('Upload failed:', error.response?.data || error.message);
+            setError('Upload failed. Please try again.');
         } finally {
-            setIsUploading(false)
+            setLoading(false);
         }
-    }
+    };
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Upload Video</h1>
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                    <label className="label">
-                        <span className="label-text">Title</span>
+        <div className="flex flex-col items-center justify-center min-h-[90vh] py-10 bg-gray-100">
+            <h1 className="text-2xl font-bold mb-4">Upload Form</h1>
+            {loading && <p className="text-blue-600">Loading...</p>}
+            {error && <p className="text-red-500">{error}</p>}
+            <form onSubmit={handleSubmit} className="w-[25vw] bg-white p-6 rounded shadow-md" encType="multipart/form-data">
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">
+                        Email:
+                    </label>
+                    <input
+                        type="email"
+                        placeholder="Enter your email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500"
+                        required
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">
+                        Title:
                     </label>
                     <input
                         type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        className="input input-bordered w-full"
+                        name="postTitle"
+                        value={formData.postTitle}
+                        onChange={handleChange}
                         required
+                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500"
                     />
                 </div>
-                <div>
-                    <label className="label">
-                        <span className="label-text">Description</span>
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">
+                        Description:
                     </label>
                     <textarea
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className="textarea textarea-bordered w-full"
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChange}
+                        required
+                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500"
                     />
                 </div>
-                <div>
-                    <label className="label">
-                        <span className="label-text">Video File</span>
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">
+                        Profile Picture:
                     </label>
                     <input
                         type="file"
-                        accept="video/*"
-                        onChange={(e) => setFile(e.target.files?.[0] || null)}
-                        className="file-input file-input-bordered w-full"
+                        name="profilepic"
+                        accept="image/*"
+                        onChange={handleFileChange}
                         required
+                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500"
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">
+                        Video File:
+                    </label>
+                    <input
+                        type="file"
+                        name="file"
+                        accept="video/*"
+                        onChange={handleFileChange}
+                        required
+                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500"
                     />
                 </div>
                 <button
                     type="submit"
-                    className="btn btn-primary"
-                    disabled={isUploading}
+                    className="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition"
+                    disabled={loading} // Disable button while loading
                 >
-                    {isUploading ? "Uploading..." : "Upload Video"}
+                    Upload
                 </button>
             </form>
         </div>
     );
-}
+};
 
-export default SubmissionPage
+export default UploadForm;

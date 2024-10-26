@@ -26,9 +26,7 @@ export async function POST(request: NextRequest) {
 
         // Validate required fields
         const requiredFields = [
-            'participantId', 'participantName', 'participantEmail',
-            'participantAge', 'participanTalent', 'postTitle',
-            'description', 'originalSize'
+            'participantId', 'participantEmail', 'participantCharge', 'participantPaymentID', 'participantPaymentStatus'
         ];
 
         for (const field of requiredFields) {
@@ -90,13 +88,19 @@ export async function POST(request: NextRequest) {
                 participantName: formData.get("participantName") as string,
                 participantEmail: formData.get("participantEmail") as string,
                 participantAge: formData.get("participantAge") as string,
+                participantAgeCriteria: formData.get("participantAgeCriteria") as string,
+                partcipantAddress: formData.get("partcipantAddress") as string,
+                participantNumber: formData.get("participantNumber") as string,
+                participantCharge: formData.get("participantCharge") as string,
+                participantPaymentID: formData.get("participantPaymentID") as string,
+                participantPaymentStatus: formData.get("participantPaymentStatus") as string,
                 profilepic: profileResult.secure_url, // profile image URL
                 video: videoResult.secure_url, // video URL
                 participanTalent: formData.get("participanTalent") as string,
                 postTitle: formData.get("postTitle") as string,
                 description: formData.get("description") as string,
                 duration: videoResult.duration || 0,
-                originalSize: formData.get("originalSize") as string,
+                originalSize: String(videoFile.size),
                 compressedSize: String(videoResult.bytes),
             }
         });

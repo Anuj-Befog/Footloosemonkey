@@ -14,20 +14,26 @@ datasource db {
 }
 
 model Submission {
-  id               String   @id @default(cuid())
-  publicId         String   @unique
-  participantId    String
-  participantName  String
-  participantEmail String
-  participantAge   String
-  profilepic       String
-  video            String
-  participanTalent String
-  postTitle        String
-  description      String
-  duration         Float
-  originalSize     String
-  compressedSize   String
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id                       String   @id @default(cuid())
+  publicId                 String   @unique
+  participantId            String
+  participantName          String
+  participantEmail         String
+  participantAge           String
+  participantAgeCriteria   String
+  partcipantAddress        String
+  participantNumber        String
+  participantCharge        String
+  participantPaymentID     String
+  participantPaymentStatus String
+  profilepic               String
+  video                    String
+  participanTalent         String
+  postTitle                String
+  description              String
+  duration                 Float
+  originalSize             String
+  compressedSize           String
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
 }
