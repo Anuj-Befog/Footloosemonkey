@@ -1,5 +1,5 @@
-import connectToDB from "@/app/db/connectToDB";
-import Registration from "@/app/models/Registration";
+import connectToDB from "../../../db/connectToDB";
+import Registration from "../../../models/Registration";
 import { NextResponse } from "next/server";
 
 export const dynamic = 'force-dynamic'

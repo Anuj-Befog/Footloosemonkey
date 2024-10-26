@@ -1,5 +1,5 @@
-import connectToDB from "@/app/db/connectToDB";
-import Admin from "@/app/models/Admin";
+import connectToDB from "../../../db/connectToDB";
+import Admin from "../../../models/Admin";
 import { NextResponse } from "next/server";
 
 export const dynamic = 'force-dynamic'

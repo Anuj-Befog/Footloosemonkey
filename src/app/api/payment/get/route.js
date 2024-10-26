@@ -1,5 +1,5 @@
-import connectToDB from "@/app/db/connectToDB";
-import Payment from "@/app/models/Payment";
+import connectToDB from "../../../db/connectToDB";
+import Payment from "../../../models/Payment";
 import { NextResponse } from "next/server";
 
 export const dynamic = 'force-dynamic'

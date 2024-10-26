@@ -1,14 +1,14 @@
 "use client";
 
-import About from "@/components/home/About";
-import Certificate from "@/components/home/Certificate";
-import Contact from "@/components/home/Contact";
-import Hero from "@/components/home/Hero";
-import Mission from "@/components/home/Mission";
-import Pricing from "@/components/home/Pricing";
-import Schedule from "@/components/home/Schedule";
-import Talent from "@/components/home/Talent";
-// import Voting from "@/components/home/Voting";
+import Hero from "../../components/home/Hero";
+import Mission from "../../components/home/Mission";
+import Talent from "../../components/home/Talent";
+import Certificate from "../../components/home/Certificate";
+import About from "../../components/home/About";
+import Pricing from "../../components/home/Pricing";
+import Schedule from "../../components/home/Schedule";
+// import Voting from "../../components/home/Voting";
+import Contact from "../../components/home/Contact";
 
 export default function Home() {
   return (
@@ -19,7 +19,7 @@ export default function Home() {
       <Certificate />
       <About />
       <Pricing />
-      <Schedule/>
+      <Schedule />
       {/* <Voting /> */}
       <Contact />
     </>
