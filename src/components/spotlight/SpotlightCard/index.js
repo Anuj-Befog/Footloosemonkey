@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { getCldImageUrl, getCldVideoUrl } from "next-cloudinary";
-import { Download, Clock, FileUp } from "lucide-react";
+import { Clock } from "lucide-react";
 import dayjs from 'dayjs';
 import relativeTime from "dayjs/plugin/relativeTime";
 import { filesize } from "filesize";
@@ -30,11 +30,11 @@ const VideoGallery = () => {
         getData();
     }, []);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <div className='text-center'>Loading...</div>;
     if (!videos.length) return <p>No videos found</p>;
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
             {videos.map((video) => (
                 <VideoCard key={video.id} video={video} />
             ))}
@@ -77,7 +77,10 @@ const VideoCard = ({ video }) => {
         }) : '';
     }, [video?.publicId]);
 
-    const formatSize = (size) => filesize(size);
+    const handleVote = (videoId) => {
+        // Handle the voting logic here
+        console.log(`Voted for video with ID: ${videoId}`);
+    };
 
     const formatDuration = (seconds) => {
         const minutes = Math.floor(seconds / 60);
@@ -87,13 +90,6 @@ const VideoCard = ({ video }) => {
 
     const handlePreviewError = () => {
         setPreviewError(true);
-    };
-
-    const handleDownloadClick = () => {
-        if (videoRef.current) {
-            videoRef.current.requestFullscreen();
-        }
-        window.open(getFullVideoUrl, "_blank");
     };
 
     useEffect(() => {
@@ -113,7 +109,7 @@ const VideoCard = ({ video }) => {
 
     return (
         <div
-            className="w-[18vw] bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl"
+            className="w-[25vw] bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
@@ -181,24 +177,17 @@ const VideoCard = ({ video }) => {
                     <div className="text-sm text-gray-600">
                         Uploaded {dayjs(video.createdAt).fromNow()}
                     </div>
-                    <div className="bg-opacity-70 relative left-[20%] rounded-lg text-sm flex items-center">
+                    <div className="bg-opacity-70 relative left-[43%] rounded-lg text-sm flex items-center">
                         <Clock size={16} className="mr-1" />
                         {formatDuration(video.duration)}
                     </div>
                 </div>
                 <div className="flex justify-between items-center mt-4">
-                    <div className="flex items-center">
-                        <FileUp size={18} className="mr-2 text-primary" />
-                        <div>
-                            <div>{formatSize(Number(video.originalSize))}</div>
-                        </div>
-                    </div>
                     <button
-                        className="btn btn-primary btn-sm flex items-center"
-                        onClick={handleDownloadClick}
+                        className="w-full justify-center bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+                        onClick={() => handleVote(video.id)}
                     >
-                        <Download size={16} className="mr-1" />
-                        Download
+                        Vote
                     </button>
                 </div>
             </div>

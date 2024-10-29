@@ -16,7 +16,7 @@ export default function Spotlight() {
       </div>
 
       {/* Render multiple SpotlightCards */}
-      <div className="holder mx-auto w-10/12 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+      <div className="holder mx-auto w-[80vw] grid gap-[2rem] sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         <SpotlightCard />
       </div>
     </div>
