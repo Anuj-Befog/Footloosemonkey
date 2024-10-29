@@ -19,7 +19,6 @@ const VideoGallery = () => {
         const getData = async () => {
             try {
                 const response = await fetchAllSubmission();
-                console.log("Response", response);
                 setVideos(response);
                 setLoading(false);
             } catch (error) {
@@ -44,7 +43,9 @@ const VideoGallery = () => {
 
 const VideoCard = ({ video }) => {
     const [isHovered, setIsHovered] = useState(false);
-    const [previewError, setPreviewError] = useState(false);
+    const [isVoted, setIsVoted] = useState(false);
+    const [videos, setVideos] = useState([]);
+
     const videoRef = React.useRef(null);
 
     const getThumbnailUrl = useMemo(() => {
@@ -60,26 +61,28 @@ const VideoCard = ({ video }) => {
         }) : '';
     }, [video?.publicId]);
 
-    const getFullVideoUrl = useMemo(() => {
-        return video?.publicId ? getCldVideoUrl({
-            src: video.publicId,
-            width: 1920,
-            height: 1080,
-        }) : '';
-    }, [video?.publicId]);
+    const handleVoteToggle = async (videoId) => {
+        try {
+            const response = await fetch('/api/vote', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: video?.id, submissionId: videoId }) // Ensure you have the userId available here
+            });
+            const result = await response.json();
 
-    const getPreviewVideoUrl = useMemo(() => {
-        return video?.publicId ? getCldVideoUrl({
-            src: video.publicId,
-            width: 400,
-            height: 225,
-            rawTransformations: ["e_preview:duration_15:max_seg_9:min_seg_dur_1"]
-        }) : '';
-    }, [video?.publicId]);
-
-    const handleVote = (videoId) => {
-        // Handle the voting logic here
-        console.log(`Voted for video with ID: ${videoId}`);
+            if (response.ok) {
+                setIsVoted(result.isVoted);
+                setVideos((prevVideos) =>
+                    prevVideos.map((v) =>
+                        v.id === videoId ? { ...v, voteCount: result.voteCount } : v
+                    )
+                );
+            } else {
+                console.error(result.message);
+            }
+        } catch (error) {
+            console.error('Error toggling vote:', error);
+        }
     };
 
     const formatDuration = (seconds) => {
@@ -87,14 +90,6 @@ const VideoCard = ({ video }) => {
         const remainingSeconds = Math.round(seconds % 60);
         return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
     };
-
-    const handlePreviewError = () => {
-        setPreviewError(true);
-    };
-
-    useEffect(() => {
-        setPreviewError(false);
-    }, [isHovered]);
 
     const [isTitleExpanded, setIsTitleExpanded] = useState(false);
     const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
@@ -114,29 +109,12 @@ const VideoCard = ({ video }) => {
             onMouseLeave={() => setIsHovered(false)}
         >
             <figure className="aspect-video relative">
-                {isHovered ? (
-                    previewError || !getPreviewVideoUrl ? (
-                        <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                            <p className="text-red-500">Preview not available</p>
-                        </div>
-                    ) : (
-                        <video
-                            ref={videoRef}
-                            src={getPreviewVideoUrl}
-                            controls
-                            className="w-full h-full object-cover cursor-pointer"
-                            onError={handlePreviewError}
-                        />
-                    )
-                ) : (
-                    <Image
-                        width={400}
-                        height={225}
-                        src={getThumbnailUrl}
-                        alt={video.postTitle}
-                        className="w-full h-full object-cover"
-                    />
-                )}
+                <video
+                    ref={videoRef}
+                    src={video.publicId ? video.video : ''}
+                    controls
+                    className="w-full h-full object-cover cursor-pointer"
+                />
             </figure>
             <div className="p-4">
                 <div className="flex items-center mb-2">
@@ -184,10 +162,11 @@ const VideoCard = ({ video }) => {
                 </div>
                 <div className="flex justify-between items-center mt-4">
                     <button
-                        className="w-full justify-center bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
-                        onClick={() => handleVote(video.id)}
+                        className={`w-full justify-center font-bold py-2 px-4 rounded inline-flex items-center ${isVoted ? 'bg-red-500 hover:bg-red-700' : 'bg-[#004873] hover:bg-[#0076ff]'
+                            } text-white uppercase`}
+                        onClick={() => handleVoteToggle(video.id)}
                     >
-                        Vote
+                        {isVoted ? "Unvote" : "Vote"}
                     </button>
                 </div>
             </div>

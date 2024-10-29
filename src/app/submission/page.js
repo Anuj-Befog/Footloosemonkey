@@ -1,10 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 const UploadForm = () => {
+    const router = useRouter();
+
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -147,7 +150,6 @@ const UploadForm = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            console.log('Upload success:', response.data);
 
             // Reset form after successful upload
             setFormData({
@@ -169,6 +171,7 @@ const UploadForm = () => {
             setEmail('');  // Reset email field
             setVideoFile(null);  // Clear video file
             setProfilePicFile(null);  // Clear profile picture file
+            router.push('/spotlight')
         } catch (error) {
             console.error('Upload failed:', error.response?.data || error.message);
             setError('Upload failed. Please try again.');
@@ -249,7 +252,7 @@ const UploadForm = () => {
                 </div>
                 <button
                     type="submit"
-                    className="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition"
+                    className={`w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                     disabled={loading} // Disable button while loading
                 >
                     Upload

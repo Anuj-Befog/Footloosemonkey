@@ -36,4 +36,17 @@ model Submission {
   compressedSize           String
   createdAt                DateTime @default(now())
   updatedAt                DateTime @updatedAt
+  voteCount                Int      @default(0)
+  Vote                     Vote[]
+}
+
+model Vote {
+  id           String   @id @default(uuid())
+  userId       String // User's ID
+  submissionId String   @map("submission_id") // ID of the voted video (Submission)
+  createdAt    DateTime @default(now())
+
+  submission Submission @relation(fields: [submissionId], references: [id])
+
+  @@unique([userId, submissionId]) // Ensure each user can only vote once per video
 }
