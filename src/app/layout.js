@@ -3,6 +3,8 @@ import "./globals.css";
 import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
 import Script from 'next/script';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -52,10 +54,10 @@ export default function RootLayout({ children }) {
       </head>
 
       <body className={inter.className}>
+        <ToastContainer />
         <Navbar />
         {children}
         <Footer />
-
         {/* Razorpay Script */}
         <Script src="https://checkout.razorpay.com/v1/checkout.js" />
       </body>

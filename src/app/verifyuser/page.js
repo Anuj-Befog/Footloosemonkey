@@ -3,9 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-import { router } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const VerifyPayment = () => {
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [paymentId, setPaymentId] = useState('');
     const [message, setMessage] = useState('');
@@ -88,8 +89,6 @@ const VerifyPayment = () => {
             </form>
             {message && <p className="mt-4 text-green-500">{message}</p>}
             {error && <p className="mt-4 text-red-500">{error}</p>}
-
-
         </div>
     );
 };

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const UploadForm = () => {
     const [email, setEmail] = useState('');
@@ -42,17 +43,17 @@ const UploadForm = () => {
                 console.log("Submission check response:", checkResponse.data);
 
                 if (checkResponse.data.success) {
-                    setError("You have already uploaded a video. Multiple uploads are not allowed.");
                     setTimeout(() => {
-                        alert("You have already uploaded a video. Multiple uploads are not allowed.");
+                        toast.error("You have already uploaded a video. Multiple uploads are not allowed.");
                     }, 1000);
                     setEmail(''); // Clear email field
+                    setError("You have already uploaded a video. Multiple uploads are not allowed.");
                     return; // Stop further execution if the user has already uploaded
                 }
 
                 // Fetch payment data by email if no submission exists
                 const response = await axios.get(`/api/payment/getDataByEmail?email=${encodeURIComponent(email)}`);
-                console.log('Payment data:', response.data);
+                { response.data.success && setError("") }
 
                 if (response.data.success && response.data.data.length > 0) {
                     const participantData = response.data.data[0];
@@ -119,6 +120,15 @@ const UploadForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        //max file size of 100 mb
+        const MAX_FILE_SIZE = 100 * 1024 * 1024
+
+        if (videoFile.size > MAX_FILE_SIZE) {
+            setError('File size exceeds 100 MB. Please upload a smaller file.');
+            return;
+        }
+
         const data = new FormData();
 
         // Append form data
@@ -156,8 +166,9 @@ const UploadForm = () => {
                 participantPaymentID: '',
                 participantPaymentStatus: ''
             });
-            setVideoFile(null);
-            setProfilePicFile(null);
+            setEmail('');  // Reset email field
+            setVideoFile(null);  // Clear video file
+            setProfilePicFile(null);  // Clear profile picture file
         } catch (error) {
             console.error('Upload failed:', error.response?.data || error.message);
             setError('Upload failed. Please try again.');
@@ -170,7 +181,7 @@ const UploadForm = () => {
         <div className="flex flex-col items-center justify-center min-h-[90vh] py-10 bg-gray-100">
             <h1 className="text-2xl font-bold mb-4">Upload Form</h1>
             {loading && <p className="text-blue-600">Loading...</p>}
-            {error && <p className="text-red-500">{error}</p>}
+            {error.length > 0 && <p className="text-red-500">{error}</p>}
             <form onSubmit={handleSubmit} className="w-[25vw] bg-white p-6 rounded shadow-md" encType="multipart/form-data">
                 <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">
