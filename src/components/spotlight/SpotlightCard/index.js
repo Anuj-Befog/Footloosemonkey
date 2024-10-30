@@ -32,10 +32,13 @@ const VideoGallery = () => {
         <Loader className="animate-spin" size={20} />
     </div>;
 
-    if (!videos.length) return <p>No videos found</p>;
+    // Ensure videos is always an array
+    if (!Array.isArray(videos) || !videos.length) {
+        return <div className='h-[50vh] w-[80vw] flex justify-center items-center text-2xl'>No videos found</div>;
+    }
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2" style={{display: 'contents'}}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2" style={{ display: 'contents' }}>
             {videos.map((video) => (
                 <VideoCard key={video.id} video={video} />
             ))}
