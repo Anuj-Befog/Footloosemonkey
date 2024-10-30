@@ -280,14 +280,20 @@ const Navbar = () => {
               <Link href="/" onClick={handleCloseMenu}>
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Home</h1>
               </Link>
+              <Link href="/about" onClick={handleCloseMenu}>
+                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200">About Us</h1>
+              </Link>
               <Link href={`/${competition}`} onClick={handleCloseMenu}>
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Competition</h1>
               </Link>
               <Link href="/register" onClick={handleCloseMenu}>
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Register</h1>
               </Link>
-              <Link href="/about" onClick={handleCloseMenu}>
-                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200">About Us</h1>
+              <Link href="/submission" onClick={handleCloseMenu}>
+                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Submission</h1>
+              </Link>
+              <Link href="/spotlight" onClick={handleCloseMenu}>
+                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Spotlight</h1>
               </Link>
             </div>
           </motion.div>
