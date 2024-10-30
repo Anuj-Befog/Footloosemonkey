@@ -258,6 +258,7 @@ const Navbar = () => {
             <Link href="/register" className="text-xl font-semibold hover:underline transition-colors duration-200">Register</Link>
             <Link href="/verifyuser" className="text-xl font-semibold hover:underline transition-colors duration-200">Submission</Link>
             <Link href="/spotlight" className="text-xl font-semibold hover:underline transition-colors duration-200">Spotlight</Link>
+            <Link href="/leaderboard" className="text-xl font-semibold hover:underline transition-colors duration-200">Leaderboard</Link>
           </div>
         </div>
       </nav>
