@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from 'react';
-import { getCldImageUrl } from "next-cloudinary";
+import React, { useState, useEffect } from 'react';
 import { Clock } from "lucide-react";
 import dayjs from 'dayjs';
 import relativeTime from "dayjs/plugin/relativeTime";
 import Image from 'next/image';
 import { fetchAllSubmission } from '../../../lib/submission';
+import { v4 as uuidv4 } from 'uuid';
 
 dayjs.extend(relativeTime);
 
@@ -43,33 +43,44 @@ const VideoGallery = () => {
 const VideoCard = ({ video }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isVoted, setIsVoted] = useState(false);
+    const [voting, setVoting] = useState(false); // New loading state
+
+    const getUserId = () => {
+        let userId = localStorage.getItem('userId');
+        if (!userId) {
+            userId = uuidv4();
+            localStorage.setItem('userId', userId);
+        }
+        return userId;
+    };
 
     useEffect(() => {
-        // Check if the video ID is in local storage to set initial vote status
         const votedVideos = JSON.parse(localStorage.getItem('votedVideos')) || [];
         setIsVoted(votedVideos.includes(video.id));
     }, [video.id]);
 
     const handleVoteToggle = async (videoId) => {
+        if (voting) return; // Prevent multiple requests
+
+        const userId = getUserId();
+        setVoting(true); // Set loading to prevent further clicks
+
         try {
             const response = await fetch('/api/vote', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId: video?.id, submissionId: videoId })
+                body: JSON.stringify({ userId, submissionId: videoId })
             });
             const result = await response.json();
 
             if (response.ok) {
                 setIsVoted(!isVoted);
 
-                // Update vote status in local storage
                 const votedVideos = JSON.parse(localStorage.getItem('votedVideos')) || [];
                 if (isVoted) {
-                    // Remove video ID if user unvoted
                     const updatedVotes = votedVideos.filter((id) => id !== videoId);
                     localStorage.setItem('votedVideos', JSON.stringify(updatedVotes));
                 } else {
-                    // Add video ID if user voted
                     votedVideos.push(videoId);
                     localStorage.setItem('votedVideos', JSON.stringify(votedVideos));
                 }
@@ -78,6 +89,8 @@ const VideoCard = ({ video }) => {
             }
         } catch (error) {
             console.error('Error toggling vote:', error);
+        } finally {
+            setVoting(false); // Reset loading state
         }
     };
 
@@ -85,17 +98,6 @@ const VideoCard = ({ video }) => {
         const minutes = Math.floor(seconds / 60);
         const remainingSeconds = Math.round(seconds % 60);
         return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
-    };
-
-    const [isTitleExpanded, setIsTitleExpanded] = useState(false);
-    const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
-
-    const handleToggleTitle = () => {
-        setIsTitleExpanded((prev) => !prev);
-    };
-
-    const handleToggleDescription = () => {
-        setIsDescriptionExpanded((prev) => !prev);
     };
 
     return (
@@ -122,30 +124,8 @@ const VideoCard = ({ video }) => {
                     />
                     <span className="text-sm font-semibold">{video.participantName}</span>
                 </div>
-                <h2 className="text-lg font-bold truncate">
-                    {isTitleExpanded ? (
-                        <span>{video.postTitle}</span>
-                    ) : (
-                        <span>{video.postTitle.length > 30 ? `${video.postTitle.slice(0, 30)}` : video.postTitle}</span>
-                    )}
-                    {video.postTitle.length > 30 && (
-                        <button onClick={handleToggleTitle} className="text-blue-500 hover:underline ml-2">
-                            {isTitleExpanded ? "Read Less" : "Read More"}
-                        </button>
-                    )}
-                </h2>
-                <p className="text-sm text-gray-600 mb-4 truncate">
-                    {isDescriptionExpanded ? (
-                        video.description
-                    ) : (
-                        `${video.description.slice(0, 80)}`
-                    )}
-                    {video.description.length > 80 && (
-                        <button onClick={handleToggleDescription} className="text-blue-500 hover:underline ml-2">
-                            {isDescriptionExpanded ? "Read Less" : "Read More"}
-                        </button>
-                    )}
-                </p>
+                <h2 className="text-lg font-bold truncate">{video.postTitle}</h2>
+                <p className="text-sm text-gray-600 mb-4">{video.description}</p>
                 <div className='flex items-center justify-between'>
                     <div className="text-sm text-gray-600">
                         Uploaded {dayjs(video.createdAt).fromNow()}
@@ -160,6 +140,7 @@ const VideoCard = ({ video }) => {
                         className={`w-full justify-center font-bold py-2 px-4 rounded inline-flex items-center ${isVoted ? 'bg-red-500 hover:bg-red-700' : 'bg-[#004873] hover:bg-[#0076ff]'
                             } text-white uppercase`}
                         onClick={() => handleVoteToggle(video.id)}
+                        disabled={voting} // Disable button while voting
                     >
                         {isVoted ? "Unvote" : "Vote"}
                     </button>
