@@ -127,6 +127,10 @@ const VideoCard = ({ video }) => {
                     />
                     <span className="text-sm font-semibold">{video.participantName}</span>
                 </div>
+                <div>
+                    <div className='text-sm font-semibold'>Talent: {video.participantTalent}</div>
+                    <div className="text-sm font-semibold">Votes: {video.voteCount}</div>
+                </div>
                 <h2 className="text-lg font-bold truncate">{video.postTitle}</h2>
                 <p className="text-sm text-gray-600 mb-4">{video.description}</p>
                 <div className='flex items-center justify-between'>

@@ -28,7 +28,7 @@ model Submission {
   participantPaymentStatus String
   profilepic               String
   video                    String
-  participanTalent         String
+  participantTalent        String
   postTitle                String
   description              String
   duration                 Float
