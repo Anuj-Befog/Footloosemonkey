@@ -28,7 +28,10 @@ const VideoGallery = () => {
         getData();
     }, []);
 
-    if (loading) return <div className='text-center'>Loading...</div>;
+    if (loading) return <div className='h-[50vh] w-full flex justify-center items-center'>
+        <Loader className="animate-spin mr-2" size={20} />
+    </div>;
+
     if (!videos.length) return <p>No videos found</p>;
 
     return (
