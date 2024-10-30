@@ -22,7 +22,9 @@ const Leaderboard = () => {
         getData();
     }, []);
 
-    if (loading) return <div className='flex justify-center'><Loader className="animate-" size={20} /></div>;
+    if (loading) return <div className='h-[50vh] w-full flex justify-center items-center'>
+        <Loader className="animate-spin" size={20} />
+    </div>
 
     return (
         <div className="max-w-4xl mx-auto p-4">

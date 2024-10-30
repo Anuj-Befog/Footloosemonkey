@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const Acting = () => {
   return (
-    <div className="bg-[#E0F7FA]">
+    <div className="bg-[aliceblue]">
       <div className="pt-10 pb-14 container">
         <h2 className="text-5xl text-center font-bold md:mb-20 mb-14">Acting Competition</h2>
         <div className="flex md:ml-14">

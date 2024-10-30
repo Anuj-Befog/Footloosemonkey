@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const Singing = () => {
   return (
-    <div className='bg-[#E0F7FA]'>
+    <div className='bg-[aliceblue]'>
       <div className="pt-10 pb-14 container">
         <h1 className='text-5xl text-center font-bold md:mb-20 mb-14'>Singing Competition</h1>
         <div className="flex md:ml-14">

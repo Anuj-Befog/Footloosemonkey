@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function AboutUs() {
     return (
-        <div className="bg-[#E0F7FA] min-h-screen">
+        <div className="bg-[aliceblue] min-h-screen">
             <div className="container mx-auto px-6 py-16">
                 <h1 className="md:text-5xl text-[2.45rem] font-bold text-center mb-12 text-sky-700">
                     About Footloosemonkey
