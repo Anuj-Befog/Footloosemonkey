@@ -50,6 +50,7 @@ const VideoCard = ({ video }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isVoted, setIsVoted] = useState(false);
     const [voting, setVoting] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false); // State for expanded description
 
     const getUserId = () => {
         let userId = localStorage.getItem('userId');
@@ -106,6 +107,11 @@ const VideoCard = ({ video }) => {
         return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
     };
 
+    // Toggle function for read more/less
+    const toggleDescription = () => {
+        setIsExpanded(!isExpanded);
+    };
+
     return (
         <div
             className="w-[25vw] bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl"
@@ -135,7 +141,17 @@ const VideoCard = ({ video }) => {
                     <div className="text-sm font-semibold">Votes: {video.voteCount}</div>
                 </div>
                 <h2 className="text-lg font-bold truncate">{video.postTitle}</h2>
-                <p className="text-sm text-gray-600 mb-4">{video.description}</p>
+                <p className="text-sm text-gray-600 mb-4">
+                    {isExpanded ? video.description : `${video.description.slice(0, 80)}...`} {/* Truncate description */}
+                    {video.description.length > 80 && ( // Only show "Read More" if the description is longer than 100 characters
+                        <span
+                            onClick={toggleDescription}
+                            className="text-blue-500 cursor-pointer"
+                        >
+                            {isExpanded ? " Read Less" : " Read More"}
+                        </span>
+                    )}
+                </p>
                 <div className='flex items-center justify-between'>
                     <div className="text-sm text-gray-600">
                         Uploaded {dayjs(video.createdAt).fromNow()}

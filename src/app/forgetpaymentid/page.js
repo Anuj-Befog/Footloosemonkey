@@ -26,18 +26,26 @@ const ForgetPaymentId = () => {
 
         try {
             setLoading(true);
+            console.log('Fetching data...');
             const response = await axios.get('/api/payment/get');
-            const payment = response.data.data.find((p) => p.email === email && p.guardianNumber === guardianNumber);
-            if (!payment) {
-                throw new Error('Payment ID not found. Please check your details and try again.');
+
+            if (response.data.success) {
+                const payment = response.data.data.find((p) => p.email === email && p.guardianNumber === guardianNumber);
+
+                if (!payment) {
+                    throw new Error('Payment ID not found. Please check your details and try again.');
+                }
+                setMessage(`Your Payment ID is: ${payment.paymentId}`);
+            } else {
+                throw new Error(response.data.message);
             }
-            setMessage(`Your Payment ID is: ${payment.paymentId}`);
         } catch (err) {
-            setError('Failed to retrieve Payment ID. Please try again.');
+            setError(err.message || 'Failed to retrieve Payment ID. Please try again.');
         } finally {
             setLoading(false);
         }
     };
+
 
     return (
         <div className="flex flex-col items-center justify-center h-[90vh] bg-gray-100">

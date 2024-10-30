@@ -22,7 +22,7 @@ const UploadForm = () => {
         participantEmail: '',
         participantAge: '',
         participantAgeCriteria: '',
-        participanTalent: '',
+        participantTalent: '',
         postTitle: '',
         description: '',
         originalSize: '',
@@ -65,7 +65,7 @@ const UploadForm = () => {
                         participantName,
                         participantAge,
                         ageCriteria: participantAgeCriteria,
-                        talent: participanTalent,
+                        talent: participantTalent,
                         guardianNumber: participantNumber,
                         address: partcipantAddress,
                         charge: participantCharge,
@@ -80,7 +80,7 @@ const UploadForm = () => {
                         participantEmail: email,
                         participantAge,
                         participantAgeCriteria,
-                        participanTalent,
+                        participantTalent,
                         participantNumber,
                         partcipantAddress,
                         participantCharge,
@@ -159,7 +159,7 @@ const UploadForm = () => {
                 participantEmail: '',
                 participantAge: '',
                 participantAgeCriteria: '',
-                participanTalent: '',
+                participantTalent: '',
                 postTitle: '',
                 description: '',
                 originalSize: '',
@@ -184,7 +184,11 @@ const UploadForm = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-[90vh] py-10 bg-gray-100">
             <h1 className="text-2xl font-bold mb-4">Upload Form</h1>
-            {loading && <p className="text-blue-600">Loading...</p>}
+            {loading &&
+                <div className='flex justify-center mb-2 items-center'>
+                    <Loader className="animate-spin" size={20} />
+                </div>
+            }
             {error.length > 0 && <p className="text-red-500">{error}</p>}
             <form onSubmit={handleSubmit} className="w-[25vw] bg-white p-6 rounded shadow-md" encType="multipart/form-data">
                 <div className="mb-4">

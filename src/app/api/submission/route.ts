@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
                 participantPaymentStatus: formData.get("participantPaymentStatus") as string,
                 profilepic: profileResult.secure_url, // profile image URL
                 video: videoResult.secure_url, // video URL
-                participanTalent: formData.get("participanTalent") as string,
+                participantTalent: formData.get("participantTalent") as string,
                 postTitle: formData.get("postTitle") as string,
                 description: formData.get("description") as string,
                 duration: videoResult.duration || 0,
