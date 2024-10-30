@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Clock } from "lucide-react";
+import { Clock, Loader } from "lucide-react";
 import dayjs from 'dayjs';
 import relativeTime from "dayjs/plugin/relativeTime";
 import Image from 'next/image';
@@ -43,7 +43,7 @@ const VideoGallery = () => {
 const VideoCard = ({ video }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isVoted, setIsVoted] = useState(false);
-    const [voting, setVoting] = useState(false); // New loading state
+    const [voting, setVoting] = useState(false);
 
     const getUserId = () => {
         let userId = localStorage.getItem('userId');
@@ -137,12 +137,15 @@ const VideoCard = ({ video }) => {
                 </div>
                 <div className="flex justify-between items-center mt-4">
                     <button
-                        className={`w-full justify-center font-bold py-2 px-4 rounded inline-flex items-center ${isVoted ? 'bg-red-500 hover:bg-red-700' : 'bg-[#004873] hover:bg-[#0076ff]'
-                            } text-white uppercase`}
+                        className={`w-full justify-center font-bold py-2 px-4 rounded inline-flex items-center ${isVoted ? 'bg-red-500 hover:bg-red-700' : 'bg-[#004873] hover:bg-[#0076ff]'} ${voting ? 'cursor-not-allowed' : 'cursor-pointer'} text-white uppercase`}
                         onClick={() => handleVoteToggle(video.id)}
                         disabled={voting} // Disable button while voting
                     >
-                        {isVoted ? "Unvote" : "Vote"}
+                        {voting ? ( // Show spinner while voting
+                            <Loader className="animate-spin mr-2" size={20} />
+                        ) : (
+                            isVoted ? "Unvote" : "Vote"
+                        )}
                     </button>
                 </div>
             </div>
