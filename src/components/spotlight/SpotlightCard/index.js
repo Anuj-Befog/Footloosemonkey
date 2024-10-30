@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { fetchAllSubmission } from '../../../lib/submission';
 import { v4 as uuidv4 } from 'uuid';
 
-dayjs.extend(relativeTime);
+dayjs.extend(relativeTime); // Add relativeTime plugin to dayjs
 
 const VideoGallery = () => {
     const [videos, setVideos] = useState([]);
@@ -18,7 +18,9 @@ const VideoGallery = () => {
         const getData = async () => {
             try {
                 const response = await fetchAllSubmission();
-                setVideos(response);
+                // Sort videos by createdAt in descending order
+                const sortedVideos = response.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                setVideos(sortedVideos);
                 setLoading(false);
             } catch (error) {
                 console.error(error);
@@ -28,9 +30,11 @@ const VideoGallery = () => {
         getData();
     }, []);
 
-    if (loading) return <div className='h-[50vh] w-[80vw] flex justify-center items-center'>
-        <Loader className="animate-spin" size={20} />
-    </div>;
+    if (loading) return (
+        <div className='h-[50vh] w-[80vw] flex justify-center items-center'>
+            <Loader className="animate-spin" size={20} />
+        </div>
+    );
 
     // Ensure videos is always an array
     if (!Array.isArray(videos) || !videos.length) {
