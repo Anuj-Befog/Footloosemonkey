@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { getCldImageUrl, getCldVideoUrl } from "next-cloudinary";
+import { getCldImageUrl } from "next-cloudinary";
 import { Clock } from "lucide-react";
 import dayjs from 'dayjs';
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -43,39 +43,36 @@ const VideoGallery = () => {
 const VideoCard = ({ video }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isVoted, setIsVoted] = useState(false);
-    const [videos, setVideos] = useState([]);
 
-    const videoRef = React.useRef(null);
-
-    const getThumbnailUrl = useMemo(() => {
-        return video?.publicId ? getCldImageUrl({
-            src: video.publicId,
-            width: 400,
-            height: 225,
-            crop: "fill",
-            gravity: "auto",
-            format: "jpg",
-            quality: "auto",
-            assetType: "video"
-        }) : '';
-    }, [video?.publicId]);
+    useEffect(() => {
+        // Check if the video ID is in local storage to set initial vote status
+        const votedVideos = JSON.parse(localStorage.getItem('votedVideos')) || [];
+        setIsVoted(votedVideos.includes(video.id));
+    }, [video.id]);
 
     const handleVoteToggle = async (videoId) => {
         try {
             const response = await fetch('/api/vote', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId: video?.id, submissionId: videoId }) // Ensure you have the userId available here
+                body: JSON.stringify({ userId: video?.id, submissionId: videoId })
             });
             const result = await response.json();
 
             if (response.ok) {
-                setIsVoted(result.isVoted);
-                setVideos((prevVideos) =>
-                    prevVideos.map((v) =>
-                        v.id === videoId ? { ...v, voteCount: result.voteCount } : v
-                    )
-                );
+                setIsVoted(!isVoted);
+
+                // Update vote status in local storage
+                const votedVideos = JSON.parse(localStorage.getItem('votedVideos')) || [];
+                if (isVoted) {
+                    // Remove video ID if user unvoted
+                    const updatedVotes = votedVideos.filter((id) => id !== videoId);
+                    localStorage.setItem('votedVideos', JSON.stringify(updatedVotes));
+                } else {
+                    // Add video ID if user voted
+                    votedVideos.push(videoId);
+                    localStorage.setItem('votedVideos', JSON.stringify(votedVideos));
+                }
             } else {
                 console.error(result.message);
             }
@@ -109,7 +106,6 @@ const VideoCard = ({ video }) => {
         >
             <figure className="aspect-video relative">
                 <video
-                    ref={videoRef}
                     src={video.publicId ? video.video : ''}
                     controls
                     className="w-full h-full object-cover cursor-pointer"
@@ -150,11 +146,11 @@ const VideoCard = ({ video }) => {
                         </button>
                     )}
                 </p>
-                <div className='flex items-center'>
+                <div className='flex items-center justify-between'>
                     <div className="text-sm text-gray-600">
                         Uploaded {dayjs(video.createdAt).fromNow()}
                     </div>
-                    <div className="bg-opacity-70 relative left-[43%] rounded-lg text-sm flex items-center">
+                    <div className="bg-opacity-70 relative rounded-lg text-sm flex items-center">
                         <Clock size={16} className="mr-1" />
                         {formatDuration(video.duration)}
                     </div>
