@@ -21,7 +21,8 @@ export default function Spotlight() {
         </p>
       </div>
 
-      <div className='flex justify-center items-center mb-10'>
+      {/* Search Bar */}
+      {/* <div className='flex justify-center items-center mb-10'>
         <div className="relative">
           <input
             className="appearance-none border-2 pl-10 border-gray-300 hover:border-gray-400 transition-colors rounded-md w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:ring-purple-600 focus:border-purple-600 focus:shadow-outline"
@@ -65,7 +66,7 @@ export default function Spotlight() {
             </svg>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Render multiple SpotlightCards */}
       <div className="holder mx-auto w-[80vw] grid gap-[2rem] sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
