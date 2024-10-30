@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { IoMdLocate } from "react-icons/io";
 import { getAdminData, getRegistrationData, addRegistrationData } from '../services/index';  // Import necessary services
 import Cookies from 'js-cookie';
+import { Loader } from "lucide-react";
 
 const PORT = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3030'
 
@@ -515,9 +516,13 @@ const RegisterForm = () => {
           <button
             type="submit"
             disabled={isSubmitting} // Disable if submitting or there are errors
-            className={`w-full py-2 bg-[#004873] text-white font-semibold rounded ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#0076ff]'} transition duration-300`}
+            className={`w-full py-2 flex justify-center items-center bg-[#004873] text-white font-semibold rounded ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#0076ff]'} transition duration-300`}
           >
-            Submit
+            {isSubmitting ? ( // Show spinner while submitting
+              <Loader className="animate-spin mr-2" size={20} />
+            ) : (
+              "Submit"
+            )}
           </button>
         </form>
       </div>

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useState, useRef, useEffect } from 'react';
 import { getRegistrationData, addPaymentData } from '../services/index';
+import { Loader } from 'lucide-react';
 
 const PaymentCheckout = () => {
   const router = useRouter();
@@ -75,7 +76,7 @@ const PaymentCheckout = () => {
 
   // Razorpay Payment Gateway Integration
   const initiatePayment = async () => {
-    setPaymentStatus(false);
+    setPaymentStatus(false); // Disable the button immediately when starting payment
 
     // Make API call to the server for Razorpay order
     const data = await fetch('/api/razorpay', {
@@ -88,13 +89,14 @@ const PaymentCheckout = () => {
 
     if (!data.ok) {
       console.error('Failed to fetch Razorpay order:', data.statusText);
+      setPaymentStatus(true); // Re-enable the button if there's an error fetching the order
       return;
     }
 
     const { order } = await data.json();
 
     const options = {
-      key: "rzp_live_lcjTYdvpbHEPK7",
+      key: process.env.RAZORPAY_API_KEY,
       name: "Footloosemonkey",
       amount: razorpayCharge * 100, // Dynamic amount in paisa
       currency: "INR",
@@ -117,16 +119,18 @@ const PaymentCheckout = () => {
         if (!verifyData.ok) {
           console.error('Failed to verify payment:', verifyData.statusText);
           await handlePaymentData(response.razorpay_payment_id, 'failed');
+          setPaymentStatus(true); // Re-enable the button on failure
           return;
         }
 
         const res = await verifyData.json();
         if (res?.message === "success") {
-          setPaymentStatus(true);
           alert(`Payment successful! Your payment ID = ${response.razorpay_payment_id} has been processed.`);
           await handlePaymentData(response.razorpay_payment_id, 'success');
+          setPaymentStatus(true); // Re-enable the button after success
         } else {
           await handlePaymentData(response.razorpay_payment_id, 'failed');
+          setPaymentStatus(true); // Re-enable the button on failure
         }
       },
       theme: {
@@ -143,7 +147,7 @@ const PaymentCheckout = () => {
     paymentObject.open();
   };
 
-
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     setPaymentStatus(false);
@@ -231,11 +235,15 @@ const PaymentCheckout = () => {
                 </div>
                 <button
                   type='submit'
-                  className={`w-full py-2 bg-[#004873] text-white font-semibold rounded ${paymentStatus ? 'hover:bg-[#0076ff]' : 'opacity-50 cursor-not-allowed'
+                  className={`w-full py-2 bg-[#004873] flex justify-center items-center text-white font-semibold rounded ${paymentStatus ? 'hover:bg-[#0076ff]' : 'opacity-50 cursor-not-allowed'
                     } transition duration-300`}
                   disabled={!paymentStatus}
                 >
-                  Pay
+                  {!paymentStatus ? ( // Show spinner while submitting
+                    <Loader className="animate-spin mr-2" size={20} />
+                  ) : (
+                    "Pay"
+                  )}
                 </button>
               </div>
             </div>
