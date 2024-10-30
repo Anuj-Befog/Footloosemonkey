@@ -130,15 +130,19 @@ const VideoCard = ({ video }) => {
                     <Image
                         src={video.profilepic}
                         alt={video.participantName}
-                        width={40}
-                        height={40}
-                        className="rounded-full mr-2"
+                        width={500}
+                        height={500}
+                        className="rounded-full mr-2 p-[0.15rem] w-[60px] h-[60px] border-blue-500 border-[3px]"
                     />
-                    <span className="text-sm font-semibold">{video.participantName}</span>
+                    <span className="text-xl font-semibold uppercase">{video.participantName}</span>
                 </div>
-                <div>
-                    <div className='text-sm font-semibold'>Talent: {video.participantTalent}</div>
-                    <div className="text-sm font-semibold">Votes: {video.voteCount}</div>
+                <div className='flex justify-between items-center my-4 bg-white uppercase'>
+                    <div className='text-sm font-semibold text-gray-700'>
+                        <span className='font-bold text-blue-500'>Talent:</span> {video.participantTalent}
+                    </div>
+                    <div className="text-sm font-semibold text-gray-700">
+                        <span className='font-bold text-blue-500'>Votes:</span> {video.voteCount}
+                    </div>
                 </div>
                 <h2 className="text-lg font-bold truncate">{video.postTitle}</h2>
                 <p className="text-sm text-gray-600 mb-4">
