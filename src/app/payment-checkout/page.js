@@ -240,7 +240,7 @@ const PaymentCheckout = () => {
                   disabled={!paymentStatus}
                 >
                   {!paymentStatus ? ( // Show spinner while submitting
-                    <Loader className="animate-spin mr-2" size={20} />
+                    <Loader className="animate-spin" size={20} />
                   ) : (
                     "Pay"
                   )}

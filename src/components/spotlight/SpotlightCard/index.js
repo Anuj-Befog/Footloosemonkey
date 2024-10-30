@@ -28,14 +28,14 @@ const VideoGallery = () => {
         getData();
     }, []);
 
-    if (loading) return <div className='h-[50vh] w-full flex justify-center items-center'>
-        <Loader className="animate-spin mr-2" size={20} />
+    if (loading) return <div className='h-[50vh] w-[80vw] flex justify-center items-center'>
+        <Loader className="animate-spin" size={20} />
     </div>;
 
     if (!videos.length) return <p>No videos found</p>;
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2" style={{display: 'contents'}}>
             {videos.map((video) => (
                 <VideoCard key={video.id} video={video} />
             ))}
@@ -145,7 +145,7 @@ const VideoCard = ({ video }) => {
                         disabled={voting} // Disable button while voting
                     >
                         {voting ? ( // Show spinner while voting
-                            <Loader className="animate-spin mr-2" size={20} />
+                            <Loader className="animate-spin" size={20} />
                         ) : (
                             isVoted ? "Unvote" : "Vote"
                         )}

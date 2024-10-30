@@ -40,22 +40,33 @@ export async function POST(request: NextRequest) {
         // Upload video to Cloudinary
         const videoUpload = new Promise<CloudinaryUploadResult>(async (resolve, reject) => {
             try {
+                // Convert the video file to a buffer
                 const buffer = Buffer.from(await videoFile.arrayBuffer());
+
+                // Upload video to Cloudinary
                 cloudinary.uploader.upload_stream(
                     {
                         resource_type: "video",
                         folder: "footloosemonkey-next-cloudinary-uploads/videos",
-                        transformation: [{ quality: "auto", fetch_format: "mp4" }]
+                        eager: [
+                            { width: 1920, height: 1080, crop: "scale", quality: "auto", fetch_format: "mp4" }
+                        ],
+                        eager_async: true // Enable asynchronous processing
                     },
                     (error, result) => {
-                        if (error) reject(error);
-                        else resolve(result as CloudinaryUploadResult);
+                        if (error) {
+                            console.error("Video upload error:", error); // Log the error
+                            return reject(error); // Reject the Promise with the error
+                        }
+                        resolve(result as CloudinaryUploadResult); // Resolve the Promise with the result
                     }
-                ).end(buffer);
+                ).end(buffer); // End the stream with the video buffer
             } catch (error) {
-                reject(error);
+                console.error("Buffer conversion error:", error); // Log the error
+                reject(error); // Reject the Promise with the error
             }
         });
+
 
         // Upload profile picture to Cloudinary
         const profileUpload = new Promise<CloudinaryUploadResult>(async (resolve, reject) => {

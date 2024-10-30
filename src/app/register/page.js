@@ -519,7 +519,7 @@ const RegisterForm = () => {
             className={`w-full py-2 flex justify-center items-center bg-[#004873] text-white font-semibold rounded ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#0076ff]'} transition duration-300`}
           >
             {isSubmitting ? ( // Show spinner while submitting
-              <Loader className="animate-spin mr-2" size={20} />
+              <Loader className="animate-spin" size={20} />
             ) : (
               "Submit"
             )}

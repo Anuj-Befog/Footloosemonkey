@@ -4,6 +4,7 @@ import React, { useState, useEffect, use } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { Loader } from 'lucide-react';
 
 const UploadForm = () => {
     const router = useRouter();
@@ -252,10 +253,14 @@ const UploadForm = () => {
                 </div>
                 <button
                     type="submit"
-                    className={`w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    className={`w-full flex justify-center items-center bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                     disabled={loading} // Disable button while loading
                 >
-                    Upload
+                    {loading ? ( // Show spinner while voting
+                        <Loader className="animate-spin" size={20} />
+                    ) : (
+                        "Upload"
+                    )}
                 </button>
             </form>
         </div>
