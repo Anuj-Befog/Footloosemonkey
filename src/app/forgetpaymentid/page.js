@@ -36,14 +36,15 @@ const ForgetPaymentId = () => {
                 if (!payment) {
                     throw new Error('Payment ID not found. Please check your details and try again.');
                 }
-                setMessage(`Your Payment ID is: ${payment.paymentId}`);
+                setMessage(`${payment.paymentId}`);
                 toast.success('Payment ID retrieved successfully!');
+
+                // Copy the Payment ID to clipboard
+                await navigator.clipboard.writeText(payment.paymentId);
+
                 setTimeout(() => {
-                    toast.info(
-                        `Your Payment ID is: ${payment.paymentId}`,
-                        { draggable: false }
-                    );
-                }, 1000);
+                    toast.info(`Your Payment ID has been copied to your clipboard. Please keep it safe!`);
+                }, 500);
             } else {
                 throw new Error(response.data.message);
             }
@@ -100,7 +101,7 @@ const ForgetPaymentId = () => {
                     </button>
                 </Link>
             </form>
-            {message && <p className="mt-4">{message}</p>}
+            {message && <p className="mt-4">Your Payment ID is: <span className='text-blue-500'>{message}</span></p>}
             {error && <p className="mt-4 text-red-500">{error}</p>}
         </div>
     );
