@@ -25,7 +25,7 @@ const Leaderboard = () => {
 
     if (loading) return (
         <div className='h-[50vh] flex justify-center items-center'>
-            <Loader className="animate-spin text-blue-500" size={28} />
+            <Loader className="animate-spin" size={28} />
         </div>
     );
 
