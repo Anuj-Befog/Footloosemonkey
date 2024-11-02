@@ -338,7 +338,7 @@ const RegisterForm = () => {
   return (
     <div className="bg-gray-100 p-6 space-y-4">
       <div className="w-full max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-2xl font-semibold mb-6">Registration Form</h1>
+        <h1 className="text-2xl font-semibold mb-6 text-center">Registration Form</h1>
         <form name="submit-to-google-sheet" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium mb-2">Email:</label>

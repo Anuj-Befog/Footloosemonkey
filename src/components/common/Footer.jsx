@@ -25,6 +25,10 @@ const Footer = () => {
   useEffect(() => {
   }, [competition]);
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   return (
     <footer className='bg-[#6e96cf] w-full py-8'>
       <div className='max-w-screen-xl mx-auto px-4 lg:px-8'>
@@ -51,8 +55,8 @@ const Footer = () => {
                 <li className="mb-4">
                   <Link href="/about" className="hover:underline">About Us</Link>
                 </li>
-                <li>
-                  <Link href="#top" className="hover:underline">Jump to top</Link>
+                <li onClick={scrollToTop} className="hover:underline cursor-pointer">
+                  Jump to top
                 </li>
               </ul>
             </div>
@@ -74,11 +78,8 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-base font-semibold uppercase">About</h2>
+              <h2 className="mb-6 text-base font-semibold uppercase">Policies</h2>
               <ul className="font-medium">
-                <li className="mb-4">
-                  <Link href="/about" className="hover:underline">Company</Link>
-                </li>
                 <li className="mb-4">
                   <Link href="/privacy-policy" className="hover:underline">Privacy Policy</Link>
                 </li>
