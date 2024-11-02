@@ -290,11 +290,14 @@ const Navbar = () => {
               <Link href="/register" onClick={handleCloseMenu}>
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Register</h1>
               </Link>
-              <Link href="/submission" onClick={handleCloseMenu}>
+              <Link href="/verifyuser" onClick={handleCloseMenu}>
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Submission</h1>
               </Link>
               <Link href="/spotlight" onClick={handleCloseMenu}>
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Spotlight</h1>
+              </Link>
+              <Link href="/leaderboard" onClick={handleCloseMenu}>
+                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Leaderboard</h1>
               </Link>
             </div>
           </motion.div>

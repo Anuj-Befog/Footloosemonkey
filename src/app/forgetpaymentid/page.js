@@ -38,6 +38,12 @@ const ForgetPaymentId = () => {
                 }
                 setMessage(`Your Payment ID is: ${payment.paymentId}`);
                 toast.success('Payment ID retrieved successfully!');
+                setTimeout(() => {
+                    toast.info(
+                        `Your Payment ID is: ${payment.paymentId}`,
+                        { draggable: false, autoClose: false }
+                    );
+                }, 1000);
             } else {
                 throw new Error(response.data.message);
             }
@@ -49,11 +55,10 @@ const ForgetPaymentId = () => {
         }
     };
 
-
     return (
         <div className="flex flex-col items-center justify-center h-[90vh] bg-gray-100">
             <h2 className="text-3xl font-bold mb-4">Forgot Payment ID</h2>
-            <form onSubmit={handleSubmit} className="w-[25vw] bg-white p-6 rounded shadow-md">
+            <form onSubmit={handleSubmit} className="w-[85vw] md:w-[25vw] bg-white p-6 rounded shadow-md">
                 <div className="mb-4">
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                         Email
@@ -95,7 +100,7 @@ const ForgetPaymentId = () => {
                     </button>
                 </Link>
             </form>
-            {message && <p className="mt-4 text-green-500">{message}</p>}
+            {message && <p className="mt-4">{message}</p>}
             {error && <p className="mt-4 text-red-500">{error}</p>}
         </div>
     );

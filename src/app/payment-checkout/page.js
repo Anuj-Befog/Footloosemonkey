@@ -126,7 +126,10 @@ const PaymentCheckout = () => {
 
         const res = await verifyData.json();
         if (res?.message === "success") {
-          toast.success(`Payment successful! Your payment ID = ${response.razorpay_payment_id} has been processed.`);
+          toast.success(
+            `Payment successful! Your payment ID = ${response.razorpay_payment_id} has been processed.`,
+            { autoClose: false }
+          );
           await handlePaymentData(response.razorpay_payment_id, 'success');
           setPaymentStatus(true); // Re-enable the button after success
         } else {

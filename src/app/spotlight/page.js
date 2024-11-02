@@ -2,12 +2,14 @@
 
 import React, { useState } from 'react';
 import SpotlightCard from '../../components/spotlight/SpotlightCard';
+import { toast } from 'react-toastify';
 
 export default function Spotlight() {
   const [searchInput, setSearchInput] = useState("");
 
   const handleSearchClear = () => {
     setSearchInput(""); // clear the search bar
+    toast.success('Search cleared!');
   };
 
   return (
@@ -25,7 +27,7 @@ export default function Spotlight() {
       <div className='flex justify-center items-center mb-10'>
         <div className="relative">
           <input
-            className="appearance-none border-2 pl-10 border-gray-300 hover:border-gray-400 transition-colors rounded-md w-[30vw] py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:ring-blue-400 focus:border-blue-400 focus:shadow-outline"
+            className="w-[90vw] md:w-[30vw] appearance-none border-2 pl-10 border-gray-300 hover:border-gray-400 transition-colors rounded-md py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:ring-blue-400 focus:border-blue-400 focus:shadow-outline"
             id="search"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}

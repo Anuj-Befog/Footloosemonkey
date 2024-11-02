@@ -192,7 +192,7 @@ const UploadForm = () => {
                 </div>
             }
             {error.length > 0 && <p className="text-red-500">{error}</p>}
-            <form onSubmit={handleSubmit} className="w-[25vw] bg-white p-6 rounded shadow-md" encType="multipart/form-data">
+            <form onSubmit={handleSubmit} className="w-[85vw] md:w-[30vw] bg-white p-6 rounded shadow-md" encType="multipart/form-data">
                 <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">
                         Email:
