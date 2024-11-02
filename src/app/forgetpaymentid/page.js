@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
 
 const ForgetPaymentId = () => {
     const [email, setEmail] = useState('');
@@ -36,11 +37,13 @@ const ForgetPaymentId = () => {
                     throw new Error('Payment ID not found. Please check your details and try again.');
                 }
                 setMessage(`Your Payment ID is: ${payment.paymentId}`);
+                toast.success('Payment ID retrieved successfully!');
             } else {
                 throw new Error(response.data.message);
             }
         } catch (err) {
             setError(err.message || 'Failed to retrieve Payment ID. Please try again.');
+            toast.error('Failed to retrieve Payment ID. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -49,7 +52,7 @@ const ForgetPaymentId = () => {
 
     return (
         <div className="flex flex-col items-center justify-center h-[90vh] bg-gray-100">
-            <h2 className="text-2xl font-bold mb-4">Forgot Payment ID</h2>
+            <h2 className="text-3xl font-bold mb-4">Forgot Payment ID</h2>
             <form onSubmit={handleSubmit} className="w-[25vw] bg-white p-6 rounded shadow-md">
                 <div className="mb-4">
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700">

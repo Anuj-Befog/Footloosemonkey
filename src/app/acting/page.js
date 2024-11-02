@@ -5,7 +5,7 @@ const Acting = () => {
   return (
     <div className="bg-[aliceblue]">
       <div className="pt-10 pb-14 container">
-        <h2 className="text-5xl text-center font-bold md:mb-20 mb-14">Acting Competition</h2>
+        <h2 className="text-5xl text-center font-bold md:mb-20 mb-14 text-sky-700">Acting Competition</h2>
         <div className="flex md:ml-14">
           <div>
             <h1 className="text-2xl font-semibold text-[#004873] mb-6">

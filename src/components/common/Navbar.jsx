@@ -271,9 +271,9 @@ const Navbar = () => {
             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
             className="fixed top-0 left-0 w-64 h-full bg-[#6e96cf] shadow-lg z-40 flex items-center"
           >
-            <div className="flex flex-col items-start p-6 mt-24 font-bold">
+            <div className="flex flex-col items-start p-6 mt-24 font-bold text-white">
               <button
-                className="text-xl font-bold mb-6 text-white"
+                className="text-2xl font-bold mb-6"
                 onClick={toggleDrawer}
               >
                 Close
@@ -282,7 +282,7 @@ const Navbar = () => {
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Home</h1>
               </Link>
               <Link href="/about" onClick={handleCloseMenu}>
-                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200">About Us</h1>
+                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">About Us</h1>
               </Link>
               <Link href={`/${competition}`} onClick={handleCloseMenu}>
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Competition</h1>

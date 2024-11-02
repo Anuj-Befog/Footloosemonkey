@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { addAdminData, getAdminData } from '../services/index';
+import { toast } from 'react-toastify';
 
 export default function AdminPage() {
     const [selectedTalent, setSelectedTalent] = useState('');
@@ -37,7 +38,7 @@ export default function AdminPage() {
     const handleSubmit = async () => {
         // Form validation
         if (!selectedTalent || !selectedACharges || !selectedBCharges || !selectedCCharges) {
-            alert("Please fill in all fields.");
+            toast.error("Please fill in all fields.");
             return;
         }
 
@@ -65,7 +66,7 @@ export default function AdminPage() {
 
         // Check the response and navigate or display a message accordingly
         if (response.success) {
-            alert("Form Saved");
+            toast.success("Form Saved");
             // Optionally, reset the form after successful submission
             setSelectedTalent('');
             setSelectedACharges('');
@@ -73,7 +74,7 @@ export default function AdminPage() {
             setSelectedCCharges('');
         } else {
             // Handle the error accordingly (e.g., show an error message)
-            alert(`Error: ${response.message}`);
+            toast.error(`Error: ${response.message}`);
         }
 
         // Re-enable the button after submission process is complete

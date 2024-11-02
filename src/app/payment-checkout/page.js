@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { useState, useRef, useEffect } from 'react';
 import { getRegistrationData, addPaymentData } from '../services/index';
 import { Loader } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 const PaymentCheckout = () => {
   const router = useRouter();
@@ -125,7 +126,7 @@ const PaymentCheckout = () => {
 
         const res = await verifyData.json();
         if (res?.message === "success") {
-          alert(`Payment successful! Your payment ID = ${response.razorpay_payment_id} has been processed.`);
+          toast.success(`Payment successful! Your payment ID = ${response.razorpay_payment_id} has been processed.`);
           await handlePaymentData(response.razorpay_payment_id, 'success');
           setPaymentStatus(true); // Re-enable the button after success
         } else {

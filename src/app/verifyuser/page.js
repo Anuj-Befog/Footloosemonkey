@@ -5,6 +5,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Loader } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 const VerifyPayment = () => {
     const router = useRouter();
@@ -35,9 +36,11 @@ const VerifyPayment = () => {
                 throw new Error('Payment not found. Please check your details and try again.');
             }
             setMessage('Verification successful!');
+            toast.success('Payment verified successfully!');
             router.push('/submission');
         } catch (err) {
             setError('Verification failed. Please try again.');
+            toast.error('Verification failed. Please try again')
         } finally {
             setLoading(false);
         }
@@ -45,7 +48,7 @@ const VerifyPayment = () => {
 
     return (
         <div className="flex flex-col items-center justify-center h-[90vh] bg-gray-100">
-            <h2 className="text-2xl font-bold mb-4">Verify Your Payment</h2>
+            <h2 className="text-3xl font-bold mb-4">Verify Your Payment</h2>
             <form onSubmit={handleSubmit} className="w-[25vw] bg-white p-6 rounded shadow-md">
                 <div className="mb-4">
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700">

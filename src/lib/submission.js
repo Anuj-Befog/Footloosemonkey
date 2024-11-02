@@ -28,6 +28,8 @@ export const fetchLeaderboard = async () => {
             take: 10,
             select: {
                 id: true,
+                participantId: true,
+                profilepic: true,
                 participantName: true,
                 participantTalent: true,
                 voteCount: true,

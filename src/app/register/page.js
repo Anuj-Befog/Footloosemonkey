@@ -5,6 +5,7 @@ import { IoMdLocate } from "react-icons/io";
 import { getAdminData, getRegistrationData, addRegistrationData } from '../services/index';  // Import necessary services
 import Cookies from 'js-cookie';
 import { Loader } from "lucide-react";
+import { toast } from "react-toastify";
 
 const PORT = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3030'
 
@@ -208,22 +209,22 @@ const RegisterForm = () => {
                 address: address,
               }));
             } else {
-              alert("Failed to retrieve address.");
+              toast.error("Failed to retrieve address.");
             }
           } catch (error) {
             console.error("Error fetching address:", error);
-            alert("Unable to retrieve address. Please try again.");
+            toast.error("Unable to retrieve address. Please try again.");
           }
           setIsLocating(false); // End loading
         },
         (error) => {
           console.error("Error fetching location:", error);
-          alert("Unable to retrieve location. Please try again.");
+          toast.error("Unable to retrieve location. Please try again.");
           setIsLocating(false); // End loading
         }
       );
     } else {
-      alert("Geolocation is not supported by your browser.");
+      toast.error("Geolocation is not supported by your browser.");
       setIsLocating(false); // End loading
     }
   };
@@ -279,7 +280,7 @@ const RegisterForm = () => {
       })
       .catch(error => {
         console.error('Error!', error.message);
-        alert("Form Submitted Failed");
+        toast.error("Form Submitted Failed");
       });
   };
 

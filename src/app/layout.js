@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
 import Script from 'next/script';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,20 +20,20 @@ export default function RootLayout({ children }) {
         {/* Meta Tags */}
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Join Footloosemonkey, the ultimate talent competition for kids aged 6-12! Showcase your skills in dancing, singing, acting, and more in a fun, encouraging environment. Discover and celebrate young talents today!" />
+        <meta name="description" content={metadata.description} />
         <meta name="keywords" content="Footloosemonkey, talent competition, kids talent, singing competition, dancing competition" />
         <meta name="author" content="A&W Technologies" />
 
         {/* Open Graph Tags for Social Sharing */}
         <meta property="og:title" content="Footloosemonkey - Where Young Talents Shine" />
-        <meta property="og:description" content="Join Footloosemonkey, the ultimate talent competition for kids aged 6-12! Showcase your skills in dancing, singing, acting, and more in a fun, encouraging environment. Discover and celebrate young talents today!" />
+        <meta property="og:description" content={metadata.description} />
         <meta property="og:image" content="/img/og-image.png" />
         <meta property="og:url" content="https://www.footloosemonkey.club" />
 
         {/* Twitter Cards */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Footloosemonkey - Where Young Talents Shine" />
-        <meta name="twitter:description" content="Join Footloosemonkey, the ultimate talent competition for kids aged 6-12! Showcase your skills in dancing, singing, acting, and more in a fun, encouraging environment. Discover and celebrate young talents today!" />
+        <meta name="twitter:description" content={metadata.description} />
         <meta name="twitter:image" content="/img/twitter-image.png" />
 
         {/* Favicon and Icons */}
@@ -50,14 +50,27 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"></script>
 
         {/* Page Title */}
-        <title>Footloosemonkey</title>
+        <title>{metadata.title}</title>
       </head>
 
       <body className={inter.className}>
-        <ToastContainer />
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition={Bounce}
+        />
         <Navbar />
         {children}
         <Footer />
+        
         {/* Razorpay Script */}
         <Script src="https://checkout.razorpay.com/v1/checkout.js" />
       </body>

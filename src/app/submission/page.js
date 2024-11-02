@@ -172,10 +172,12 @@ const UploadForm = () => {
             setEmail('');  // Reset email field
             setVideoFile(null);  // Clear video file
             setProfilePicFile(null);  // Clear profile picture file
+            toast.success('Upload successful!');
             router.push('/spotlight')
         } catch (error) {
             console.error('Upload failed:', error.response?.data || error.message);
             setError('Upload failed. Please try again.');
+            toast.error('Upload failed. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -183,7 +185,7 @@ const UploadForm = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-[90vh] py-10 bg-gray-100">
-            <h1 className="text-2xl font-bold mb-4">Upload Form</h1>
+            <h1 className="text-3xl font-bold mb-4">Upload Form</h1>
             {loading &&
                 <div className='flex justify-center mb-2 items-center'>
                     <Loader className="animate-spin" size={20} />

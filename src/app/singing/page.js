@@ -5,7 +5,7 @@ const Singing = () => {
   return (
     <div className='bg-[aliceblue]'>
       <div className="pt-10 pb-14 container">
-        <h1 className='text-5xl text-center font-bold md:mb-20 mb-14'>Singing Competition</h1>
+        <h1 className='text-5xl text-center font-bold md:mb-20 mb-14 text-sky-700'>Singing Competition</h1>
         <div className="flex md:ml-14">
           <div className="md:w-[65%] w-[100%]">
             <h1 className="text-2xl font-semibold text-[#004873] mb-6">

@@ -32,7 +32,7 @@ const VideoGallery = () => {
 
     if (loading) return (
         <div className='h-[50vh] w-[80vw] flex justify-center items-center'>
-            <Loader className="animate-spin" size={20} />
+            <Loader className="animate-spin" size={28} />
         </div>
     );
 
@@ -138,7 +138,10 @@ const VideoCard = ({ video }) => {
                         height={500}
                         className="rounded-full mr-2 p-[0.15rem] w-[60px] h-[60px] border-blue-500 border-[3px]"
                     />
-                    <span className="text-xl font-semibold uppercase">{video.participantName}</span>
+                    <div>
+                        <div className="text-xl font-semibold uppercase">{video.participantName}</div>
+                        <div className="text-sm">{video.participantId}</div>
+                    </div>
                 </div>
                 <div className='flex justify-between items-center my-4 bg-white uppercase'>
                     <div className='text-sm font-semibold text-gray-700'>
