@@ -186,7 +186,7 @@ const UploadForm = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-[90vh] py-10 bg-gray-100">
+        <div className="flex flex-col items-center justify-center min-h-[90vh] py-10 bg-[aliceblue]">
             <h1 className="text-3xl font-bold mb-4">Upload Form</h1>
             {loading &&
                 <div className='flex justify-center mb-2 items-center'>

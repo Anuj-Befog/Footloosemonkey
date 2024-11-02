@@ -13,7 +13,7 @@ export default function Spotlight() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 md:px-8 lg:px-16">
+    <div className="min-h-screen bg-[aliceblue] py-12 px-4 md:px-8 lg:px-16">
       <div className="max-w-5xl mx-auto text-center">
         <h1 className="text-4xl font-extrabold text-gray-800 md:text-5xl lg:text-6xl mb-4">
           Spotlight

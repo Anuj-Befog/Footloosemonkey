@@ -47,7 +47,7 @@ const VerifyPayment = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-[90vh] bg-gray-100">
+        <div className="flex flex-col items-center justify-center h-[90vh] bg-[aliceblue]">
             <h2 className="text-3xl font-bold mb-4">Verify Your Payment</h2>
             <form onSubmit={handleSubmit} className="w-[85vw] md:w-[25vw] bg-white p-6 rounded shadow-md">
                 <div className="mb-4">
