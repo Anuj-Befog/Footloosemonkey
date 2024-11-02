@@ -4,11 +4,11 @@ import React, { useState } from 'react';
 import SpotlightCard from '../../components/spotlight/SpotlightCard';
 
 export default function Spotlight() {
-  // const [searchInput, setSearchInput] = useState("")
+  const [searchInput, setSearchInput] = useState("");
 
-  // const handleSearchClear = () => {
-  //   setSearchInput("") // clear the search bar
-  // }
+  const handleSearchClear = () => {
+    setSearchInput(""); // clear the search bar
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 py-12 px-4 md:px-8 lg:px-16">
@@ -22,15 +22,15 @@ export default function Spotlight() {
       </div>
 
       {/* Search Bar */}
-      {/* <div className='flex justify-center items-center mb-10'>
+      <div className='flex justify-center items-center mb-10'>
         <div className="relative">
           <input
-            className="appearance-none border-2 pl-10 border-gray-300 hover:border-gray-400 transition-colors rounded-md w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:ring-purple-600 focus:border-purple-600 focus:shadow-outline"
-            id="username"
+            className="appearance-none border-2 pl-10 border-gray-300 hover:border-gray-400 transition-colors rounded-md w-[30vw] py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:ring-blue-400 focus:border-blue-400 focus:shadow-outline"
+            id="search"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             type="text"
-            placeholder="Search..."
+            placeholder="Search by id, name, title, or talent"
           />
           <div className="absolute right-0 inset-y-0 flex items-center cursor-pointer" onClick={handleSearchClear}>
             <svg
@@ -48,7 +48,6 @@ export default function Spotlight() {
               />
             </svg>
           </div>
-
           <div className="absolute left-0 inset-y-0 flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -66,11 +65,11 @@ export default function Spotlight() {
             </svg>
           </div>
         </div>
-      </div> */}
+      </div>
 
       {/* Render multiple SpotlightCards */}
       <div className="holder mx-auto w-[80vw] grid gap-[2rem] sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        <SpotlightCard />
+        <SpotlightCard searchInput={searchInput} />
       </div>
     </div>
   );

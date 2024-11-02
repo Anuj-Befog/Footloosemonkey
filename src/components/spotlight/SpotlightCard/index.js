@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 dayjs.extend(relativeTime); // Add relativeTime plugin to dayjs
 
-const VideoGallery = () => {
+const VideoGallery = ({ searchInput }) => {
     const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -41,9 +41,21 @@ const VideoGallery = () => {
         return <div className='h-[50vh] w-[80vw] flex justify-center items-center text-2xl'>No videos found</div>;
     }
 
+    // Filter videos based on searchInput
+    const filteredVideos = videos.filter(video =>
+        video.participantId.toLowerCase().includes(searchInput.toLowerCase()) ||
+        video.participantName.toLowerCase().includes(searchInput.toLowerCase()) ||
+        video.postTitle.toLowerCase().includes(searchInput.toLowerCase()) ||
+        video.participantTalent.toLowerCase().includes(searchInput.toLowerCase())
+    );
+
+    if (filteredVideos.length === 0) {
+        return <div className='h-[50vh] w-[80vw] flex justify-center items-center text-2xl'>No videos found</div>;
+    }
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2" style={{ display: 'contents' }}>
-            {videos.map((video) => (
+            {filteredVideos.map((video) => (
                 <VideoCard key={video.id} video={video} />
             ))}
         </div>
