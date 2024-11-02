@@ -41,7 +41,7 @@ const ForgetPaymentId = () => {
                 setTimeout(() => {
                     toast.info(
                         `Your Payment ID is: ${payment.paymentId}`,
-                        { draggable: false, autoClose: false }
+                        { draggable: false }
                     );
                 }, 1000);
             } else {

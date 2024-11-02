@@ -89,10 +89,12 @@ const UploadForm = () => {
                     }));
                 } else {
                     setError('No user found for this email.');
+                    toast.info('No user found for this email.');
                 }
             } catch (error) {
                 console.error('Error fetching data:', error.response?.data || error.message);
                 setError('Error fetching data. Please try again.');
+                toast.error('Error fetching data. Please try again.');
             } finally {
                 setLoading(false);
             }
@@ -130,6 +132,7 @@ const UploadForm = () => {
 
         if (videoFile.size > MAX_FILE_SIZE) {
             setError('File size exceeds 100 MB. Please upload a smaller file.');
+            toast.error('File size exceeds 100 MB. Please upload a smaller file.');
             return;
         }
 
@@ -191,7 +194,6 @@ const UploadForm = () => {
                     <Loader className="animate-spin" size={20} />
                 </div>
             }
-            {error.length > 0 && <p className="text-red-500">{error}</p>}
             <form onSubmit={handleSubmit} className="w-[85vw] md:w-[30vw] bg-white p-6 rounded shadow-md" encType="multipart/form-data">
                 <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">
@@ -260,7 +262,7 @@ const UploadForm = () => {
                 <button
                     type="submit"
                     className={`w-full flex justify-center items-center bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    disabled={loading} // Disable button while loading
+                    disabled={loading || error} // Disable button while loading and if there is an error
                 >
                     {loading ? ( // Show spinner while voting
                         <Loader className="animate-spin" size={20} />
