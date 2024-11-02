@@ -115,8 +115,13 @@ const RegisterForm = () => {
           ...prevErrors,
           participantAge: `Participant's age must be between ${ageRange.min} and ${ageRange.max} years.`,
         }));
+        toast.error((prevErrors) => ({
+          ...prevErrors,
+          participantAge: `Participant's age must be between ${ageRange.min} and ${ageRange.max} years.`,
+        }));
       } else {
         setErrors((prevErrors) => ({ ...prevErrors, participantAge: "" })); // Clear the age error if valid
+        toast.error((prevErrors) => ({ ...prevErrors, participantAge: "" })); // Clear the age error if valid
       }
 
       setValues((prevValues) => ({

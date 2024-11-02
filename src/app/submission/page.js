@@ -44,7 +44,6 @@ const UploadForm = () => {
             try {
                 // Check if the user already has an existing submission
                 const checkResponse = await axios.get(`/api/checksubmission?email=${encodeURIComponent(email)}`);
-                console.log("Submission check response:", checkResponse.data);
 
                 if (checkResponse.data.success) {
                     setTimeout(() => {

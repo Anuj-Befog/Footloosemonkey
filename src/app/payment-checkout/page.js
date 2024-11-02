@@ -38,6 +38,7 @@ const PaymentCheckout = () => {
         setUserParticipantAge(response.data[0].participantAge)
       } else {
         console.error('Error fetching data:', response.message);
+        toast.error('Failed to fetch registration data. Please try again later.');
       }
     };
 
@@ -69,9 +70,10 @@ const PaymentCheckout = () => {
 
     const response = await addPaymentData(paymentData);
     if (response.success) {
-
+      toast.success("Payment data added successfully.");
     } else {
       console.error("Error adding payment data:", response.message);
+      toast.error("Failed to add payment data. Please try again later.");
     }
   };
 
@@ -90,6 +92,7 @@ const PaymentCheckout = () => {
 
     if (!data.ok) {
       console.error('Failed to fetch Razorpay order:', data.statusText);
+      toast.error('Failed to fetch Razorpay order. Please try again later.');
       setPaymentStatus(true); // Re-enable the button if there's an error fetching the order
       return;
     }
@@ -119,6 +122,7 @@ const PaymentCheckout = () => {
 
         if (!verifyData.ok) {
           console.error('Failed to verify payment:', verifyData.statusText);
+          toast.error('Failed to verify payment. Please try again later.');
           await handlePaymentData(response.razorpay_payment_id, 'failed');
           setPaymentStatus(true); // Re-enable the button on failure
           return;
