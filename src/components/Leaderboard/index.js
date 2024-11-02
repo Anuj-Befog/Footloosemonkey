@@ -57,10 +57,11 @@ const Leaderboard = () => {
                                         className="rounded-full"
                                     />
                                 </td>
-                                <td className="py-4 px-4 border-b text-blue-600 font-semibold">
-                                    <a href={`/profile/${item.participantId}`} target="_blank" rel="noopener noreferrer">
+                                <td className="py-4 px-4 border-b text-gray-700">
+                                    {item.participantName}
+                                    {/* <a href={`/profile/${item.participantId}`} target="_blank" rel="noopener noreferrer">
                                         {item.participantName}
-                                    </a>
+                                    </a> */}
                                 </td>
                                 <td className="py-4 px-4 border-b text-gray-700 lg:table-cell">{item.participantTalent}</td>
                                 <td className="py-4 px-4 border-b text-gray-700">{item.voteCount}</td>
