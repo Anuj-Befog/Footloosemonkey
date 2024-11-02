@@ -36,7 +36,7 @@ const Leaderboard = () => {
                     <thead className="bg-blue-500 text-white">
                         <tr>
                             <th className="py-3 px-4 border-b">Rank</th>
-                            <th className="py-3 px-4 border-b sm:table-cell">Participant ID</th>
+                            <th className="py-3 px-4 border-b sm:table-cell">ID</th>
                             <th className="py-3 px-4 border-b">Profile</th>
                             <th className="py-3 px-4 border-b">Name</th>
                             <th className="py-3 px-4 border-b lg:table-cell">Talent</th>
