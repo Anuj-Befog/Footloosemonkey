@@ -7,7 +7,7 @@ import Certificate from "../../components/home/Certificate";
 import About from "../../components/home/About";
 import Pricing from "../../components/home/Pricing";
 import Schedule from "../../components/home/Schedule";
-// import Voting from "../../components/home/Voting";
+import Voting from "../../components/home/Voting";
 import Contact from "../../components/home/Contact";
 
 export default function Home() {
@@ -20,7 +20,7 @@ export default function Home() {
       <About />
       <Pricing />
       <Schedule />
-      {/* <Voting /> */}
+      <Voting />
       <Contact />
     </>
   );
