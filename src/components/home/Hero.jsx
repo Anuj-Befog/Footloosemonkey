@@ -60,7 +60,7 @@ const Hero = () => {
 
         {/* Register Button */}
         <div className="mt-8">
-          <button className="px-6 py-2 bg-[#004873] text-white font-semibold rounded hover:bg-[#0076ff] transition duration-300"
+          <button className="px-6 py-2 bg-[#004873] hover:bg-[#0076ff] text-white font-semibold rounded transition duration-300"
             onClick={() => router.push('/register')}
           >
             Register
