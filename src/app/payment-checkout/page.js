@@ -54,14 +54,16 @@ const PaymentCheckout = () => {
             (p) => p.email === tempUserEmail && p.guardianNumber === tempUserContact
           );
 
-          console.log("Payment:", payment);
+          if (payment) {
+            setIsPaid(true);
+          }
         } else {
-          console.error('Error fetching registration data:', registrationResponse.message);
-          toast.error('Something went wrong. Please try again later.');
+          console.error('Something went wrong');
+          toast.error('Something went wrong, Please try again later.');
         }
       } catch (error) {
         console.error('Error fetching data:', error.message);
-        toast.error('Something went wrong. Please try again later.');
+        toast.error('Something went wrong, Please try again later.');
       }
     };
 
@@ -87,7 +89,7 @@ const PaymentCheckout = () => {
       talent: userTalent,
       ageCriteria: userAgeCriteria,
       participantAge: userParticipantAge,
-      isPaid: isPaid,
+      isPaid: true,
       paymentId: paymentId,
       status: status,
     };
@@ -103,128 +105,143 @@ const PaymentCheckout = () => {
 
   // Razorpay Payment Gateway Integration or Handle Free Payment
   const initiatePayment = async () => {
-    if (charge == 0) {
-      setPaymentStatus(false); // Disable the button immediately when starting payment
-      setIsPaid(false)
-      const dummyPaymentId = `pay_${Math.random().toString(36).substring(2, 10)}`;
-      await handlePaymentData(dummyPaymentId, 'success');
+    try {
+      if (charge == 0) {
+        setPaymentStatus(false);
+        setIsPaid(false)
+        const dummyPaymentId = `pay_${Math.random().toString(36).substring(2, 10)}`;
+        await handlePaymentData(dummyPaymentId, 'success');
 
-      setTimeout(() => {
-        toast.success("You availed the Diwali offer successfully!",
-          { autoClose: false })
-      }, 1000);
+        setTimeout(() => {
+          toast.success("You availed the Diwali offer successfully!",
+            { autoClose: false })
+        }, 1000);
 
-      setTimeout(() => {
-        toast.success(
-          `Payment successful! Your payment ID = ${dummyPaymentId} has been processed.`,
-          { autoClose: false }
-        );
-      }, 2000);
-
-      // Copy the Payment ID to clipboard
-      await navigator.clipboard.writeText(dummyPaymentId);
-
-      setTimeout(() => {
-        toast.info(`Your Payment ID has been copied to your clipboard. Please keep it safe!`,
-          { autoClose: false }
-        )
-      }, 3000);
-
-      setPaymentStatus(true);
-      setIsPaid(true);
-      return;
-    }
-
-    setPaymentStatus(false); // Disable the button immediately when starting payment
-    setIsPaid(false);
-
-    // Make API call to the server for Razorpay order
-    const data = await fetch('/api/razorpay', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ amount: razorpayCharge * 100 }), // Send charge in paisa
-    });
-
-    if (!data.ok) {
-      console.error('Failed to fetch Razorpay order:', data.statusText);
-      toast.error('Failed to fetch Razorpay order. Please try again later.');
-      setPaymentStatus(true); // Re-enable the button if there's an error fetching the order
-      setIsPaid(true);
-      return;
-    }
-
-    const { order } = await data.json();
-
-    const options = {
-      key: process.env.RAZORPAY_API_KEY,
-      name: "Footloosemonkey",
-      amount: razorpayCharge * 100, // Dynamic amount in paisa
-      currency: "INR",
-      description: "Payment for Registration",
-      order_id: order.id,
-      image: '/logo.png',
-      handler: async function (response) {
-        const verifyData = await fetch('/api/paymentverify', {
-          method: "POST",
-          body: JSON.stringify({
-            razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_order_id: response.razorpay_order_id,
-            razorpay_signature: response.razorpay_signature,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (!verifyData.ok) {
-          console.error('Failed to verify payment:', verifyData.statusText);
-          toast.error('Failed to verify payment. Please try again later.');
-          await handlePaymentData(response.razorpay_payment_id, 'failed');
-          setPaymentStatus(true);
-          setIsPaid(true);
-          return;
-        }
-
-        const res = await verifyData.json();
-        if (res?.message === "success") {
+        setTimeout(() => {
           toast.success(
-            `Payment successful! Your payment ID = ${response.razorpay_payment_id} has been processed.`,
+            `Payment successful! Your payment ID = ${dummyPaymentId} has been processed.`,
             { autoClose: false }
           );
+        }, 2000);
 
-          // Copy the Payment ID to clipboard
-          await navigator.clipboard.writeText(response.razorpay_payment_id);
+        // Copy the Payment ID to clipboard
+        await navigator.clipboard.writeText(dummyPaymentId);
 
-          setTimeout(() => {
-            toast.info(`Your Payment ID has been copied to your clipboard. Please keep it safe!`);
-          }, 500);
+        setTimeout(() => {
+          toast.info(`Your Payment ID has been copied to your clipboard. Please keep it safe!`,
+            { autoClose: false }
+          )
+        }, 3000);
 
-          await handlePaymentData(response.razorpay_payment_id, 'success');
-          setPaymentStatus(true);
-        } else {
-          await handlePaymentData(response.razorpay_payment_id, 'failed');
-          setPaymentStatus(true);
-        }
-      },
-      theme: {
-        color: "#004873",
-      },
-      prefill: {
-        name: userName || '',
-        email: userEmail || '',
-        contact: userContact || '',
-      },
-    };
+        setPaymentStatus(true);
+        setIsPaid(true);
+        return;
+      }
 
-    const paymentObject = new window.Razorpay(options);
-    paymentObject.open();
+      setPaymentStatus(false); // Disable the button immediately when starting payment
+      setIsPaid(false);
+
+      // Make API call to the server for Razorpay order
+      const data = await fetch('/api/razorpay', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ amount: razorpayCharge * 100 }), // Send charge in paisa
+      });
+
+      if (!data.ok) {
+        console.error('Failed to fetch Razorpay order:', data.statusText);
+        toast.error('Failed to fetch Razorpay order. Please try again later.');
+        setPaymentStatus(true); // Re-enable the button if there's an error fetching the order
+        setIsPaid(true);
+        return;
+      }
+
+      const { order } = await data.json();
+
+      const options = {
+        key: process.env.RAZORPAY_API_KEY,
+        name: "Footloosemonkey",
+        amount: razorpayCharge * 100, // Dynamic amount in paisa
+        currency: "INR",
+        description: "Payment for Registration",
+        order_id: order.id,
+        image: '/logo.png',
+        handler: async function (response) {
+          const verifyData = await fetch('/api/paymentverify', {
+            method: "POST",
+            body: JSON.stringify({
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+            }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+
+          if (!verifyData.ok) {
+            console.error('Failed to verify payment:', verifyData.statusText);
+            toast.error('Failed to verify payment. Please try again later.');
+            await handlePaymentData(response.razorpay_payment_id, 'failed');
+            setPaymentStatus(true);
+            setIsPaid(true);
+            return;
+          }
+
+          const res = await verifyData.json();
+          if (res?.message === "success") {
+            toast.success(
+              `Payment successful! Your payment ID = ${response.razorpay_payment_id} has been processed.`,
+              { autoClose: false }
+            );
+
+            // Copy the Payment ID to clipboard
+            await navigator.clipboard.writeText(response.razorpay_payment_id);
+
+            setTimeout(() => {
+              toast.info(`Your Payment ID has been copied to your clipboard. Please keep it safe!`);
+            }, 500);
+
+            await handlePaymentData(response.razorpay_payment_id, 'success');
+            setPaymentStatus(true);
+          } else {
+            await handlePaymentData(response.razorpay_payment_id, 'failed');
+            setPaymentStatus(true);
+          }
+        },
+        theme: {
+          color: "#004873",
+        },
+        prefill: {
+          name: userName || '',
+          email: userEmail || '',
+          contact: userContact || '',
+        },
+      };
+
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
+    } catch (error) {
+      console.error('Error initiating payment:', error.message);
+      toast.error('Failed to initiate payment. Please try again later.');
+      setPaymentStatus(true);
+      setIsPaid(true);
+    }
   };
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (isPaid == true) {
+      setPaymentStatus(false);
+      toast.info('You have already done the registration payment.');
+      setPaymentStatus(true);
+      return;
+    }
+
     setPaymentStatus(false);
     setIsPaid(false);
     initiatePayment();

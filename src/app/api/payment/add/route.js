@@ -9,10 +9,10 @@ export async function POST(req) {
         await connectToDB();
 
         // Extract data from the request body
-        const { email, participantName, ageCriteria, participantAge, guardianNumber, address, talent, charge, paymentId, status } = await req.json();
+        const { email, participantName, ageCriteria, participantAge, guardianNumber, address, talent, charge, isPaid, paymentId, status } = await req.json();
 
         // Create a new Contact document
-        const payment = new Payment({ email, participantName, ageCriteria, participantAge, guardianNumber, address, talent, charge, paymentId, status });
+        const payment = new Payment({ email, participantName, ageCriteria, participantAge, guardianNumber, address, talent, charge, isPaid, paymentId, status });
 
         // Save the document to the database
         const result = await payment.save();
