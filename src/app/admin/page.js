@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 
 export default function AdminPage() {
     const [selectedTalent, setSelectedTalent] = useState('');
-    const [selectedOfferCharges, setSelectedOfferCharges] = useState('');
     const [selectedACharges, setSelectedACharges] = useState('');
     const [selectedBCharges, setSelectedBCharges] = useState('');
     const [selectedCCharges, setSelectedCCharges] = useState('');
@@ -31,7 +30,6 @@ export default function AdminPage() {
         const value = e.target.value;
         setSelectedTalent(value);
         // Reset selected charges when talent changes
-        setSelectedOfferCharges('');
         setSelectedACharges('');
         setSelectedBCharges('');
         setSelectedCCharges('');
@@ -39,7 +37,7 @@ export default function AdminPage() {
 
     const handleSubmit = async () => {
         // Form validation
-        if (!selectedTalent || !selectedOfferCharges || !selectedACharges || !selectedBCharges || !selectedCCharges) {
+        if (!selectedTalent || !selectedACharges || !selectedBCharges || !selectedCCharges) {
             toast.error("Please fill in all fields.");
             return;
         }
@@ -56,7 +54,6 @@ export default function AdminPage() {
         const formData = {
             _id: dataId,  // Pass the fetched _id
             selectedTalent,
-            selectedOfferCharges,
             selectedACharges,
             selectedBCharges,
             selectedCCharges,
@@ -72,7 +69,6 @@ export default function AdminPage() {
             toast.success("Form Saved");
             // Optionally, reset the form after successful submission
             setSelectedTalent('');
-            setSelectedOfferCharges('');
             setSelectedACharges('');
             setSelectedBCharges('');
             setSelectedCCharges('');
@@ -101,22 +97,6 @@ export default function AdminPage() {
                     <option value="Mimicry">Mimicry</option>
                     <option value="Singing">Singing</option>
                 </select>
-
-                {/* Dropdown for Offer Charges based on selected Talent */}
-                {selectedTalent && (
-                    <select
-                        value={selectedOfferCharges}
-                        onChange={(e) => setSelectedOfferCharges(e.target.value)}
-                        className="border border-gray-300 rounded-lg p-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                        <option value="">Select Offer Charges</option>
-                        <option value={0}>₹ 0</option>
-                        <option value={99}>₹ 1</option>
-                        <option value={199}>₹ 9</option>
-                        <option value={199}>₹ 49</option>
-                        <option value={199}>₹ 99</option>
-                    </select>
-                )}
 
                 {/* Dropdown for Group A Charges based on selected Talent */}
                 {selectedTalent && (

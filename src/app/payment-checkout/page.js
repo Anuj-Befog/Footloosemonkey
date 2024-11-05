@@ -31,14 +31,14 @@ const PaymentCheckout = () => {
         setUserEmail(response.data[0].email);
         setUserName(response.data[0].participantName);
         setUserContact(response.data[0].guardianNumber);
-        setUserAddress(response.data[0].address)
+        setUserAddress(response.data[0].address);
         setCharge(response.data[0].charge);
-        setUserTalent(response.data[0].talent)
-        setUserAgeCriteria(response.data[0].ageCriteria)
-        setUserParticipantAge(response.data[0].participantAge)
+        setUserTalent(response.data[0].talent);
+        setUserAgeCriteria(response.data[0].ageCriteria);
+        setUserParticipantAge(response.data[0].participantAge);
       } else {
         console.error('Error fetching data:', response.message);
-        toast.error('Failed to fetch registration data. Please try again later.');
+        toast.error('Something went wrong. Please try again later.');
       }
     };
 
@@ -70,15 +70,45 @@ const PaymentCheckout = () => {
 
     const response = await addPaymentData(paymentData);
     if (response.success) {
-      toast.success("Payment data added successfully.");
+      toast.success("Payment Successful!");
     } else {
-      console.error("Error adding payment data:", response.message);
-      toast.error("Failed to add payment data. Please try again later.");
+      console.error("Payment Failed:", response.message);
+      toast.error("Payment Failed. Please try again later.");
     }
   };
 
-  // Razorpay Payment Gateway Integration
+  // Razorpay Payment Gateway Integration or Handle Free Payment
   const initiatePayment = async () => {
+    if (charge == 0) {
+      setPaymentStatus(false); // Disable the button immediately when starting payment
+      const dummyPaymentId = `pay_${Math.random().toString(36).substring(2, 10)}`;
+      await handlePaymentData(dummyPaymentId, 'success');
+
+      setTimeout(() => {
+        toast.success("You availed the Diwali offer successfully!",
+          { autoClose: false })
+      }, 1000);
+
+      setTimeout(() => {
+        toast.success(
+          `Payment successful! Your payment ID = ${dummyPaymentId} has been processed.`,
+          { autoClose: false }
+        );
+      }, 2000);
+
+      // Copy the Payment ID to clipboard
+      await navigator.clipboard.writeText(dummyPaymentId);
+
+      setTimeout(() => {
+        toast.info(`Your Payment ID has been copied to your clipboard. Please keep it safe!`,
+          { autoClose: false }
+        )
+      }, 3000);
+
+      setPaymentStatus(true);
+      return;
+    }
+
     setPaymentStatus(false); // Disable the button immediately when starting payment
 
     // Make API call to the server for Razorpay order
@@ -106,7 +136,7 @@ const PaymentCheckout = () => {
       currency: "INR",
       description: "Payment for Registration",
       order_id: order.id,
-      image: '/logo.png', // Correct your image path here
+      image: '/logo.png',
       handler: async function (response) {
         const verifyData = await fetch('/api/paymentverify', {
           method: "POST",
@@ -124,7 +154,7 @@ const PaymentCheckout = () => {
           console.error('Failed to verify payment:', verifyData.statusText);
           toast.error('Failed to verify payment. Please try again later.');
           await handlePaymentData(response.razorpay_payment_id, 'failed');
-          setPaymentStatus(true); // Re-enable the button on failure
+          setPaymentStatus(true);
           return;
         }
 
@@ -134,20 +164,28 @@ const PaymentCheckout = () => {
             `Payment successful! Your payment ID = ${response.razorpay_payment_id} has been processed.`,
             { autoClose: false }
           );
+
+          // Copy the Payment ID to clipboard
+          await navigator.clipboard.writeText(response.razorpay_payment_id);
+
+          setTimeout(() => {
+            toast.info(`Your Payment ID has been copied to your clipboard. Please keep it safe!`);
+          }, 500);
+
           await handlePaymentData(response.razorpay_payment_id, 'success');
-          setPaymentStatus(true); // Re-enable the button after success
+          setPaymentStatus(true);
         } else {
           await handlePaymentData(response.razorpay_payment_id, 'failed');
-          setPaymentStatus(true); // Re-enable the button on failure
+          setPaymentStatus(true);
         }
       },
       theme: {
         color: "#004873",
       },
       prefill: {
-        name: userName || '', // User's name from state
-        email: userEmail || '', // User's email from state
-        contact: userContact || '', // User's contact number from state
+        name: userName || '',
+        email: userEmail || '',
+        contact: userContact || '',
       },
     };
 
@@ -159,7 +197,7 @@ const PaymentCheckout = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setPaymentStatus(false);
-    initiatePayment(); // Call to initiate payment
+    initiatePayment();
   };
 
   return (
