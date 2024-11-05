@@ -6,7 +6,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { getRegistrationData, addPaymentData } from '../services/index';
 import { Loader } from 'lucide-react';
 import { toast } from 'react-toastify';
-import { set } from 'mongoose';
+import axios from 'axios';
 
 const PaymentCheckout = () => {
   const router = useRouter();
@@ -27,19 +27,40 @@ const PaymentCheckout = () => {
   // Load data from getRegistrationData()
   useEffect(() => {
     const fetchRegistrationData = async () => {
-      const response = await getRegistrationData();
-      if (response.success && response.data) {
-        setRegisterData([...response.data]);
-        setUserEmail(response.data[0].email);
-        setUserName(response.data[0].participantName);
-        setUserContact(response.data[0].guardianNumber);
-        setUserAddress(response.data[0].address);
-        setCharge(response.data[0].charge);
-        setUserTalent(response.data[0].talent);
-        setUserAgeCriteria(response.data[0].ageCriteria);
-        setUserParticipantAge(response.data[0].participantAge);
-      } else {
-        console.error('Error fetching data:', response.message);
+      try {
+        const registrationResponse = await getRegistrationData();
+        const paymentResponse = await axios.get('/api/payment/get');
+
+        if (registrationResponse.success && registrationResponse.data) {
+          const registrationData = registrationResponse.data[0];
+
+          // Set registration data in state
+          setRegisterData([...registrationResponse.data]);
+          setUserEmail(registrationData.email);
+          setUserName(registrationData.participantName);
+          setUserContact(registrationData.guardianNumber);
+          setUserAddress(registrationData.address);
+          setCharge(registrationData.charge);
+          setUserTalent(registrationData.talent);
+          setUserAgeCriteria(registrationData.ageCriteria);
+          setUserParticipantAge(registrationData.participantAge);
+
+          // Use local variables for email and contact before setting state
+          const tempUserEmail = registrationData.email;
+          const tempUserContact = registrationData.guardianNumber;
+
+          // Find the payment record based on local variables
+          const payment = paymentResponse.data.data.find(
+            (p) => p.email === tempUserEmail && p.guardianNumber === tempUserContact
+          );
+
+          console.log("Payment:", payment);
+        } else {
+          console.error('Error fetching registration data:', registrationResponse.message);
+          toast.error('Something went wrong. Please try again later.');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
         toast.error('Something went wrong. Please try again later.');
       }
     };
