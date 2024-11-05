@@ -9,6 +9,7 @@ const paymentSchema = new mongoose.Schema({
     address: { type: String },
     talent: { type: String },
     charge: { type: String }, // Group charge based on age category
+    isPaid: { type: Boolean },
     paymentId: { type: String, unique: true }, // Group charge based on age category
     status: { type: String }, // e.g., "success", "failed"
 });

@@ -6,6 +6,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { getRegistrationData, addPaymentData } from '../services/index';
 import { Loader } from 'lucide-react';
 import { toast } from 'react-toastify';
+import { set } from 'mongoose';
 
 const PaymentCheckout = () => {
   const router = useRouter();
@@ -21,6 +22,7 @@ const PaymentCheckout = () => {
   const [userAgeCriteria, setUserAgeCriteria] = useState('');
   const [userParticipantAge, setUserParticipantAge] = useState('');
   const [registerData, setRegisterData] = useState([]);
+  const [isPaid, setIsPaid] = useState(false);
 
   // Load data from getRegistrationData()
   useEffect(() => {
@@ -64,6 +66,7 @@ const PaymentCheckout = () => {
       talent: userTalent,
       ageCriteria: userAgeCriteria,
       participantAge: userParticipantAge,
+      isPaid: isPaid,
       paymentId: paymentId,
       status: status,
     };
@@ -81,6 +84,7 @@ const PaymentCheckout = () => {
   const initiatePayment = async () => {
     if (charge == 0) {
       setPaymentStatus(false); // Disable the button immediately when starting payment
+      setIsPaid(false)
       const dummyPaymentId = `pay_${Math.random().toString(36).substring(2, 10)}`;
       await handlePaymentData(dummyPaymentId, 'success');
 
@@ -106,10 +110,12 @@ const PaymentCheckout = () => {
       }, 3000);
 
       setPaymentStatus(true);
+      setIsPaid(true);
       return;
     }
 
     setPaymentStatus(false); // Disable the button immediately when starting payment
+    setIsPaid(false);
 
     // Make API call to the server for Razorpay order
     const data = await fetch('/api/razorpay', {
@@ -124,6 +130,7 @@ const PaymentCheckout = () => {
       console.error('Failed to fetch Razorpay order:', data.statusText);
       toast.error('Failed to fetch Razorpay order. Please try again later.');
       setPaymentStatus(true); // Re-enable the button if there's an error fetching the order
+      setIsPaid(true);
       return;
     }
 
@@ -155,6 +162,7 @@ const PaymentCheckout = () => {
           toast.error('Failed to verify payment. Please try again later.');
           await handlePaymentData(response.razorpay_payment_id, 'failed');
           setPaymentStatus(true);
+          setIsPaid(true);
           return;
         }
 
@@ -197,6 +205,7 @@ const PaymentCheckout = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setPaymentStatus(false);
+    setIsPaid(false);
     initiatePayment();
   };
 
