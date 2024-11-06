@@ -130,8 +130,7 @@ const PaymentCheckout = () => {
         await navigator.clipboard.writeText(dummyPaymentId);
 
         setTimeout(() => {
-          toast.info(`Your Payment ID has been copied to your clipboard. Please keep it safe!`,
-            { autoClose: false }
+          toast.info(`Your Payment ID has been copied to your clipboard. Please keep it safe!`, { autoClose: false }
           )
         }, 3000);
 
