@@ -349,9 +349,9 @@ const Navbar = () => {
             <Link href="/about" className="text-xl font-semibold hover:underline transition-colors duration-200">About Us</Link>
             <Link href={`/${competition}`} className="text-xl font-semibold hover:underline transition-colors duration-200">Competition</Link>
             <Link href="/register" className="text-xl font-semibold hover:underline transition-colors duration-200">Register</Link>
-            {/* <Link href="/verifyuser" className="text-xl font-semibold hover:underline transition-colors duration-200">Submission</Link>
+            <Link href="/verifyuser" className="text-xl font-semibold hover:underline transition-colors duration-200">Submission</Link>
             <Link href="/spotlight" className="text-xl font-semibold hover:underline transition-colors duration-200">Spotlight</Link>
-            <Link href="/leaderboard" className="text-xl font-semibold hover:underline transition-colors duration-200">Leaderboard</Link> */}
+            <Link href="/leaderboard" className="text-xl font-semibold hover:underline transition-colors duration-200">Leaderboard</Link>
           </div>
         </div>
       </nav>
@@ -383,7 +383,7 @@ const Navbar = () => {
               <Link href="/register" onClick={handleCloseMenu}>
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Register</h1>
               </Link>
-              {/* <Link href="/verifyuser" onClick={handleCloseMenu}>
+              <Link href="/verifyuser" onClick={handleCloseMenu}>
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Submission</h1>
               </Link>
               <Link href="/spotlight" onClick={handleCloseMenu}>
@@ -391,7 +391,7 @@ const Navbar = () => {
               </Link>
               <Link href="/leaderboard" onClick={handleCloseMenu}>
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Leaderboard</h1>
-              </Link> */}
+              </Link>
             </div>
           </motion.div>
         )}
