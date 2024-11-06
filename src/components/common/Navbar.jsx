@@ -42,6 +42,27 @@ const Navbar = () => {
         ease: 'elastic.out',
         delay: 1  // Pause before it disappears
       })
+      // Alert of special offer appears
+      .from('#specialAlert', {
+        duration: 0.2,
+        opacity: 1,
+        display: 'none',
+        ease: 'elastic.out'
+      })
+      .to('#specialAlert', {
+        duration: 2,
+        opacity: 1,
+        display: 'flex',
+        ease: 'elastic.in'
+      })
+      // Alert of special offer disappears
+      .to('#specialAlert', {
+        duration: 0.2,
+        opacity: 1,
+        display: 'none',
+        ease: 'elastic.out',
+        delay: 1  // Pause before it disappears
+      })
       // Alert 2 appears
       .from('#alert2', {
         duration: 0.2,
@@ -57,6 +78,27 @@ const Navbar = () => {
       })
       // Alert 2 disappears
       .to('#alert2', {
+        duration: 0.2,
+        opacity: 1,
+        display: 'none',
+        ease: 'elastic.out',
+        delay: 1  // Pause before it disappears
+      })
+      // Alert of special offer appears
+      .from('#specialAlert', {
+        duration: 0.2,
+        opacity: 1,
+        display: 'none',
+        ease: 'elastic.out'
+      })
+      .to('#specialAlert', {
+        duration: 2,
+        opacity: 1,
+        display: 'flex',
+        ease: 'elastic.in'
+      })
+      // Alert of special offer disappears
+      .to('#specialAlert', {
         duration: 0.2,
         opacity: 1,
         display: 'none',
@@ -84,6 +126,27 @@ const Navbar = () => {
         ease: 'elastic.out',
         delay: 1  // Pause before it disappears
       })
+      // Alert of special offer appears
+      .from('#specialAlert', {
+        duration: 0.2,
+        opacity: 1,
+        display: 'none',
+        ease: 'elastic.out'
+      })
+      .to('#specialAlert', {
+        duration: 2,
+        opacity: 1,
+        display: 'flex',
+        ease: 'elastic.in'
+      })
+      // Alert of special offer disappears
+      .to('#specialAlert', {
+        duration: 0.2,
+        opacity: 1,
+        display: 'none',
+        ease: 'elastic.out',
+        delay: 1  // Pause before it disappears
+      })
       // Alert 4 appears
       .from('#alert4', {
         duration: 0.2,
@@ -99,6 +162,27 @@ const Navbar = () => {
       })
       // Alert 4 disappears
       .to('#alert4', {
+        duration: 0.2,
+        opacity: 1,
+        display: 'none',
+        ease: 'elastic.out',
+        delay: 1  // Pause before it disappears
+      })
+      // Alert of special offer appears
+      .from('#specialAlert', {
+        duration: 0.2,
+        opacity: 1,
+        display: 'none',
+        ease: 'elastic.out'
+      })
+      .to('#specialAlert', {
+        duration: 2,
+        opacity: 1,
+        display: 'flex',
+        ease: 'elastic.in'
+      })
+      // Alert of special offer disappears
+      .to('#specialAlert', {
         duration: 0.2,
         opacity: 1,
         display: 'none',
@@ -188,10 +272,19 @@ const Navbar = () => {
               <div id='alert1' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[90vw] md:[95vw] text-center justify-center">
                 <Link href={'/register'}>
                   <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[85vw] md:w-full'>
-                    Get ready for the <strong className='capitalize'>{(competition)}</strong> Competition at <strong>Footloosemonkey</strong>! Registrations are now
+                    Get ready for the <strong className='capitalize'>{(competition)} <strong>🕺💃</strong></strong> Competition at <strong>Footloosemonkey</strong>! Registrations are now
                     <span className="p-1 px-2 mx-[0.5rem] w-auto bg-red-500 dark:bg-[#181a1b] text-white lg:text-l font-rubik font-semibold rounded-md">
                       LIVE
                     </span>
+                  </div>
+                </Link>
+              </div>
+
+              {/* Special Offer */}
+              <div id='specialAlert' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
+                <Link href={'/register'}>
+                  <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[85vw] md:w-full'>
+                    <strong>Diwali Dhamaka! 🎆 </strong> Free entry for all ages <strong>2 days</strong> only! <span>Register now to shine!</span> <strong>🪔🪔</strong>
                   </div>
                 </Link>
               </div>
@@ -200,7 +293,7 @@ const Navbar = () => {
               <div id='alert2' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
                 <Link href={'/register'}>
                   <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[85vw] md:w-full'>
-                    <strong>Footloose Monkey</strong> competition: <strong>25th Oct to 10th Nov</strong>! Showcase your talent and shine!
+                    <strong>Footloose Monkey</strong> competition: <strong>25th Oct to 10th Nov</strong>! Showcase your talent and shine! <strong>🌟</strong>
                   </div>
                 </Link>
               </div>
@@ -209,7 +302,7 @@ const Navbar = () => {
               <div id='alert3' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
                 <Link href={'/register'}>
                   <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[82vw] md:w-full'>
-                    Voting lines for <strong>Footloose Monkey</strong> open on <strong>11th November</strong>! Cast your vote now.
+                    Voting lines <strong>📈</strong> for <strong>Footloose Monkey</strong> open on <strong>11th November</strong>! Cast your vote now.  <strong>⭐</strong>
                   </div>
                 </Link>
               </div>
@@ -256,9 +349,9 @@ const Navbar = () => {
             <Link href="/about" className="text-xl font-semibold hover:underline transition-colors duration-200">About Us</Link>
             <Link href={`/${competition}`} className="text-xl font-semibold hover:underline transition-colors duration-200">Competition</Link>
             <Link href="/register" className="text-xl font-semibold hover:underline transition-colors duration-200">Register</Link>
-            <Link href="/verifyuser" className="text-xl font-semibold hover:underline transition-colors duration-200">Submission</Link>
+            {/* <Link href="/verifyuser" className="text-xl font-semibold hover:underline transition-colors duration-200">Submission</Link>
             <Link href="/spotlight" className="text-xl font-semibold hover:underline transition-colors duration-200">Spotlight</Link>
-            <Link href="/leaderboard" className="text-xl font-semibold hover:underline transition-colors duration-200">Leaderboard</Link>
+            <Link href="/leaderboard" className="text-xl font-semibold hover:underline transition-colors duration-200">Leaderboard</Link> */}
           </div>
         </div>
       </nav>
@@ -290,7 +383,7 @@ const Navbar = () => {
               <Link href="/register" onClick={handleCloseMenu}>
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Register</h1>
               </Link>
-              <Link href="/verifyuser" onClick={handleCloseMenu}>
+              {/* <Link href="/verifyuser" onClick={handleCloseMenu}>
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Submission</h1>
               </Link>
               <Link href="/spotlight" onClick={handleCloseMenu}>
@@ -298,7 +391,7 @@ const Navbar = () => {
               </Link>
               <Link href="/leaderboard" onClick={handleCloseMenu}>
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Leaderboard</h1>
-              </Link>
+              </Link> */}
             </div>
           </motion.div>
         )}

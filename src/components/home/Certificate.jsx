@@ -25,7 +25,7 @@ const Certificate = () => {
             whileHover={{ scale: 1.05 }} // Slight scale on hover
             transition={{ duration: 0.3 }} // Smooth transition
           >
-            <Image src={src} layout="fill" style={{ objectFit: 'cover' }} alt={`certificate-${index + 1}`} />
+            <Image src={src} layout="fill" className="object-cover" alt={`certificate-${index + 1}`} />
             <motion.div
               className="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center group-hover:bg-opacity-50 transition duration-300"
             >
