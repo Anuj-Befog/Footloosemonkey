@@ -274,6 +274,13 @@ const RegisterForm = () => {
     formData.append('OffensiveContent', values.termsAccepted.offensiveContent ? 'Yes' : 'No');
     formData.append('Incident', values.termsAccepted.incident ? 'Yes' : 'No');
     formData.append('Charge', charges);
+    // Add date to form data
+    const today = new Date();
+    const formattedDate = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+    formData.append('Date', formattedDate);
+    // Add time to form data
+    const formattedTime = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+    formData.append('Time', formattedTime);
 
     fetch(scriptURL, { method: 'POST', body: formData })
       .then(response => {
