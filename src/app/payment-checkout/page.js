@@ -109,6 +109,7 @@ const PaymentCheckout = () => {
       if (charge == 0) {
         setPaymentStatus(false);
         setIsPaid(false)
+        handleSubmitGoogleForm();
         const dummyPaymentId = `pay_${Math.random().toString(36).substring(2, 10)}`;
         await handlePaymentData(dummyPaymentId, 'success');
 
@@ -192,6 +193,7 @@ const PaymentCheckout = () => {
 
           const res = await verifyData.json();
           if (res?.message === "success") {
+            handleSubmitGoogleForm();
             toast.success(
               `Payment successful! Your payment ID = ${response.razorpay_payment_id} has been processed.`,
               { autoClose: false }
@@ -237,7 +239,7 @@ const PaymentCheckout = () => {
 
     if (isPaid == true) {
       setPaymentStatus(false);
-      toast.info('You have already done the registration payment.');
+      toast.info('You have already completed the payment.');
       setPaymentStatus(true);
       return;
     }
@@ -245,6 +247,44 @@ const PaymentCheckout = () => {
     setPaymentStatus(false);
     setIsPaid(false);
     initiatePayment();
+  };
+
+  // Google Sheet Integration
+  const handleSubmitGoogleForm = async () => {
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxUfsJR5oWPQtvpchqO3JHz25brnjSOYrQCkpSD0g0GBVmEb0Ng_Z8BDuWw1sNRloSv/exec';
+
+    const data = {
+      Email: userEmail,
+      Status: 'Paid',
+      PaymentID: paymentId,
+      Charge: charge,
+      PaymentStatus: status,
+    };
+
+    try {
+      // Send the PUT request to the Google Apps Script
+      const response = await fetch(scriptURL, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // Parse the response from Google Apps Script
+      const result = await response.json();
+
+      if (response.ok) {
+        console.log('Data updated successfully', result);
+        toast.success('Data updated successfully in Google Sheets!');
+      } else {
+        console.error('Error updating data:', result.error || response.statusText);
+        toast.error('Failed to update data in Google Sheets');
+      }
+    } catch (error) {
+      console.error('Request failed:', error);
+      toast.error('Error with the request to Google Sheets');
+    }
   };
 
   return (

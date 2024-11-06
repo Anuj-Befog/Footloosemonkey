@@ -32,9 +32,9 @@ const validate = (values) => {
     errors.termsAccepted.offensiveContent = "You must accept the terms regarding offensive content";
   }
 
-  if (!values.termsAccepted.incidents) {
+  if (!values.termsAccepted.incident) {
     errors.termsAccepted = errors.termsAccepted || {};
-    errors.termsAccepted.incidents = "You must accept the terms regarding incidents";
+    errors.termsAccepted.incident = "You must accept the terms regarding incident";
   }
 
   return errors;
@@ -53,7 +53,7 @@ const RegisterForm = () => {
     termsAccepted: {
       videoSharing: false,
       offensiveContent: false,
-      incidents: false,
+      incident: false,
     },
   });
 
@@ -95,7 +95,7 @@ const RegisterForm = () => {
       "Talent": "talent",
       "Video Sharing": "videoSharing",
       "Offensive Content": "offensiveContent",
-      "Incidents": "incidents",
+      "Incidents": "incident",
     };
 
     const mappedName = nameMapping[name];
@@ -189,34 +189,35 @@ const RegisterForm = () => {
   const [isLocating, setIsLocating] = useState(false);
 
   // Update the function:
-  const handleLocationClick = async () => {
-    setIsLocating(true); // Start loading
+  const fetchAddressFromLocation = async (latitude, longitude) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        setValues((prevValues) => ({
+          ...prevValues,
+          address: data.display_name,
+        }));
+      } else {
+        toast.error("Failed to retrieve address.");
+      }
+    } catch (error) {
+      console.error("Error fetching address:", error);
+      toast.error("Unable to retrieve address. Please try again.");
+    } finally {
+      setIsLocating(false); // End loading
+    }
+  };
+
+  const handleLocationClick = () => {
+    setIsLocating(true);
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
-          try {
-            const response = await fetch(
-              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`
-            );
-            const data = await response.json();
-
-            if (response.ok) {
-              const address = data.display_name;
-              setValues((prevValues) => ({
-                ...prevValues,
-                address: address,
-              }));
-            } else {
-              toast.error("Failed to retrieve address.");
-            }
-          } catch (error) {
-            console.error("Error fetching address:", error);
-            toast.error("Unable to retrieve address. Please try again.");
-          }
-          setIsLocating(false); // End loading
-        },
+        (position) => fetchAddressFromLocation(position.coords.latitude, position.coords.longitude),
         (error) => {
           console.error("Error fetching location:", error);
           toast.error("Unable to retrieve location. Please try again.");
@@ -269,9 +270,10 @@ const RegisterForm = () => {
     const form = document.forms['submit-to-google-sheet'];
 
     const formData = new FormData(form);
-    formData.append('videoSharing', values.termsAccepted.videoSharing ? 'Yes' : 'No');
-    formData.append('offensiveContent', values.termsAccepted.offensiveContent ? 'Yes' : 'No');
-    formData.append('incidents', values.termsAccepted.incidents ? 'Yes' : 'No');
+    formData.append('VideoSharing', values.termsAccepted.videoSharing ? 'Yes' : 'No');
+    formData.append('OffensiveContent', values.termsAccepted.offensiveContent ? 'Yes' : 'No');
+    formData.append('Incident', values.termsAccepted.incident ? 'Yes' : 'No');
+    formData.append('Charge', charges);
 
     fetch(scriptURL, { method: 'POST', body: formData })
       .then(response => {
@@ -501,7 +503,7 @@ const RegisterForm = () => {
               <input
                 type="checkbox"
                 name="Incidents"
-                checked={values.termsAccepted.incidents}
+                checked={values.termsAccepted.incident}
                 onChange={handleChange}
                 className="form-checkbox"
               />
@@ -509,8 +511,8 @@ const RegisterForm = () => {
                 By submitting, I acknowledge that the company is not responsible for any incidents that may occur during the shooting and video-making process.
               </span>
             </label>
-            {errors.termsAccepted?.incidents && (
-              <p className="text-red-500 text-sm">{errors.termsAccepted.incidents}</p>
+            {errors.termsAccepted?.incident && (
+              <p className="text-red-500 text-sm">{errors.termsAccepted.incident}</p>
             )}
           </div>
 
