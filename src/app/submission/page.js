@@ -15,14 +15,11 @@ const UploadForm = () => {
     const [videoFile, setVideoFile] = useState(null);
     const [profilePicFile, setProfilePicFile] = useState(null);
 
-
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
         const emailParam = params.get('email');
         if (emailParam) setEmail(emailParam);
     }, []);
-
-    console.log("Email", email);
 
     // Participant data
     const [formData, setFormData] = useState({
