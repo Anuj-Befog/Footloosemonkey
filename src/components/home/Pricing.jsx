@@ -4,7 +4,7 @@ import Link from 'next/link';
 const Pricing = () => {
   return (
     <div className="bg-[aliceblue] py-16 px-8">
-      <h2 className="text-5xl text-center font-bold mb-12 text-sky-700">Our Pricing</h2>
+      <h2 className="text-5xl text-center font-bold mb-8 text-sky-700">Our Pricing</h2>
 
       <div className="flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-10">
         {/* Plan for 3-5 years */}
