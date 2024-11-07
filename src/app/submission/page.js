@@ -263,7 +263,7 @@ const UploadForm = () => {
                     className={`w-full flex justify-center items-center bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                     disabled={loading || error} // Disable button while loading and if there is an error
                 >
-                    {loading ? ( // Show spinner while voting
+                    {loading ? (
                         <Loader className="animate-spin" size={20} />
                     ) : (
                         "Upload"

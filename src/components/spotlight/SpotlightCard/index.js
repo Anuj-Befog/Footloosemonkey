@@ -190,7 +190,7 @@ const VideoCard = ({ video }) => {
                         onClick={() => handleVoteToggle(video.id)}
                         disabled={voting} // Disable button while voting
                     >
-                        {voting ? ( // Show spinner while voting
+                        {voting ? (
                             <Loader className="animate-spin" size={20} />
                         ) : (
                             isVoted ? "Unvote" : "Vote"

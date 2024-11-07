@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
+import { Loader } from 'lucide-react';
 
 const ForgetPaymentId = () => {
     const [email, setEmail] = useState('');
@@ -91,7 +92,11 @@ const ForgetPaymentId = () => {
                     disabled={isButtonDisabled || loading}
                     className={`w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition ${isButtonDisabled ? 'opacity-70 cursor-not-allowed' : ''} ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
                 >
-                    Retrieve Payment ID
+                    {loading ? (
+                        <Loader className="animate-spin" size={20} />
+                    ) : (
+                        "Submit"
+                    )}
                 </button>
 
                 {/* Verify Payment Option */}
