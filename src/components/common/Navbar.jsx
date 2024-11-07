@@ -360,12 +360,7 @@ const Navbar = () => {
                 <Image src="/logo.png" width={65} height={65} className="my-1 absolute top-0" alt="Logo" />
               </Link>
             </div>
-
             {/* Collaboration Description */}
-            <div className="flex flex-col items-start justify-center">
-              <h1 className="text-lg font-bold">Collaboration with</h1>
-              <h3 className="text-[14px] font-semibold uppercase">Red Hill school Aliganj Branch, Lucknow</h3>
-            </div>
           </div>
 
           {/* Hamburger Menu Icon for Small Screens */}
