@@ -45,7 +45,7 @@ export default function AboutUs() {
                 <div className="mt-16">
                     <h2 className="text-4xl text-center font-bold mb-12 text-sky-700">Why Choose Footloosemonkey?</h2>
                     <div className="grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                        <div className="bg-white p-8 shadow-md rounded-md text-center">
+                        <div className="bg-white flex flex-col justify-end p-8 shadow-md rounded-md text-center">
                             <Image src="/about/singing.png" alt="Singing" width={250} height={180} className="rounded-md mx-auto w-full h-auto" />
                             <h3 className="text-2xl font-semibold mt-6 text-sky-700">Singing</h3>
                             <p className="text-xl mt-4 text-gray-600">
@@ -53,7 +53,7 @@ export default function AboutUs() {
                             </p>
                         </div>
 
-                        <div className="bg-white p-8 shadow-md rounded-md text-center">
+                        <div className="bg-white flex flex-col justify-end p-8 shadow-md rounded-md text-center">
                             <Image src="/about/dancing.png" alt="Dancing" width={300} height={180} className="rounded-md mx-auto w-full h-auto" />
                             <h3 className="text-2xl font-semibold mt-6 text-sky-700">Dancing</h3>
                             <p className="text-xl mt-4 text-gray-600">
@@ -61,8 +61,8 @@ export default function AboutUs() {
                             </p>
                         </div>
 
-                        <div className="bg-white p-8 shadow-md rounded-md text-center">
-                            <Image src="/about/mimicryAndDancing.jpg" alt="Acting" width={400} height={180} className="rounded-md mx-auto w-full h-auto" />
+                        <div className="bg-white flex flex-col justify-end p-8 shadow-md rounded-md text-center">
+                            <Image src="/about/mimicryAndDancing.jpg" alt="Acting" width={500} height={500} className="rounded-md mx-auto w-full h-auto mb-6" />
                             <h3 className="text-2xl font-semibold mt-6 text-sky-700">Acting & Mimicry</h3>
                             <p className="text-xl mt-4 text-gray-600">
                                 Young actors and mimics get the chance to bring their favorite characters to life and showcase their creativity.
@@ -82,7 +82,7 @@ export default function AboutUs() {
 
                         {/* Card for 3-5 years */}
                         <div className="bg-white p-8 shadow-2xl rounded-xl w-full md:w-1/3 relative md:mb-0 mb-10">
-                            <Image src="/about/toddler-performer.png" alt="Toddler Contestant" width={350} height={250} className="rounded-xl mx-auto" />
+                            <Image src="/about/toddler-performer.png" alt="Toddler Contestant" width={350} height={250} className="w-[350px] h-[350px] rounded-xl mx-auto" />
                             <div className="absolute -top-8 left-4 bg-sky-600 text-white px-4 py-2 rounded-lg text-lg">Group A</div>
                             <h3 className="text-4xl font-semibold text-sky-700 mt-8">3-5 Years</h3>
                             <p className="text-5xl font-extrabold text-gray-900 mt-4">₹199</p>
@@ -95,7 +95,7 @@ export default function AboutUs() {
 
                         {/* Card for 6-8 years */}
                         <div className="bg-white p-8 shadow-2xl rounded-xl w-full md:w-1/3 relative md:mb-0 mb-10">
-                            <Image src="/about/young-performer.jpg" alt="Young Contestent" width={160} height={250} className="rounded-xl mx-auto" />
+                            <Image src="/about/young-performer.jpg" alt="Young Contestent" width={160} height={350} className="w-[160px] h-[350px] rounded-xl mx-auto" />
                             <div className="absolute -top-8 left-4 bg-sky-600 text-white px-4 py-2 rounded-lg text-lg">Group B</div>
                             <h3 className="text-4xl font-semibold text-sky-700 mt-8">6-8 Years</h3>
                             <p className="text-5xl font-extrabold text-gray-900 mt-4">₹299</p>
@@ -108,7 +108,7 @@ export default function AboutUs() {
 
                         {/* Card for 9-12 years */}
                         <div className="bg-white p-8 shadow-2xl rounded-xl w-full md:w-1/3 relative">
-                            <Image src="/about/older-performer.png" alt="Older Contestent" width={185} height={250} className="rounded-xl mx-auto" />
+                            <Image src="/about/older-performer.png" alt="Older Contestent" width={185} height={250} className="w-[185px] h-[350px] rounded-xl mx-auto" />
                             <div className="absolute -top-8 left-4 bg-sky-600 text-white px-4 py-2 rounded-lg text-lg">Group C</div>
                             <h3 className="text-4xl font-semibold text-sky-700 mt-8">9-12 Years</h3>
                             <p className="text-5xl font-extrabold text-gray-900 mt-4">₹399</p>
@@ -131,7 +131,7 @@ export default function AboutUs() {
                     </p>
                     <div className="mt-10">
                         <Link href="/register">
-                            <Image src="/about/register-btn.png" alt="Register now" width={300} height={100} className="mx-auto cursor-pointer" />
+                            <Image src="/about/register-btn.png" alt="Register now" width={300} height={100} className="w-[300px] h-[50px] mx-auto cursor-pointer" />
                         </Link>
                     </div>
                 </div>
