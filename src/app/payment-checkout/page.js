@@ -135,12 +135,8 @@ const PaymentCheckout = () => {
         }, 3000);
 
         setTimeout(() => {
-          toast.info('We are redirecting you for the video uploading.', { autoClose: false });
+          router.push('/verifyuser');
         }, 4000);
-
-        setTimeout(() => {
-          router.push('/submission');
-        }, 5000);
 
         setPaymentStatus(true);
         setIsPaid(true);
@@ -214,12 +210,8 @@ const PaymentCheckout = () => {
             }, 500);
 
             setTimeout(() => {
-              toast.info('We are redirecting you for the video uploading.', { autoClose: false });
+              router.push('/verifyuser');
             }, 1000);
-
-            setTimeout(() => {
-              router.push('/submission');
-            }, 2000);
 
             await handlePaymentData(response.razorpay_payment_id, 'success');
             setPaymentStatus(true);
@@ -256,11 +248,8 @@ const PaymentCheckout = () => {
       setPaymentStatus(false);
       toast.info('You have already completed the payment.');
       setTimeout(() => {
-        toast.info('We are redirecting you for the video uploading.');
+        router.push('/verifyuser');
       }, 1000);
-      setTimeout(() => {
-        router.push('/submission');
-      }, 2000);
       setPaymentStatus(true);
       return;
     }
