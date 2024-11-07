@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaBars } from 'react-icons/fa'
 import Link from 'next/link'
@@ -11,6 +11,34 @@ const Navbar = () => {
 
   // Alert State
   const [isVisible, setIsVisible] = useState(true);
+  // Toggle Mobile Navbar State
+  const [isOpen, setIsOpen] = useState(false)
+
+  // Ref for mobile navbar
+  const mobileNavRef = useRef(null);
+
+  // Ref for hamburger icon
+  const NavBarsRef = useRef(null);
+
+  // Function for mobile navbar
+  const toggleDrawer = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeDrawer = () => {
+    setIsOpen(false);
+  };
+
+  // Close mobile navbar if clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isOpen && mobileNavRef.current && !mobileNavRef.current.contains(event.target) && !NavBarsRef.current.contains(event.target)) {
+        closeDrawer();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
 
   // Function to handle closing the alert
   const closeAlert = () => {
@@ -198,6 +226,7 @@ const Navbar = () => {
       })
   }, []);
 
+  // eslint-disable-next-line no-unused-vars
   const [datas, setDatas] = useState([])
 
   useEffect(() => {
@@ -229,13 +258,7 @@ const Navbar = () => {
   useEffect(() => {
   }, [competition]);
 
-  const [isOpen, setIsOpen] = useState(false)
   const [navbarBg, setNavbarBg] = useState('bg-[#6e96cf]')
-
-  // Function to toggle the drawer
-  const toggleDrawer = () => {
-    setIsOpen(!isOpen)
-  }
 
   // Function to handle scroll for changing navbar background
   const handleScroll = () => {
@@ -283,7 +306,7 @@ const Navbar = () => {
               {/* Special Offer */}
               <div id='specialAlert' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
                 <Link href={'/register'}>
-                  <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[85vw] md:w-full'>
+                  <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[80vw] md:w-full'>
                     <strong>Diwali Dhamaka! 🎆 </strong> Free entry for all ages <strong>2 days</strong> only! <span>Register now to shine!</span> <strong>🪔🪔</strong>
                   </div>
                 </Link>
@@ -292,7 +315,7 @@ const Navbar = () => {
               {/* Alert2 */}
               <div id='alert2' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
                 <Link href={'/register'}>
-                  <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[85vw] md:w-full'>
+                  <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[80vw] md:w-full'>
                     <strong>Footloose Monkey</strong> competition: <strong>25th Oct to 10th Nov</strong>! Showcase your talent and shine! <strong>🌟</strong>
                   </div>
                 </Link>
@@ -301,7 +324,7 @@ const Navbar = () => {
               {/* Alert3 */}
               <div id='alert3' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
                 <Link href={'/register'}>
-                  <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[82vw] md:w-full'>
+                  <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[80vw] md:w-full'>
                     Voting lines <strong>📈</strong> for <strong>Footloose Monkey</strong> open on <strong>11th November</strong>! Cast your vote now.  <strong>⭐</strong>
                   </div>
                 </Link>
@@ -311,7 +334,7 @@ const Navbar = () => {
               {/* Alert4 */}
               <div id='alert4' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
                 <Link href={'/register'}>
-                  <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[85vw] md:w-full'>
+                  <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[83vw] md:w-full'>
                     Winners of the <strong>Footloose Monkey</strong> competition will be declared on <strong>20th November 2024</strong>! Stay tuned.
                   </div>
                 </Link>
@@ -337,8 +360,8 @@ const Navbar = () => {
           </Link>
 
           {/* Hamburger Menu Icon for Small Screens */}
-          <div className="lg:hidden">
-            <button onClick={toggleDrawer} aria-label="Toggle Menu">
+          <div className="lg:hidden" >
+            <button onClick={toggleDrawer} ref={NavBarsRef} aria-label="Toggle Menu">
               <FaBars className="text-2xl" />
             </button>
           </div>
@@ -355,22 +378,47 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+
+      {/* Fade Background for mobile view */}
       <AnimatePresence>
         {isOpen && (
+          <motion.div>
+            <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-40'></div>
+          </motion.div>
+        )}
+      </AnimatePresence >
+
+      {/* Mobile Navbar Close Button */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div>
+            <div className='fixed top-[30%] left-0 w-full h-full z-50'>
+              <div className='flex justify-end p-4'>
+                <button onClick={handleCloseMenu} type="button" class="text-blue-500 font-bold bg-white border-blue-500 border-4 transition-colors transition-300 cursor-pointer p-2 inline-flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-inset rounded-full">
+                  <span class="sr-only">Close menu</span>
+                  <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence >
+
+      {/* Mobile Navbar */}
+      <AnimatePresence >
+        {isOpen && (
           <motion.div
+            ref={mobileNavRef}
             initial={{ x: '-100%' }}
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            className="fixed top-0 left-0 w-64 h-full bg-[#6e96cf] shadow-lg z-40 flex items-center"
+            className="fixed top-0 left-0 w-56 h-full bg-[#6e96cf] shadow-lg z-40 flex items-center"
           >
             <div className="flex flex-col items-start p-6 mt-24 font-bold text-white">
-              <button
-                className="text-2xl font-bold mb-6"
-                onClick={toggleDrawer}
-              >
-                Close
-              </button>
+              {/* Navbar Links */}
               <Link href="/" onClick={handleCloseMenu}>
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Home</h1>
               </Link>
@@ -394,7 +442,8 @@ const Navbar = () => {
               </Link>
             </div>
           </motion.div>
-        )}
+        )
+        }
       </AnimatePresence>
     </>
   )
