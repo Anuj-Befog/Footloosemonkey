@@ -15,6 +15,15 @@ const UploadForm = () => {
     const [videoFile, setVideoFile] = useState(null);
     const [profilePicFile, setProfilePicFile] = useState(null);
 
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const emailParam = params.get('email');
+        if (emailParam) setEmail(emailParam);
+    }, []);
+
+    console.log("Email", email);
+
     // Participant data
     const [formData, setFormData] = useState({
         participantId: '',
@@ -148,7 +157,7 @@ const UploadForm = () => {
 
         try {
             setLoading(true);
-            const response = await axios.post('http://localhost:3000/api/submission', data, {
+            await axios.post('/api/submission', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -186,27 +195,9 @@ const UploadForm = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-[90vh] py-10 bg-[aliceblue]">
+        <div className="flex flex-col items-center justify-center min-h-[85vh] py-10 bg-[aliceblue]">
             <h1 className="text-3xl font-bold mb-4">Upload Form</h1>
-            {loading &&
-                <div className='flex justify-center mb-2 items-center'>
-                    <Loader className="animate-spin" size={20} />
-                </div>
-            }
             <form onSubmit={handleSubmit} className="w-[85vw] md:w-[30vw] bg-white p-6 rounded shadow-md" encType="multipart/form-data">
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700">
-                        Email:
-                    </label>
-                    <input
-                        type="email"
-                        placeholder="Enter your email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500"
-                        required
-                    />
-                </div>
                 <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700">
                         Title:

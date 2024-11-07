@@ -37,7 +37,7 @@ const VerifyPayment = () => {
             }
             setMessage('Verification successful!');
             toast.success('Payment verified successfully!');
-            router.push('/submission');
+            router.push(`/submission?email=${encodeURIComponent(email)}`);
         } catch (err) {
             setError('Verification failed. Please try again.');
             toast.error('Verification failed. Please try again')

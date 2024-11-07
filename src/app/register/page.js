@@ -7,9 +7,6 @@ import Cookies from 'js-cookie';
 import { Loader } from "lucide-react";
 import { toast } from "react-toastify";
 
-const PORT = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3030'
-
-
 // Validation function
 const validate = (values) => {
 
