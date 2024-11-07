@@ -1,5 +1,6 @@
 "use client";
 
+import Collboartion from "../../components/home/Collaboration";
 import Hero from "../../components/home/Hero";
 import Mission from "../../components/home/Mission";
 import Talent from "../../components/home/Talent";
@@ -14,6 +15,7 @@ import Contact from "../../components/home/Contact";
 export default function Home() {
   return (
     <>
+      <Collboartion />
       <Hero />
       <Mission />
       <Talent />

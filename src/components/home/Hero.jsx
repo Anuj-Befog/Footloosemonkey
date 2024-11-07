@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { motion } from "framer-motion"; // Import framer-motion for animations
-import TypingEffect from 'react-typing-effect'; // Import typing effect
+import { motion } from "framer-motion";
+import TypingEffect from 'react-typing-effect';
 import { useRouter } from 'next/navigation'
 
 const Hero = () => {
@@ -13,7 +13,7 @@ const Hero = () => {
       initial={{ opacity: 0 }}  // Initial state for animation
       animate={{ opacity: 1 }}  // Final state for animation
       transition={{ duration: 0.5 }}  // Duration of the fade effect
-      className="relative flex flex-col lg:flex-row w-full min-h-[85vh] opacity-[80%] p-6 lg:p-16 bg-[aliceblue]"
+      className="relative flex flex-col lg:flex-row w-full min-h-[55vh] opacity-[80%] p-6 lg:px-16 bg-[aliceblue]"
     >
       {/* Left Side Content */}
       <div className="flex flex-col justify-center lg:w-1/2">

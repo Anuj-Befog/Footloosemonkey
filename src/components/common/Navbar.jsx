@@ -353,10 +353,20 @@ const Navbar = () => {
 
         {/* Navbar */}
         <div className="flex flex-row items-center justify-between w-full px-6 py-4 h-[5rem] relative">
-          {/* Logo */}
-          <Link href='/'>
-            <Image src="/logo.png" width={65} height={65} className="my-1 absolute top-0" alt="Logo" />
-          </Link>
+          <div className='flex items-center gap-[5rem]'>
+            {/* Logo */}
+            <div>
+              <Link href='/'>
+                <Image src="/logo.png" width={65} height={65} className="my-1 absolute top-0" alt="Logo" />
+              </Link>
+            </div>
+
+            {/* Collaboration Description */}
+            <div className="flex flex-col items-start justify-center">
+              <h1 className="text-lg font-bold">Collaboration with</h1>
+              <h3 className="text-[14px] font-semibold uppercase">Red Hill school Aliganj Branch, Lucknow</h3>
+            </div>
+          </div>
 
           {/* Hamburger Menu Icon for Small Screens */}
           <div className="lg:hidden" >
