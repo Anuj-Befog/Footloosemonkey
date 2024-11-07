@@ -40,7 +40,7 @@ const Mission = () => {
       initial="hidden"
       animate={controls}
       variants={fadeInVariants}
-      className="w-full min-h-[729px] flex flex-col-reverse pt-14 md:pt-0 lg:flex-row items-center bg-[aliceblue]"
+      className="w-full min-h-[630px] flex flex-col-reverse pt-14 md:pt-0 lg:flex-row items-center bg-[aliceblue]"
     >
       <div className="md:w-full w-[90%] lg:w-1/2 flex justify-center lg:order-1 order-2 mb-2 lg:mb-0">
         <motion.div
