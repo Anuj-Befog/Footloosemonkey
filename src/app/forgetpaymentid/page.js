@@ -90,7 +90,7 @@ const ForgetPaymentId = () => {
                 <button
                     type="submit"
                     disabled={isButtonDisabled || loading}
-                    className={`w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition ${isButtonDisabled ? 'opacity-70 cursor-not-allowed' : ''} ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                    className={`w-full flex justify-center items-center bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition ${isButtonDisabled ? 'opacity-70 cursor-not-allowed' : ''} ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
                 >
                     {loading ? (
                         <Loader className="animate-spin" size={20} />
