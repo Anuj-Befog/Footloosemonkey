@@ -40,7 +40,7 @@ const Mission = () => {
       initial="hidden"
       animate={controls}
       variants={fadeInVariants}
-      className="w-full min-h-[729px] flex flex-col lg:flex-row items-center bg-[aliceblue]"
+      className="w-full min-h-[729px] flex flex-col-reverse pt-14 md:pt-0 lg:flex-row items-center bg-[aliceblue]"
     >
       <div className="md:w-full w-[90%] lg:w-1/2 flex justify-center lg:order-1 order-2 mb-2 lg:mb-0">
         <motion.div
@@ -63,8 +63,8 @@ const Mission = () => {
 
       {/* Content Section */}
       <div className="w-full flex flex-col items-center justify-center lg:w-1/2 lg:order-2 order-1 px-6 lg:px-16 py-8">
-        <h1 className="text-3xl lg:text-[35px] font-semibold mb-6 text-sky-700">Our Mission</h1>
-        <p className="text-lg mb-6">
+        <h1 className="lg:text-[35px] mb-6 text-sky-700 text-5xl mt-14 md:mt-2 text-center font-semibold">Our Mission</h1>
+        <p className="text-lg text-center md:text-justify mb-6">
           Welcome to Footloosemonkey, where young stars shine bright! Our mission is to provide a fun, safe, and inspiring platform for children aged 6 to 10 to showcase their talents in singing, dancing, acting, mimicry, and more. At Footloosemonkey, we believe every child is unique and talented in their own way, and we are here to celebrate and nurture that talent. Join us in our exciting competitions, make new friends, and discover your amazing potential!
         </p>
         <div>
