@@ -376,7 +376,7 @@ const Navbar = () => {
             <Link href="/about" className="text-xl font-semibold hover:underline transition-colors duration-200">About Us</Link>
             <Link href={`/${competition}`} className="text-xl font-semibold hover:underline transition-colors duration-200">Competition</Link>
             <Link href="/register" className="text-xl font-semibold hover:underline transition-colors duration-200">Register</Link>
-            <Link href="/verifyuser" className="text-xl font-semibold hover:underline transition-colors duration-200">Submission</Link>
+            <Link href="/verifyuser" className="text-xl font-semibold hover:underline transition-colors duration-200">Upload Video</Link>
             <Link href="/spotlight" className="text-xl font-semibold hover:underline transition-colors duration-200">Spotlight</Link>
             <Link href="/leaderboard" className="text-xl font-semibold hover:underline transition-colors duration-200">Leaderboard</Link>
           </div>
@@ -397,7 +397,7 @@ const Navbar = () => {
         {isOpen && (
           <motion.div className=''>
             <div className='fixed z-[50] right-0 flex justify-end p-4'>
-              <button onClick={handleCloseMenu} type="button" className="text-blue-500 font-bold bg-white border-blue-500 border-4 transition-colors transition-300 cursor-pointer p-2 inline-flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-inset rounded-full">
+              <button onClick={handleCloseMenu} type="button" className="text-blue-500 font-bold bg-white border-blue-500 border-4 transition-colors transition-300 cursor-pointer p-[0.1rem] inline-flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-inset rounded-full">
                 <span className="sr-only">Close menu</span>
                 <svg className="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -422,25 +422,25 @@ const Navbar = () => {
             <div className="flex flex-col items-start p-6 font-bold text-white mt-[1rem] gap-[1rem]">
               {/* Navbar Links */}
               <Link href="/" onClick={handleCloseMenu} className='z-[1000]'>
-                <h1 className="text-2xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Home</h1>
+                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Home</h1>
               </Link>
               <Link href="/about" onClick={handleCloseMenu} className='z-[1000]'>
-                <h1 className="text-2xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">About Us</h1>
+                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">About Us</h1>
               </Link>
               <Link href={`/${competition}`} onClick={handleCloseMenu} className='z-[1000]'>
-                <h1 className="text-2xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Competition</h1>
+                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Competition</h1>
               </Link>
               <Link href="/register" onClick={handleCloseMenu} className='z-[1000]'>
-                <h1 className="text-2xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Register</h1>
+                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Register</h1>
               </Link>
               <Link href="/verifyuser" onClick={handleCloseMenu} className='z-[1000]'>
-                <h1 className="text-2xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Submission</h1>
+                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Upload Video</h1>
               </Link>
               <Link href="/spotlight" onClick={handleCloseMenu} className='z-[1000]'>
-                <h1 className="text-2xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Spotlight</h1>
+                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Spotlight</h1>
               </Link>
               <Link href="/leaderboard" onClick={handleCloseMenu} className='z-[1000]'>
-                <h1 className="text-2xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Leaderboard</h1>
+                <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Leaderboard</h1>
               </Link>
             </div>
           </motion.div>
