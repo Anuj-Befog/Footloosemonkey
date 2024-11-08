@@ -76,8 +76,9 @@ const Hero = () => {
           src="/hero.png"
           width={731}
           height={480}
-          alt="Hero"
           className="w-full h-auto"
+          alt="Hero"
+          loading="lazy"
         />
       </div>
     </motion.div>

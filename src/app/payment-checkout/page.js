@@ -285,12 +285,12 @@ const PaymentCheckout = () => {
                       <div className="flex flex-col md:flex-row items-start">
                         <div className="img-qty flex flex-col w-[5vw] h-[5vh] mr-3">
                           <Image
-                            alt="MSI GF 63 thin laptop"
-                            loading="lazy"
+                            src="/logo.png"
                             width="50"
                             height="100"
                             className="md:w-28 w-20 md:h-24 h-20 mx-auto mb-1.5"
-                            src="/logo.png"
+                            alt="logo"
+                            loading="lazy"
                           />
                         </div>
                         <div className="text-base">
