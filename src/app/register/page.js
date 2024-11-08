@@ -391,7 +391,8 @@ const RegisterForm = () => {
                 <option
                   key={category}
                   value={category}
-                  disabled={!options.includes(category)} // Disable if not in fetched options
+                  className={`${options.includes(category) ? "text-blue-800 font-bold" : "disabled:cursor-not-allowed"}`} 
+                  disabled={!options.includes(category)} // Disable if not in options
                 >
                   {category}
                 </option>
