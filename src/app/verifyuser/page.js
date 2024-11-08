@@ -35,8 +35,8 @@ const VerifyPayment = () => {
             if (!payment) {
                 throw new Error('Payment not found. Please check your details and try again.');
             }
-            setMessage('Verification successful!');
-            toast.success('Payment verified successfully!');
+            setMessage('User Verification successful!');
+            toast.success('User Verified Successfully!');
             router.push(`/submission?email=${encodeURIComponent(email)}`);
         } catch (err) {
             setError('Verification failed. Please try again.');
@@ -48,8 +48,8 @@ const VerifyPayment = () => {
 
     return (
         <div className="flex flex-col items-center justify-center h-[90vh] bg-[aliceblue]">
-            <h2 className="text-3xl font-bold mb-4">Verify User</h2>
-            <form onSubmit={handleSubmit} className="w-[85vw] md:w-[25vw] bg-white p-6 rounded shadow-md">
+            <h2 className="text-3xl font-bold mb-4">Submit Your Talent</h2>
+            <form onSubmit={handleSubmit} className="w-[85vw] md:w-[26vw] bg-white p-6 rounded shadow-md">
                 <div className="mb-4">
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                         Email
@@ -65,8 +65,9 @@ const VerifyPayment = () => {
                 </div>
                 <div className="mb-4">
                     <label htmlFor="paymentId" className="block text-sm font-medium text-gray-700">
-                        Payment ID
+                        Token ID
                     </label>
+                    <p className="text-red-500 text-[0.7rem] mb-2">Note: Token ID will Generate after submission of Registration Form</p>
                     <input
                         type="text"
                         id="paymentId"
@@ -89,9 +90,9 @@ const VerifyPayment = () => {
                 </button>
 
                 {/* Forgot Payment ID Option */}
-                <Link href='/forgetpaymentid' className='text-center'>
+                <Link href='/forgettokenid' className='text-center'>
                     <button className="mt-4 text-sm w-full text-blue-500 hover:underline">
-                        Forgot Payment ID?
+                        Forgot Token ID?
                     </button>
                 </Link>
             </form>

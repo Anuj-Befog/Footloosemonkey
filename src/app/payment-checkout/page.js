@@ -121,7 +121,7 @@ const PaymentCheckout = () => {
 
         setTimeout(() => {
           toast.success(
-            `Payment successful! Your payment ID = ${dummyPaymentId} has been processed.`,
+            `Payment successful! Your Token ID = ${dummyPaymentId} has been processed.`,
             { autoClose: false }
           );
         }, 2000);
@@ -130,7 +130,7 @@ const PaymentCheckout = () => {
         await navigator.clipboard.writeText(dummyPaymentId);
 
         setTimeout(() => {
-          toast.info(`Your Payment ID has been copied to your clipboard. Please keep it safe!`, { autoClose: false }
+          toast.info(`Your Token ID has been copied to your clipboard. Please keep it safe!`, { autoClose: false }
           )
         }, 3000);
 
@@ -198,7 +198,7 @@ const PaymentCheckout = () => {
           const res = await verifyData.json();
           if (res?.message === "success") {
             toast.success(
-              `Payment successful! Your payment ID = ${response.razorpay_payment_id} has been processed.`,
+              `Payment successful! Your Token ID = ${response.razorpay_payment_id} has been processed.`,
               { autoClose: false }
             );
 
@@ -206,7 +206,7 @@ const PaymentCheckout = () => {
             await navigator.clipboard.writeText(response.razorpay_payment_id);
 
             setTimeout(() => {
-              toast.info(`Your Payment ID has been copied to your clipboard. Please keep it safe!`, { autoClose: false });
+              toast.info(`Your Token ID has been copied to your clipboard. Please keep it safe!`, { autoClose: false });
             }, 500);
 
             setTimeout(() => {

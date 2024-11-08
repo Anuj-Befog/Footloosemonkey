@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { toast } from 'react-toastify';
 import { Loader } from 'lucide-react';
 
-const ForgetPaymentId = () => {
+const ForgetTokenId = () => {
     const [email, setEmail] = useState('');
     const [guardianNumber, setGuardianNumber] = useState('');
     const [message, setMessage] = useState('');
@@ -59,8 +59,8 @@ const ForgetPaymentId = () => {
 
     return (
         <div className="flex flex-col items-center justify-center h-[90vh] bg-[aliceblue]">
-            <h2 className="text-3xl font-bold mb-4">Forgot Payment ID</h2>
-            <form onSubmit={handleSubmit} className="w-[85vw] md:w-[25vw] bg-white p-6 rounded shadow-md">
+            <h2 className="text-3xl font-bold mb-4">Forgot Token ID</h2>
+            <form onSubmit={handleSubmit} className="w-[85vw] md:w-[26vw] bg-white p-6 rounded shadow-md">
                 <div className="mb-4">
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                         Email
@@ -99,10 +99,10 @@ const ForgetPaymentId = () => {
                     )}
                 </button>
 
-                {/* Verify Payment Option */}
+                {/* Verify Token ID Option */}
                 <Link href='/verifyuser' className='text-center'>
                     <button className="mt-4 text-sm w-full text-blue-500 hover:underline">
-                        Back to Verify Payment
+                        Back to Submit Your Talent
                     </button>
                 </Link>
             </form>
@@ -112,4 +112,4 @@ const ForgetPaymentId = () => {
     );
 };
 
-export default ForgetPaymentId;
+export default ForgetTokenId;
