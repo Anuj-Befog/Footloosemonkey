@@ -20,7 +20,7 @@ const controls = [
 export default function Login({ formData, setFormData, handleLogin }) {
     return (
         <div className="flex justify-center items-center min-h-[85vh] bg-gray-100 ">
-            <div className="w-full max-w-md bg-white shadow-lg rounded-[4px] p-8">
+            <div className="w-[85vw] md:max-w-md bg-white shadow-lg rounded-[4px] p-8">
                 <h1 className="text-3xl text-blue-500 font-bold text-center mb-4">Footloose Admin Login</h1>
 
                 <FormControls controls={controls} formData={formData} setFormData={setFormData} />
