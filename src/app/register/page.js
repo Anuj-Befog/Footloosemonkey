@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoMdLocate } from "react-icons/io";
-import { getAdminData, getRegistrationData, addRegistrationData } from '../services/index';  // Import necessary services
+import { getAdminData, addRegistrationData } from '../services/index';  // Import necessary services
 import Cookies from 'js-cookie';
 import { Loader } from "lucide-react";
 import { toast } from "react-toastify";
@@ -64,7 +64,6 @@ const RegisterForm = () => {
   const [groupCharge, setGroupCharge] = useState([])
   const [charges, setCharges] = useState('');
   const [ageRange, setAgeRange] = useState({ min: 0, max: 100 }); // Default age range
-  const [dataId, setDataId] = useState(null);  // For fetching existing registration data
 
   // Fetch talents data from Admin
   useEffect(() => {
@@ -247,20 +246,6 @@ const RegisterForm = () => {
 
   // Submit Data in MongoDB -->
 
-  // Load data from getRegistrationData()
-  useEffect(() => {
-    const fetchRegistrationData = async () => {
-      const response = await getRegistrationData();
-      if (response.success && response.data) {
-        setDataId(response.data[0]._id); // Assuming the response contains data with _id
-      } else {
-        console.error('Error fetching data:', response.message);
-      }
-    };
-
-    fetchRegistrationData();
-  }, []);
-
   // Google Sheet Integration
   const handleSubmitGoogleForm = async () => {
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxUfsJR5oWPQtvpchqO3JHz25brnjSOYrQCkpSD0g0GBVmEb0Ng_Z8BDuWw1sNRloSv/exec';
@@ -309,17 +294,17 @@ const RegisterForm = () => {
     // Proceed with submission if no validation errors
     setIsSubmitting(true);
 
-    // Fetch existing registration data
-    const registrationResponse = await getRegistrationData();
-    if (registrationResponse.success && registrationResponse.data.length > 0) {
-      setDataId(registrationResponse.data[0]._id);
-    }
-
     // Submit form data
     const response = await addRegistrationData({
-      _id: dataId,
-      charges,
-      ...values,
+      email: values.email,
+      participantName: values.participantName,
+      ageCriteria: values.ageCriteria,
+      participantAge: values.participantAge,
+      guardianNumber: values.guardianNumber,
+      address: values.address,
+      talent: values.talent,
+      charges: charges,
+      termsAccepted: values.termsAccepted,
     });
 
     if (response.success) {
@@ -328,11 +313,11 @@ const RegisterForm = () => {
 
       // Set 'isRegistered' cookie to true if registration is successful
       if (registrationSuccess) {
-        Cookies.set('isRegistered', 'true', { expires: 1, path: '/' });
+        Cookies.set('isRegistered', 'true', { expires: 1, path: '/' }); // Set cookie for 1 day
       }
 
       // Redirect to payment-checkout page
-      router.push("/payment-checkout");
+      router.push(`/payment-checkout?email=${encodeURIComponent(values.email)}&participantName=${encodeURIComponent(values.participantName)}&talent=${encodeURIComponent(values.talent)}&charges=${encodeURIComponent(charges)}&ageCriteria=${encodeURIComponent(values.ageCriteria)}&participantAge=${encodeURIComponent(values.participantAge)}&guardianNumber=${encodeURIComponent(values.guardianNumber)}&address=${encodeURIComponent(values.address)}&charge=${encodeURIComponent(charges)}`);
     } else {
       setServerError(response.message);
     }
@@ -391,7 +376,7 @@ const RegisterForm = () => {
                 <option
                   key={category}
                   value={category}
-                  className={`${options.includes(category) ? "text-blue-800 font-bold" : "disabled:cursor-not-allowed"}`} 
+                  className={`${options.includes(category) ? "text-blue-800 font-bold" : "disabled:cursor-not-allowed"}`}
                   disabled={!options.includes(category)} // Disable if not in options
                 >
                   {category}
@@ -472,7 +457,7 @@ const RegisterForm = () => {
 
           <div className="mb-6">
             <label className="block text-sm font-medium mb-2">Terms and Conditions:</label>
-            <label className="inline-flex items-center block mb-2">
+            <label className="items-center block mb-2">
               <input
                 type="checkbox"
                 name="Video Sharing"
@@ -488,7 +473,7 @@ const RegisterForm = () => {
               <p className="text-red-500 text-sm">{errors.termsAccepted.videoSharing}</p>
             )}
 
-            <label className="inline-flex items-center block mb-2">
+            <label className="items-center block mb-2">
               <input
                 type="checkbox"
                 name="Offensive Content"
@@ -504,7 +489,7 @@ const RegisterForm = () => {
               <p className="text-red-500 text-sm">{errors.termsAccepted.offensiveContent}</p>
             )}
 
-            <label className="inline-flex items-center block mb-4">
+            <label className="items-center block mb-4">
               <input
                 type="checkbox"
                 name="Incidents"

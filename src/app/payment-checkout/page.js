@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useState, useRef, useEffect } from 'react';
-import { getRegistrationData, addPaymentData } from '../services/index';
+import { addPaymentData } from '../services/index';
 import { Loader } from 'lucide-react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -15,53 +15,41 @@ const PaymentCheckout = () => {
   const [paymentStatus, setPaymentStatus] = useState(true);
   const [userEmail, setUserEmail] = useState('');
   const [userName, setUserName] = useState('');
+  const [userTalent, setUserTalent] = useState('');
+  const [userAgeCriteria, setUserAgeCriteria] = useState('');
+  const [userParticipantAge, setUserParticipantAge] = useState('');
   const [userContact, setUserContact] = useState('');
   const [userAddress, setUserAddress] = useState('');
   const [charge, setCharge] = useState('');
   const [userPaymentId, setUserPaymentId] = useState('');
-  const [userTalent, setUserTalent] = useState('');
-  const [userAgeCriteria, setUserAgeCriteria] = useState('');
-  const [userParticipantAge, setUserParticipantAge] = useState('');
-  const [registerData, setRegisterData] = useState([]);
   const [isPaid, setIsPaid] = useState(false);
 
-  // Load data from getRegistrationData()
+  // Load data 
   useEffect(() => {
     const fetchRegistrationData = async () => {
       try {
-        const registrationResponse = await getRegistrationData();
         const paymentResponse = await axios.get('/api/payment/get');
 
-        if (registrationResponse.success && registrationResponse.data) {
-          const registrationData = registrationResponse.data[0];
+        // Get query params from URL
+        const params = new URLSearchParams(window.location.search);
 
-          // Set registration data in state
-          setRegisterData([...registrationResponse.data]);
-          setUserEmail(registrationData.email);
-          setUserName(registrationData.participantName);
-          setUserContact(registrationData.guardianNumber);
-          setUserAddress(registrationData.address);
-          setCharge(registrationData.charge);
-          setUserTalent(registrationData.talent);
-          setUserAgeCriteria(registrationData.ageCriteria);
-          setUserParticipantAge(registrationData.participantAge);
+        // Set user data
+        setUserEmail(params.get('email') || '');
+        setUserName(params.get('participantName') || '');
+        setUserTalent(params.get('talent') || '');
+        setUserAgeCriteria(params.get('ageCriteria') || '');
+        setUserParticipantAge(params.get('participantAge') || '');
+        setUserContact(params.get('guardianNumber') || '');
+        setUserAddress(params.get('address') || '');
+        setCharge(params.get('charge') || '');
 
-          // Use local variables for email and contact before setting state
-          const tempUserEmail = registrationData.email;
-          const tempUserContact = registrationData.guardianNumber;
+        // Check if payment is already completed
+        const payment = paymentResponse.data.data.find(
+          (p) => p.email === params.get('email') && p.guardianNumber === params.get('guardianNumber')
+        );
 
-          // Find the payment record based on local variables
-          const payment = paymentResponse.data.data.find(
-            (p) => p.email === tempUserEmail && p.guardianNumber === tempUserContact
-          );
+        if (payment) setIsPaid(true);
 
-          if (payment) {
-            setIsPaid(true);
-          }
-        } else {
-          console.error('Something went wrong');
-          toast.error('Something went wrong, Please try again later.');
-        }
       } catch (error) {
         console.error('Error fetching data:', error.message);
         toast.error('Something went wrong, Please try again later.');
@@ -279,35 +267,33 @@ const PaymentCheckout = () => {
                 </tr>
               </thead>
               <tbody>
-                {registerData.map((data, index) => (
-                  <tr key={index} className="border-b py-1 px-10 hover:bg-muted/50">
-                    <td className="p-1.5">
-                      <div className="flex flex-col md:flex-row items-start">
-                        <div className="img-qty flex flex-col w-[5vw] h-[5vh] mr-3">
-                          <Image
-                            src="/logo.png"
-                            width="50"
-                            height="100"
-                            className="md:w-28 w-20 md:h-24 h-20 mx-auto mb-1.5"
-                            alt="logo"
-                            loading="lazy"
-                          />
-                        </div>
-                        <div className="text-base">
-                          <p className="font-semibold uppercase">{data.talent} COMPETITION FOR AGE {data.ageCriteria}</p>
-                          <div className='flex gap-1'>
-                            <p className="text-gray-500 font-medium uppercase text-sm">{data.participantName} |</p>
-                            <p className="text-gray-500 font-medium uppercase text-sm">{data.guardianNumber} |</p>
-                            <p className="text-gray-500 font-medium text-sm">{data.email}</p>
-                          </div>
-                          <p className="md:text-sm text-xs">
-                            <span className="text-red-600 font-medium mr-2">₹ {data.charge}</span>
-                          </p>
-                        </div>
+                <tr className="border-b py-1 px-10 hover:bg-muted/50">
+                  <td className="p-1.5">
+                    <div className="flex flex-col md:flex-row items-start">
+                      <div className="img-qty flex flex-col w-[5vw] h-[5vh] mr-3">
+                        <Image
+                          src="/logo.png"
+                          width="50"
+                          height="100"
+                          className="md:w-28 w-20 md:h-24 h-20 mx-auto mb-1.5"
+                          alt="logo"
+                          loading="lazy"
+                        />
                       </div>
-                    </td>
-                  </tr>
-                ))}
+                      <div className="text-base">
+                        <p className="font-semibold uppercase">{userTalent} COMPETITION FOR AGE {userAgeCriteria}</p>
+                        <div className='flex gap-1'>
+                          <p className="text-gray-500 font-medium uppercase text-sm">{userName} |</p>
+                          <p className="text-gray-500 font-medium uppercase text-sm">{userContact} |</p>
+                          <p className="text-gray-500 font-medium text-sm">{userEmail}</p>
+                        </div>
+                        <p className="md:text-sm text-xs">
+                          <span className="text-red-600 font-medium mr-2">₹ {charge}</span>
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>

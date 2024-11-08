@@ -15,6 +15,7 @@ const UploadForm = () => {
     const [videoFile, setVideoFile] = useState(null);
     const [profilePicFile, setProfilePicFile] = useState(null);
 
+    // Fetch email from query params
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
         const emailParam = params.get('email');

@@ -10,57 +10,29 @@ export async function POST(req) {
         const extractData = await req.json();
 
         // Destructure required fields from the incoming data
-        const { _id, email, participantName, ageCriteria, participantAge, guardianNumber, address, talent, charges, termsAccepted } = extractData;
+        const { email, participantName, ageCriteria, participantAge, guardianNumber, address, talent, charges, termsAccepted } = extractData;
 
-        // Check if the document with the given _id exists
-        const existingEntry = await Registration.findOne({ _id });
+        // Create a new Registration document
+        const registration = new Registration({ email, participantName, ageCriteria, participantAge, guardianNumber, address, talent, charges, termsAccepted });
 
-        if (existingEntry) {
-            // If it exists, update the existing entry
-            existingEntry.email = email;
-            existingEntry.participantName = participantName;
-            existingEntry.ageCriteria = ageCriteria;
-            existingEntry.participantAge = participantAge;
-            existingEntry.guardianNumber = guardianNumber;
-            existingEntry.address = address;
-            existingEntry.talent = talent;
-            existingEntry.charge = charges;
-            existingEntry.termsAccepted = termsAccepted;
+        // Save the document to the database
+        const result = await registration.save();
 
-            const updatedEntry = await existingEntry.save(); // Save the updated entry
-
+        // Check if the data was saved successfully
+        if (result) {
             return NextResponse.json({
                 success: true,
-                message: "Registration Data Updated Successfully.",
-                data: updatedEntry
-            });
-        } else {
-            // If it does not exist, create a new entry
-            const newRegistration = new Registration({
-                _id, // Include _id in the new document if necessary
-                email,
-                participantName,
-                ageCriteria,
-                participantAge,
-                guardianNumber,
-                address,
-                talent,
-                charges,
-                termsAccepted
-            });
-
-            // Save the new Registration document
-            const result = await newRegistration.save();
-
-            return NextResponse.json({
-                success: true,
-                message: "Registration Data Saved Successfully.",
+                message: "Data Saved Successfully.",
                 data: result
             });
+        } else {
+            return NextResponse.json({
+                success: false,
+                message: "Something went wrong! Please try again."
+            });
         }
-
     } catch (e) {
-        console.error("Error in POST:", e);
+        console.error(e);
         return NextResponse.json({
             success: false,
             message: "Something went wrong! Please try again."
