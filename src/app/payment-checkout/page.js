@@ -235,10 +235,20 @@ const PaymentCheckout = () => {
 
   // Handle send mail of participant credentials
   const sendMail = async () => {
-    const res = await axios.post('/api/sendmailcredentials', (userName, userEmail, userPaymentId));
-    if (res.status === 200) {
-      toast.success('Your credentials are sent to your email. Please check your email for further details.', { autoClose: false });
-    } else {
+    try {
+      const res = await axios.post('/api/sendmailcredentials', {
+        userName,
+        userEmail,
+        userPaymentId
+      });
+
+      if (res.status === 200) {
+        toast.success('Your credentials are sent to your email. Please check your email for further details.', { autoClose: false });
+      } else {
+        toast.error('Failed to send credentials to your email. Please try again later.', { autoClose: false });
+      }
+    } catch (error) {
+      console.error("Error sending mail:", error);
       toast.error('Failed to send credentials to your email. Please try again later.', { autoClose: false });
     }
   };
