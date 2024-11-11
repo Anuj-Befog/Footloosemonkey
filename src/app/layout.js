@@ -85,9 +85,16 @@ export default function RootLayout({ children }) {
 
       <body className={inter.className}>
         {/* Google Tag Manager (noscript) */}
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MH54GBCJ"
-          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-MH54GBCJ"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
 
+        {/*  Toastify Container */}
         <ToastContainer
           position="top-center"
           autoClose={5000}
