@@ -5,7 +5,7 @@ const paymentSchema = new mongoose.Schema({
     participantName: { type: String },
     ageCriteria: { type: String }, // e.g.,  "3-5 years", "6-8 years", "9-12 years"
     participantAge: { type: Number },
-    guardianNumber: { type: String, unique: true },
+    guardianNumber: { type: String },
     address: { type: String },
     talent: { type: String },
     charge: { type: String }, // Group charge based on age category
