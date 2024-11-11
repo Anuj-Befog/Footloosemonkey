@@ -96,7 +96,7 @@ export async function addData(currentTab, formData) {
 
 export async function getData(currentTab) {
     try {
-        const response = await fetch(`/api/${currentTab}/get`, {
+        const response = await fetch(`/${currentTab}/get`, {
             method: 'GET'
         });
 

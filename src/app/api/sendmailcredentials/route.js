@@ -11,10 +11,13 @@ const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 export async function POST(req) {
     try {
         // Get data from the request
-        const { userName, userEmail, paymentId } = await req.json();
+        const { userName, userEmail, userPaymentID } = await req.json();
+        console.log("userName: ", userName);
+        console.log("userEmail: ", userEmail);
+        console.log("userPaymentId: ", userPaymentID);
 
         // Validate the required fields
-        if (!userName || !userEmail || !paymentId) {
+        if (!userName || !userEmail || !userPaymentID) {
             return NextResponse.json({
                 status: 400,
                 message: "Missing required fields: userName, userEmail, or paymentId",
@@ -151,7 +154,7 @@ export async function POST(req) {
         
                         <div class="credentials">
                             <p><strong>Email:</strong> <span style="color: #1e3a8a;">${userEmail}</span></p>
-                            <p><strong>Payment ID:</strong> <span style="color: #1e3a8a;">${paymentId}</span></p>
+                            <p><strong>Payment ID:</strong> <span style="color: #1e3a8a;">${userPaymentID}</span></p>
                         </div>
         
                         <h3>Next Steps:</h3>
@@ -172,7 +175,7 @@ export async function POST(req) {
             </html>
             `,
         };
-        
+
 
         // Send the email
         await transporter.sendMail(mailOptions);

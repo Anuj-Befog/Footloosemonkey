@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, use } from 'react';
 import { addPaymentData } from '../services/index';
 import { Loader } from 'lucide-react';
 import { toast } from 'react-toastify';
@@ -102,8 +102,6 @@ const PaymentCheckout = () => {
         setUserPaymentId(dummyPaymentId);
         await handlePaymentData(dummyPaymentId, 'success');
 
-        sendMail()
-
         setTimeout(() => {
           toast.success("You availed the Diwali offer successfully!",
             { autoClose: false })
@@ -115,6 +113,9 @@ const PaymentCheckout = () => {
             { autoClose: false }
           );
         }, 2000);
+
+        // Send mail to the user
+        await sendMail(dummyPaymentId)
 
         // Copy the Payment ID to clipboard
         await navigator.clipboard.writeText(dummyPaymentId);
@@ -192,10 +193,11 @@ const PaymentCheckout = () => {
               { autoClose: false }
             );
 
-            sendMail()
-
             // Copy the Payment ID to clipboard
             await navigator.clipboard.writeText(response.razorpay_payment_id);
+
+            // Send mail to the user
+            await sendMail(response.razorpay_payment_id);
 
             setTimeout(() => {
               toast.info(`Your Token ID has been copied to your clipboard. Please keep it safe!`, { autoClose: false });
@@ -234,21 +236,22 @@ const PaymentCheckout = () => {
   };
 
   // Handle send mail of participant credentials
-  const sendMail = async () => {
+  const sendMail = async (userPaymentID) => {
     try {
-      const res = await axios.post('/api/sendmailcredentials', {
-        userName,
-        userEmail,
-        userPaymentId
-      });
-
-      if (res.status === 200) {
-        toast.success('Your credentials are sent to your email. Please check your email for further details.', { autoClose: false });
-      } else {
-        toast.error('Failed to send credentials to your email. Please try again later.', { autoClose: false });
+      const res = await fetch('/api/sendmailcredentials', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userName, userEmail, userPaymentID }),
+      })
+      const data = await res.json()
+      if (data) {
+        console.log('Mail sent successfully:', data.message);
+        toast.success('Credentials sent successfully to your email.', { autoClose: false });
       }
     } catch (error) {
-      console.error("Error sending mail:", error);
+      console.error("Error in sending mail:", error);
       toast.error('Failed to send credentials to your email. Please try again later.', { autoClose: false });
     }
   };
