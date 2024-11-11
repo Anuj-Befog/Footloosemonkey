@@ -10,48 +10,32 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Footloosemonkey",
-  description: "Join Footloosemonkey, the ultimate talent competition for kids aged 6-12! Showcase your skills in dancing, singing, acting, and more in a fun, encouraging environment. Discover and celebrate young talents today!"
+  description: "Join Footloosemonkey, the ultimate talent competition for kids aged 6-12! Showcase your skills in dancing, singing, acting, and more in a fun, encouraging environment. Discover and celebrate young talents today!",
+  siteUrl: "https://www.footloosemonkey.club", // Add site URL here
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* Meta Tags */}
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content={metadata.description} />
-        <meta name="keywords" content="Footloosemonkey, talent competition, kids talent, singing competition, dancing competition" />
-        <meta name="author" content="A&W Technologies" />
-
-        {/* Open Graph Tags for Social Sharing */}
-        <meta property="og:title" content="Footloosemonkey - Where Young Talents Shine" />
-        <meta property="og:description" content={metadata.description} />
-        <meta property="og:image" content="/img/og-image.png" />
-        <meta property="og:url" content="https://www.footloosemonkey.club" />
-
-        {/* Twitter Cards */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Footloosemonkey - Where Young Talents Shine" />
-        <meta name="twitter:description" content={metadata.description} />
-        <meta name="twitter:image" content="/img/twitter-image.png" />
-
-        {/* Favicon and Icons */}
-        <link rel="icon" href="Favicon/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="Favicon/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="192x192" href="Favicon/android-chrome-192x192.png" />
-        <link rel="icon" type="image/png" sizes="512x512" href="Favicon/android-chrome-512x512.png" />
-        <meta name="msapplication-TileColor" content="#ffffff" />
-        <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        {/* Google Tag Manager */}
+        <Script id="gtm-init" strategy="afterInteractive" dangerouslySetInnerHTML={{
+          __html: `(function(w,d,s,l,i){w[l] = w[l] || [];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-MH54GBCJ');`,
+        }} />
 
         {/* Google Adsense */}
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8590034113156778"
           crossOrigin="anonymous"></script>
 
         {/* Google Tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-LJ2F2XWVPN"></script>
-        <script
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-LJ2F2XWVPN" />
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -62,11 +46,48 @@ export default function RootLayout({ children }) {
           }}
         />
 
+        {/* Canonical Tag */}
+        <link rel="canonical" href={metadata.siteUrl} />
+
+        {/* Meta Tags */}
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content={metadata.description} />
+        <meta name="keywords" content="Footloosemonkey, talent competition, kids talent, singing competition, dancing competition" />
+        <meta name="author" content="A&W Technologies" />
+        <meta name="robots" content="index, follow" />
+
+        {/* Open Graph Tags for Social Sharing */}
+        <meta property="og:title" content="Footloosemonkey - Where Young Talents Shine" />
+        <meta property="og:description" content={metadata.description} />
+        <meta property="og:image" content="/img/og-image.png" />
+        <meta property="og:url" content={metadata.siteUrl} /> {/* Use siteUrl from metadata */}
+
+        {/* Twitter Cards */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Footloosemonkey - Where Young Talents Shine" />
+        <meta name="twitter:description" content={metadata.description} />
+        <meta name="twitter:image" content="/img/twitter-image.png" />
+        <meta name="twitter:url" content={metadata.siteUrl} /> {/* Use siteUrl from metadata */}
+
+        {/* Favicon and Icons */}
+        <link rel="icon" href="Favicon/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="Favicon/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="Favicon/android-chrome-192x192.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="Favicon/android-chrome-512x512.png" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+
         {/* Page Title */}
         <title>{metadata.title}</title>
       </head>
 
       <body className={inter.className}>
+        {/* Google Tag Manager (noscript) */}
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MH54GBCJ"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
         <ToastContainer
           position="top-center"
           autoClose={5000}
@@ -83,9 +104,9 @@ export default function RootLayout({ children }) {
         <Navbar />
         {children}
         <Footer />
-        
+
         {/* Razorpay Script */}
-        <Script src="https://checkout.razorpay.com/v1/checkout.js" />
+        <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       </body>
     </html>
   );
