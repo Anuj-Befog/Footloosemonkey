@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const Certificate = () => {
   return (
-    <div className="bg-[aliceblue] w-full py-16 flex flex-col items-center">
+    <div className="bg-[aliceblue] w-full px-16 py-6 flex flex-col items-center">
       <h1 className='text-5xl text-center font-semibold mt-0 md:mt-14 text-sky-700'>Certifications and Prizes</h1>
 
       <div className="mt-6 px-6 max-w-[1000px] text-center">
@@ -17,7 +17,7 @@ const Certificate = () => {
         </p>
       </div>
 
-      <div className="flex flex-wrap gap-10 justify-center mt-20">
+      {/* <div className="flex flex-wrap gap-10 justify-center mt-20">
         {['/certificate-1.png', '/certificate-2.png', '/certificate-1.png', '/certificate-2.png'].map((src, index) => (
           <motion.div
             key={index}
@@ -39,7 +39,7 @@ const Certificate = () => {
             </motion.div>
           </motion.div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
