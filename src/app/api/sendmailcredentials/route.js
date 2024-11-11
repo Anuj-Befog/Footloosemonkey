@@ -176,7 +176,6 @@ export async function POST(req) {
             `,
         };
 
-
         // Send the email
         await transporter.sendMail(mailOptions);
 
