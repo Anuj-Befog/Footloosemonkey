@@ -45,7 +45,7 @@ const PaymentCheckout = () => {
 
         // Check if payment is already completed
         const payment = paymentResponse.data.data.find(
-          (p) => p.email === params.get('email') && p.guardianNumber === params.get('guardianNumber')
+          (p) => p.email === params.get('email')
         );
 
         if (payment) setIsPaid(true);
