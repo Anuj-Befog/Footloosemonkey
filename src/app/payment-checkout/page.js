@@ -102,6 +102,8 @@ const PaymentCheckout = () => {
         setUserPaymentId(dummyPaymentId);
         await handlePaymentData(dummyPaymentId, 'success');
 
+        sendMail()
+
         setTimeout(() => {
           toast.success("You availed the Diwali offer successfully!",
             { autoClose: false })
@@ -190,6 +192,8 @@ const PaymentCheckout = () => {
               { autoClose: false }
             );
 
+            sendMail()
+
             // Copy the Payment ID to clipboard
             await navigator.clipboard.writeText(response.razorpay_payment_id);
 
@@ -201,6 +205,7 @@ const PaymentCheckout = () => {
               router.push('/verifyuser');
             }, 1000);
 
+            setUserPaymentId(response.razorpay_payment_id);
             await handlePaymentData(response.razorpay_payment_id, 'success');
             setPaymentStatus(true);
           } else {
@@ -228,16 +233,30 @@ const PaymentCheckout = () => {
     }
   };
 
+  // Handle send mail of participant credentials
+  const sendMail = async () => {
+    const res = await axios.post('/api/sendmailcredentials', (userName, userEmail, userPaymentId));
+    if (res.status === 200) {
+      toast.success('Your credentials are sent to your email. Please check your email for further details.', { autoClose: false });
+    } else {
+      toast.error('Failed to send credentials to your email. Please try again later.', { autoClose: false });
+    }
+  };
+
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (isPaid == true) {
       setPaymentStatus(false);
-      toast.info('You have already completed the payment.');
+      toast.info('You have already completed the payment.',
+        { autoClose: false }
+      );
+
       setTimeout(() => {
         router.push('/verifyuser');
       }, 1000);
+
       setPaymentStatus(true);
       return;
     }
