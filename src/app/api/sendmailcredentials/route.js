@@ -12,9 +12,6 @@ export async function POST(req) {
     try {
         // Get data from the request
         const { userName, userEmail, userPaymentID } = await req.json();
-        console.log("userName: ", userName);
-        console.log("userEmail: ", userEmail);
-        console.log("userPaymentId: ", userPaymentID);
 
         // Validate the required fields
         if (!userName || !userEmail || !userPaymentID) {
