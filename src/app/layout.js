@@ -19,6 +19,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        {/* Google Adsense Script */}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8590034113156778" crossOrigin="anonymous"></script>
+        {/* Adsense Populate */}
+        <Adsense pId="ca-pub-8590034113156778" />
         {/* Google Tag Manager */}
         <Script id="gtm-init" strategy="afterInteractive" dangerouslySetInnerHTML={{
           __html: `(function(w,d,s,l,i){w[l] = w[l] || [];w[l].push({'gtm.start':
@@ -27,11 +31,6 @@ export default function RootLayout({ children }) {
                   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','GTM-MH54GBCJ');`,
         }} />
-        {/* Preload */}
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8590034113156778"
-          crossOrigin="anonymous"></script>
-        {/* Adsense Populate */}
-        <Adsense pId="ca-pub-8590034113156778" />
         {/* Google Tag (gtag.js) */}
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-LJ2F2XWVPN" />
         <Script
