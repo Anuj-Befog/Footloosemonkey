@@ -159,13 +159,13 @@ export async function POST(req) {
                         <p>2. Upload your first video to start participating in the community!</p>
                         <p>If you have any questions or need assistance, feel free to contact us at any time.</p>
         
-                        <a href="https://www.footloosemonkey.club/verify" class="cta-button">Verify My Account</a>
+                        <a href="https://www.footloosemonkey.club/verifyuser" class="cta-button">Submit Your Talent</a>
                     </div>
         
                     <div class="footer">
                         <p>&copy; 2024 Footloose Monkey. All Rights Reserved.</p>
-                        <p><a href="https://www.footloosemonkey.club/privacy-policy">Privacy Policy</a> | <a href="https://www.footloosemonkey.club/terms-of-service">Terms of Service</a></p>
-                        <p>Need help? <a href="mailto:support@footloosemonkey.club">Contact Support</a></p>
+                        <p><a href="https://www.footloosemonkey.club/privacy-policy">Privacy Policy</a> | <a href="https://www.footloosemonkey.club/terms-condition-policy">Terms and Conditions</a></p>
+                        <p>Need help? <a href="mailto:contact@footloosemonkey.club">Contact Support</a></p>
                     </div>
                 </div>
             </body>
