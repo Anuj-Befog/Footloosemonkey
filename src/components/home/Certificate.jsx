@@ -1,7 +1,7 @@
-import Image from 'next/image';
+// import Image from 'next/image';
 import React from 'react';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
+// import { motion } from 'framer-motion';
+import AdBanner from '../AdBanner';
 
 const Certificate = () => {
   return (
@@ -15,6 +15,10 @@ const Certificate = () => {
         <p className="mt-4 text-lg">
           Beyond certificates, we offer exciting prizes that celebrate your success and motivate you to push your limits. These rewards are more than just trophies; they are symbols of your dedication and hard work. Join us and start your journey towards excellence today.
         </p>
+      </div>
+
+      <div className='bg-[aliceblue]'>
+        <AdBanner dataAdFormat="auto" dataFullWidthResponsive={true} dataAdSlot='2896923435' />
       </div>
 
       {/* <div className="flex flex-wrap gap-10 justify-center mt-20">

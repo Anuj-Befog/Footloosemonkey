@@ -74,11 +74,11 @@ const Hero = () => {
       <div className="mt-12 lg:mt-0 lg:w-1/2 flex justify-center lg:justify-end">
         <Image
           src="/hero.png"
+          priority={true}
           width={731}
           height={480}
           className="w-full h-auto"
           alt="Hero"
-          loading="lazy"
         />
       </div>
     </motion.div>

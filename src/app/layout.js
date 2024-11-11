@@ -5,13 +5,14 @@ import Footer from "../components/common/Footer";
 import Script from 'next/script';
 import { ToastContainer, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Adsense from "../components/Adsense";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Footloosemonkey",
   description: "Join Footloosemonkey, the ultimate talent competition for kids aged 6-12! Showcase your skills in dancing, singing, acting, and more in a fun, encouraging environment. Discover and celebrate young talents today!",
-  siteUrl: "https://www.footloosemonkey.club", // Add site URL here
+  siteUrl: "https://www.footloosemonkey.club",
 };
 
 export default function RootLayout({ children }) {
@@ -26,11 +27,11 @@ export default function RootLayout({ children }) {
                   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','GTM-MH54GBCJ');`,
         }} />
-
-        {/* Google Adsense */}
+        {/* Preload */}
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8590034113156778"
           crossOrigin="anonymous"></script>
-
+        {/* Adsense Populate */}
+        <Adsense pId="ca-pub-8590034113156778" />
         {/* Google Tag (gtag.js) */}
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-LJ2F2XWVPN" />
         <Script
@@ -45,10 +46,8 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
-
         {/* Canonical Tag */}
         <link rel="canonical" href={metadata.siteUrl} />
-
         {/* Meta Tags */}
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -56,20 +55,17 @@ export default function RootLayout({ children }) {
         <meta name="keywords" content="Footloosemonkey, talent competition, kids talent, singing competition, dancing competition" />
         <meta name="author" content="A&W Technologies" />
         <meta name="robots" content="index, follow" />
-
         {/* Open Graph Tags for Social Sharing */}
         <meta property="og:title" content="Footloosemonkey - Where Young Talents Shine" />
         <meta property="og:description" content={metadata.description} />
         <meta property="og:image" content="/img/og-image.png" />
-        <meta property="og:url" content={metadata.siteUrl} /> {/* Use siteUrl from metadata */}
-
+        <meta property="og:url" content={metadata.siteUrl} />
         {/* Twitter Cards */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Footloosemonkey - Where Young Talents Shine" />
         <meta name="twitter:description" content={metadata.description} />
         <meta name="twitter:image" content="/img/twitter-image.png" />
-        <meta name="twitter:url" content={metadata.siteUrl} /> {/* Use siteUrl from metadata */}
-
+        <meta name="twitter:url" content={metadata.siteUrl} />
         {/* Favicon and Icons */}
         <link rel="icon" href="Favicon/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="Favicon/apple-touch-icon.png" />
@@ -78,7 +74,6 @@ export default function RootLayout({ children }) {
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="msapplication-TileImage" content="/mstile-144x144.png" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-
         {/* Page Title */}
         <title>{metadata.title}</title>
       </head>
