@@ -23,6 +23,8 @@ export default function RootLayout({ children }) {
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8590034113156778" crossOrigin="anonymous"></script>
         {/* Adsense Populate */}
         <Adsense pId="ca-pub-8590034113156778" />
+        {/* Adsense Meta */}
+        <meta name="google-adsense-account" content="ca-pub-8590034113156778"></meta>
         {/* Google Tag Manager */}
         <Script id="gtm-init" strategy="afterInteractive" dangerouslySetInnerHTML={{
           __html: `(function(w,d,s,l,i){w[l] = w[l] || [];w[l].push({'gtm.start':
