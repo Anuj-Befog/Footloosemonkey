@@ -49,6 +49,19 @@ export default function RootLayout({ children }) {
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8590034113156778"
           crossOrigin="anonymous"></script>
 
+        {/* Google Tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-LJ2F2XWVPN"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-LJ2F2XWVPN');
+            `,
+          }}
+        />
+
         {/* Page Title */}
         <title>{metadata.title}</title>
       </head>
