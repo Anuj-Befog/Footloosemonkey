@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const Voting = () => {
   return (
-    <div className="bg-[aliceblue] pt-14 pb-20">
+    <div className="bg-[aliceblue] pt-14 pb-4 md:pb-12">
       <div className="container mx-auto text-center">
         <h2 className="text-5xl font-bold text-sky-700 mb-6">Hurry Up, Vote Now!</h2>
         <p className="text-lg text-gray-600 mb-10">Support your favorite contestant and help them shine! Every vote counts.</p>
