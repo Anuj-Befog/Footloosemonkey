@@ -167,7 +167,7 @@ const Navbar = () => {
               <div id='alert1' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[90vw] md:[95vw] text-center justify-center">
                 <Link href={'/register'}>
                   <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[85vw] md:w-full'>
-                    Get ready for the <strong className='capitalize'>{(competition)} <strong>🕺💃</strong></strong> Competition at <strong>Footloosemonkey</strong>! Registrations are now
+                    Get ready for the <strong className='capitalize'>{(competition)} <strong>🧑‍🎤👩‍🎤</strong></strong> Competition at <strong>Footloosemonkey</strong>! Registrations are now
                     <span className="p-1 px-2 mx-[0.5rem] w-auto bg-red-500 dark:bg-[#181a1b] text-white lg:text-l font-rubik font-semibold rounded-md">
                       LIVE
                     </span>
