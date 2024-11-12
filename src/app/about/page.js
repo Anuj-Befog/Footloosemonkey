@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function AboutUs() {
     return (
         <div className="bg-[aliceblue] min-h-screen">
-            <div className="container mx-auto px-6 py-16">
+            <div className="container mx-auto px-4 md:px-6 py-16">
                 <h1 className="md:text-5xl text-[2.4rem] font-bold text-center mb-12 text-sky-700">
                     About Footloosemonkey
                 </h1>
