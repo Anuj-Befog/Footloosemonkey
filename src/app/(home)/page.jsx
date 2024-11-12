@@ -1,5 +1,6 @@
 "use client";
-
+import { useState, useEffect } from "react";
+import { getAdminData } from "../services/index";
 import Collboartion from "../../components/home/Collaboration";
 import Hero from "../../components/home/Hero";
 import Mission from "../../components/home/Mission";
@@ -13,9 +14,29 @@ import Voting from "../../components/home/Voting";
 import Contact from "../../components/home/Contact";
 
 export default function Home() {
+  // eslint-disable-next-line no-unused-vars
+  const [competition, setCompetition] = useState('')
+
+  // Load data from getAdminData()
+  useEffect(() => {
+    const fetchAdminData = async () => {
+      const response = await getAdminData();
+      if (response.success && response.data) {
+        setCompetition(response.data[0].talent.toLowerCase());
+      }
+      else {
+        console.error('Error fetching data:', response.message);
+      }
+    };
+    fetchAdminData();
+  }, []);
+
+  useEffect(() => {
+  }, [competition]);
+
   return (
     <>
-      <Collboartion />
+      <Collboartion competition={competition} />
       <Hero />
       <Mission />
       <Talent />

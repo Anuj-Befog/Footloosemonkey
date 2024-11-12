@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaBars } from 'react-icons/fa'
 import Link from 'next/link'
-import { getAdminData, getRegistrationData } from '../../app/services/index';  // Import necessary services
+import { getAdminData } from '../../app/services/index';  // Import necessary services
 import gsap from 'gsap';
 
 const Navbar = () => {
