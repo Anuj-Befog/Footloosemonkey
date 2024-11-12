@@ -5,10 +5,10 @@ import AdBanner from '../AdBanner';
 
 const Certificate = () => {
   return (
-    <div className="bg-[aliceblue] w-full px-16 py-6 flex flex-col items-center">
+    <div className="bg-[aliceblue] w-full px-4 md:px-16 py-6 flex flex-col items-center">
       <h1 className='text-5xl text-center font-semibold mt-0 md:mt-14 text-sky-700'>Certifications and Prizes</h1>
 
-      <div className="mt-6 px-6 max-w-[1000px] text-center">
+      <div className="mt-6 md:px-6 max-w-[1000px] text-center">
         <p className="text-lg">
           Earn certifications that not only showcase your skills but also open doors to new opportunities. Our certification programs are designed to validate your expertise and help you stand out in your field. With each certificate, you build credibility and gain recognition for your achievements.
         </p>

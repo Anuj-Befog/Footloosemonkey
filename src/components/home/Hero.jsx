@@ -13,14 +13,14 @@ const Hero = () => {
       initial={{ opacity: 0 }}  // Initial state for animation
       animate={{ opacity: 1 }}  // Final state for animation
       transition={{ duration: 0.5 }}  // Duration of the fade effect
-      className="relative flex flex-col-reverse lg:flex-row w-full min-h-[55vh] opacity-[80%] px-6 lg:px-16 bg-[aliceblue]"
+      className="relative flex flex-col-reverse lg:flex-row w-full min-h-[55vh] opacity-[80%] px-4 md:px-16 bg-[aliceblue]"
     >
       {/* Left Side Content */}
       <div className="flex flex-col justify-center lg:w-1/2">
         {/* Main Heading */}
         <div className="mt-8 lg:mt-0">
           <h1 className="text-5xl text-center md:text-justify font-semibold text-black">
-            If your kid can{" "}
+            If your kid wants to{" "}
             <TypingEffect
               text={['dance', 'sing', 'act', 'mimic']}
               speed={200}
@@ -71,7 +71,7 @@ const Hero = () => {
       </div>
 
       {/* Right Side Image */}
-      <div className="mt-12 lg:mt-0 lg:w-1/2 flex justify-center lg:justify-end">
+      <div className="md:mt-12 lg:mt-0 lg:w-1/2 flex justify-center lg:justify-end">
         <Image
           src="/hero.png"
           priority={true}

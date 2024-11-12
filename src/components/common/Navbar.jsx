@@ -70,33 +70,13 @@ const Navbar = () => {
         ease: 'elastic.out',
         delay: 1  // Pause before it disappears
       })
-      // Alert of special offer appears
-      .from('#specialAlert', {
-        duration: 0.2,
-        opacity: 1,
-        display: 'none',
-        ease: 'elastic.out'
-      })
-      .to('#specialAlert', {
-        duration: 2,
-        opacity: 1,
-        display: 'flex',
-        ease: 'elastic.in'
-      })
-      // Alert of special offer disappears
-      .to('#specialAlert', {
-        duration: 0.2,
-        opacity: 1,
-        display: 'none',
-        ease: 'elastic.out',
-        delay: 1  // Pause before it disappears
-      })
       // Alert 2 appears
       .from('#alert2', {
         duration: 0.2,
         opacity: 1,
         display: 'none',
-        ease: 'elastic.out'
+        ease: 'elastic.out',
+        delay: 0.0000001 // Pause before it appears again 
       })
       .to('#alert2', {
         duration: 2,
@@ -106,111 +86,6 @@ const Navbar = () => {
       })
       // Alert 2 disappears
       .to('#alert2', {
-        duration: 0.2,
-        opacity: 1,
-        display: 'none',
-        ease: 'elastic.out',
-        delay: 1  // Pause before it disappears
-      })
-      // Alert of special offer appears
-      .from('#specialAlert', {
-        duration: 0.2,
-        opacity: 1,
-        display: 'none',
-        ease: 'elastic.out'
-      })
-      .to('#specialAlert', {
-        duration: 2,
-        opacity: 1,
-        display: 'flex',
-        ease: 'elastic.in'
-      })
-      // Alert of special offer disappears
-      .to('#specialAlert', {
-        duration: 0.2,
-        opacity: 1,
-        display: 'none',
-        ease: 'elastic.out',
-        delay: 1  // Pause before it disappears
-      })
-      // Alert 3 appears
-      .from('#alert3', {
-        duration: 0.2,
-        opacity: 1,
-        display: 'none',
-        ease: 'elastic.out'
-      })
-      .to('#alert3', {
-        duration: 2,
-        opacity: 1,
-        display: 'flex',
-        ease: 'elastic.in'
-      })
-      // Alert 3 disappears
-      .to('#alert3', {
-        duration: 0.2,
-        opacity: 1,
-        display: 'none',
-        ease: 'elastic.out',
-        delay: 1  // Pause before it disappears
-      })
-      // Alert of special offer appears
-      .from('#specialAlert', {
-        duration: 0.2,
-        opacity: 1,
-        display: 'none',
-        ease: 'elastic.out'
-      })
-      .to('#specialAlert', {
-        duration: 2,
-        opacity: 1,
-        display: 'flex',
-        ease: 'elastic.in'
-      })
-      // Alert of special offer disappears
-      .to('#specialAlert', {
-        duration: 0.2,
-        opacity: 1,
-        display: 'none',
-        ease: 'elastic.out',
-        delay: 1  // Pause before it disappears
-      })
-      // Alert 4 appears
-      .from('#alert4', {
-        duration: 0.2,
-        opacity: 1,
-        display: 'none',
-        ease: 'elastic.out'
-      })
-      .to('#alert4', {
-        duration: 2,
-        opacity: 1,
-        display: 'flex',
-        ease: 'elastic.in'
-      })
-      // Alert 4 disappears
-      .to('#alert4', {
-        duration: 0.2,
-        opacity: 1,
-        display: 'none',
-        ease: 'elastic.out',
-        delay: 1  // Pause before it disappears
-      })
-      // Alert of special offer appears
-      .from('#specialAlert', {
-        duration: 0.2,
-        opacity: 1,
-        display: 'none',
-        ease: 'elastic.out'
-      })
-      .to('#specialAlert', {
-        duration: 2,
-        opacity: 1,
-        display: 'flex',
-        ease: 'elastic.in'
-      })
-      // Alert of special offer disappears
-      .to('#specialAlert', {
         duration: 0.2,
         opacity: 1,
         display: 'none',
@@ -227,33 +102,21 @@ const Navbar = () => {
   }, []);
 
   // eslint-disable-next-line no-unused-vars
-  const [datas, setDatas] = useState([])
+  const [competition, setCompetition] = useState('')
 
+  // Load data from getAdminData()
   useEffect(() => {
     const fetchAdminData = async () => {
       const response = await getAdminData();
       if (response.success && response.data) {
-        setDatas(response.data);
+        setCompetition(response.data[0].talent.toLowerCase());
+      }
+      else {
+        console.error('Error fetching data:', response.message);
       }
     };
     fetchAdminData();
   }, []);
-
-  const [competition, setCompetition] = useState('')
-
-  // Load data from getRegistrationData()
-  useEffect(() => {
-    const fetchRegistrationData = async () => {
-      const response = await getRegistrationData();
-      if (response.success && response.data) {
-        setCompetition(response.data[0].talent.toLowerCase());
-      } else {
-        console.error('Error fetching data:', response.message);
-      }
-    };
-
-    fetchRegistrationData();
-  }, []); // Empty dependency array ensures this runs only on initial render
 
   useEffect(() => {
   }, [competition]);
@@ -291,6 +154,15 @@ const Navbar = () => {
         {isVisible && (
           <div className="relative flex justify-between items-center bg-[#6e96cf] h-[17vh] md:h-[8vh] border-b-2 py-2">
             <div className="flex justify-between w-full items-center text-center">
+              {/* Special Offer */}
+              {/* <div id='specialAlert' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
+                <Link href={'/register'}>
+                  <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[80vw] md:w-full'>
+                    <strong>Diwali Dhamaka! 🎆 </strong> Free entry for all ages <strong>2 days</strong> only! <span>Register now to shine!</span> <strong>🪔🪔</strong>
+                  </div>
+                </Link>
+              </div> */}
+
               {/* Alert1 */}
               <div id='alert1' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[90vw] md:[95vw] text-center justify-center">
                 <Link href={'/register'}>
@@ -303,41 +175,32 @@ const Navbar = () => {
                 </Link>
               </div>
 
-              {/* Special Offer */}
-              <div id='specialAlert' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
-                <Link href={'/register'}>
-                  <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[80vw] md:w-full'>
-                    <strong>Diwali Dhamaka! 🎆 </strong> Free entry for all ages <strong>2 days</strong> only! <span>Register now to shine!</span> <strong>🪔🪔</strong>
-                  </div>
-                </Link>
-              </div>
-
               {/* Alert2 */}
               <div id='alert2' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
                 <Link href={'/register'}>
                   <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[80vw] md:w-full'>
-                    <strong>Footloose Monkey</strong> competition: <strong>25th Oct to 10th Nov</strong>! Showcase your talent and shine! <strong>🌟</strong>
+                    <strong>Footloose Monkey</strong> competition started from <strong>12th Nov</strong>! Showcase your talent and shine! <strong>🌟</strong>
                   </div>
                 </Link>
               </div>
 
               {/* Alert3 */}
-              <div id='alert3' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
+              {/* <div id='alert3' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
                 <Link href={'/register'}>
                   <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[80vw] md:w-full'>
                     Voting lines <strong>📈</strong> for <strong>Footloose Monkey</strong> open on <strong>11th November</strong>! Cast your vote now.  <strong>⭐</strong>
                   </div>
                 </Link>
-              </div>
+              </div> */}
 
               {/* Alert4 */}
-              <div id='alert4' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
+              {/* <div id='alert4' className="flex leading-6 lg:text-lg text-[#fff] font-rubik w-[95vw] text-center justify-center" style={{ display: 'none' }}>
                 <Link href={'/register'}>
                   <div className='md:text-xl leading-8 font-semibold sm:text-lg md:pl-[5vw] pl-0 w-[83vw] md:w-full'>
                     Winners of the <strong>Footloose Monkey</strong> competition will be declared on <strong>20th November 2024</strong>! Stay tuned.
                   </div>
                 </Link>
-              </div>
+              </div> */}
 
               {/* Close Button */}
               <div
@@ -378,7 +241,7 @@ const Navbar = () => {
             <Link href="/register" className="text-xl font-semibold hover:underline transition-colors duration-200">Register</Link>
             <Link href="/verifyuser" className="text-xl font-semibold hover:underline transition-colors duration-200">Upload Video</Link>
             <Link href="/spotlight" className="text-xl font-semibold hover:underline transition-colors duration-200">Spotlight</Link>
-            <Link href="/leaderboard" className="text-xl font-semibold hover:underline transition-colors duration-200">Leaderboard</Link>
+            {/* <Link href="/leaderboard" className="text-xl font-semibold hover:underline transition-colors duration-200">Leaderboard</Link> */}
           </div>
         </div>
       </nav>
@@ -439,9 +302,9 @@ const Navbar = () => {
               <Link href="/spotlight" onClick={handleCloseMenu} className='z-[1000]'>
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Spotlight</h1>
               </Link>
-              <Link href="/leaderboard" onClick={handleCloseMenu} className='z-[1000]'>
+              {/* <Link href="/leaderboard" onClick={handleCloseMenu} className='z-[1000]'>
                 <h1 className="text-xl font-semibold hover:text-blue-300 transition-colors duration-200 mb-4">Leaderboard</h1>
-              </Link>
+              </Link> */}
             </div>
           </motion.div>
         )

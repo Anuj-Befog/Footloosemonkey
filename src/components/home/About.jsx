@@ -15,10 +15,10 @@ const About = () => {
   const texts = ["Singing", "Dancing", "Acting", "Mimicry"];
 
   return (
-    <div className="py-16 px-8 w-full flex flex-col items-center bg-[aliceblue]">
+    <div className="py-16 px-4 md:px-8 w-full flex flex-col items-center bg-[aliceblue]">
       <h1 className="text-5xl font-semibold text-sky-700">About Us</h1>
 
-      <div className="mt-12 max-w-[800px] text-center">
+      <div className="mt-4 max-w-[800px] text-center">
         <h2 className="text-3xl font-semibold">Welcome to Footloosemonkey!</h2>
         <p className="mt-6 text-lg">
           At Footloosemonkey, we believe in the incredible potential of every child. Our platform is dedicated to uncovering and nurturing young talents in the most engaging and fun way possible. Here&apos;s everything you need to know about us.
