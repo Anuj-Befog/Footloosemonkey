@@ -1,6 +1,8 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { getAdminData } from "../services/index";
+import Ribbon from "../../components/home/Ribbon";
 import Collboartion from "../../components/home/Collaboration";
 import Hero from "../../components/home/Hero";
 import Mission from "../../components/home/Mission";
@@ -36,6 +38,7 @@ export default function Home() {
 
   return (
     <>
+      <Ribbon />
       <Collboartion competition={competition} />
       <Hero />
       <Mission />
