@@ -1,10 +1,8 @@
 "use server"
 
-import { PrismaClient } from "@prisma/client"
+import prisma from '../lib/prisma';
 
 export const fetchAllSubmission = async () => {
-    const prisma = new PrismaClient()
-
     try {
         // Fetch all submissions
         const response = await prisma.submission.findMany()
